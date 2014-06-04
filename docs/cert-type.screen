@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:WidgetGroup" id="607" x="8" y="8" measuredWidth="553" measuredHeight="145">
+    <widgets xsi:type="model:Window" id="608" width="553" height="145" text="证件类别 - 视图" measuredWidth="553" measuredHeight="145" minimizeButton="true" maximizeButton="true"/>
+    <widgets xsi:type="model:ButtonBar" id="609" x="4" y="23" height="25" text="新建,编辑,删除" measuredWidth="134" measuredHeight="25">
+      <font/>
+      <items x="0" y="0" width="45" height="25" text="新建"/>
+      <items x="45" y="0" width="44" height="25" text="编辑"/>
+      <items x="89" y="0" width="45" height="25" text="删除"/>
+    </widgets>
+    <widgets xsi:type="model:Table" id="610" y="49" width="553" text="(w:30). !,(w:20). 排序号,名称,(w:20). 最后修改&#xD;&#xA;1,01,司机证件,小强 (2014-01-01 10:00)&#xD;&#xA;2,02,车辆证件,小强 (2014-01-01 10:00)" measuredWidth="553" measuredHeight="73" alternative="#eeeeee">
+      <font bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:SearchField" id="612" x="365" y="23" width="183" measuredWidth="183" measuredHeight="25">
+      <font/>
+    </widgets>
+  </widgets>
+  <widgets xsi:type="model:Note" id="777" x="8" y="328" width="297" height="33" text="管理角色：证件管理（BC_CERT_MANAGE）" measuredWidth="297" measuredHeight="33" annotation="true" textAlignment="Left">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="938" x="8" y="160" measuredWidth="297" measuredHeight="161">
+    <widgets xsi:type="model:Window" id="939" width="297" height="161" text="证件类别 - 表单" measuredWidth="297" measuredHeight="161"/>
+    <widgets xsi:type="model:Label" id="950" x="46" y="25" text="*名称：" measuredWidth="46" measuredHeight="25" textAlignment="Right">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="978" x="88" y="25" width="200" text="司机证件" measuredWidth="200" measuredHeight="25">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Button" id="1026" x="236" y="128" width="51" text="保存" measuredWidth="51" measuredHeight="27">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Text" id="1158" x="75" y="80" width="212" height="41" text="登记：张三(2011-01-01 12:00)&#xD;&#xA;最后修改：李四(2013-01-01 14:00)" measuredWidth="212" measuredHeight="41" textAlignment="Right" foreground="#999999">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:HLine" id="1160" y="120" width="297" measuredWidth="297" measuredHeight="6"/>
+    <widgets xsi:type="model:Label" id="1161" x="39" y="52" text="排序号：" measuredWidth="53" measuredHeight="25" textAlignment="Right">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="1162" x="88" y="52" width="200" text="01" measuredWidth="200" measuredHeight="25">
+      <font/>
+    </widgets>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font size="12px"/>
+</model:Screen>

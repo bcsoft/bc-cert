@@ -208,9 +208,23 @@ INSERT INTO bc_cert_cfg_detail(id, pid, page_no, name, width)
 
 
 /*
+-- 证件配置
 select t.name, c.name, c.uid_, c.width, c.combine, d.name, d.*, c.* 
 	from bc_cert_cfg c
 	inner join bc_cert_type t on t.id = c.type_id
 	left join bc_cert_cfg_detail d on c.id = d.pid
 	order by t.order_no, c.order_no, d.page_no;
+
+-- 15537287 梁家诗
+select * from bs_carman m where m.status_ = 0 order by m.file_date desc
 */
+-- 司机证件
+with man_cert(id, order_no, name) as (
+	select c.id, c.order_no, c.name 
+		from bc_cert_cfg c
+		inner join bc_cert_type t on t.id = c.type_id
+		where t.name = '司机证件'
+) 
+select * from man_cert c
+where 
+order by c.order_no;

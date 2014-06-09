@@ -26,9 +26,15 @@ select mc.*
 	,get_formfieldvalue_byfromparem_fieldkey(mc.mid, mc.tname, mc.cname,'attach_width_c') attach_width_c 
   from (
 	select m.id mid, m.name mname, c.tname tname, c.cname cname, c.order_no order_no, c.id cid, m.file_date file_date
-		from man_cert c, bs_carman m
+		, f.subject subject
+		from man_cert c										-- 司机证件
+		inner join bs_carman m on 1 = 1		-- 司机
+		left join bc_form f on (f.pid = m.id and f.type_ = c.tname and f.code = c.cname)	-- 表单
+
 		-- 查询条件
 		where m.status_ = 0
+		-- 模糊查询条件
+		and (c.cname like '%' or m.name like '%' or f.subject like '%')
 
 		-- 排序
 		order by m.file_date desc, c.order_no

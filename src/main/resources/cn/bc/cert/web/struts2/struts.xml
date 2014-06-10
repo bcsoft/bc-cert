@@ -4,4 +4,50 @@
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 
+	<!-- 证件类型 视图 -->
+	<package name="certTypes" extends="bc-default" namespace="/modules/bc/cert/certTypes">
+		<action name="paging" class="certTypesAction" method="paging"/>
+		<action name="export" class="certTypesAction" method="export"/>
+		<action name="list" class="certTypesAction" method="list"/>
+		<action name="data" class="certTypesAction" method="data"/>
+	</package>
+	<!-- 证件类型  表单 -->
+	<package name="certType" extends="bc-default" namespace="/modules/bc/cert/certType">
+		
+		<action name="save" class="certTypeAction" method="save"/>
+		<action name="delete" class="certTypeAction" method="delete"/>
+		<action name="open" class="certTypeAction" method="open">
+			<result name="formr">/modules/bc/cert/certType/form.jsp</result>
+		</action>	
+		<action name="edit" class="certTypeAction" method="edit">
+			<result name="form">/modules/bc/cert/certType/form.jsp</result>
+		</action>	
+		<action name="create" class="certTypeAction" method="create">
+			<result name="form">/modules/bc/cert/certType/form.jsp</result>
+		</action>	
+	</package>
+	
+	<!-- 证件配置 视图 -->
+	<package name="certCfgs" extends="bc-default" namespace="/modules/bc/cert/certCfgs">
+		<action name="paging" class="certCfgsAction" method="paging"/>
+		<action name="export" class="certCfgsAction" method="export"/>
+		<action name="list" class="certCfgsAction" method="list"/>
+		<action name="data" class="certCfgsAction" method="data"/>
+	</package>
+	<!-- 证件配置  表单 -->
+	<package name="certCfg" extends="bc-default" namespace="/modules/bc/cert/certCfg">
+		
+		<action name="save" class="certCfgAction" method="save"/>
+		<action name="delete" class="certCfgAction" method="delete"/>
+		<action name="open" class="certCfgAction" method="open">
+			<result name="formr">/modules/bc/cert/certCfg/form.jsp</result>
+		</action>	
+		<action name="edit" class="certCfgAction" method="edit">
+			<result name="form">/modules/bc/cert/certCfg/form.jsp</result>
+		</action>	
+		<action name="create" class="certCfgAction" method="create">
+			<result name="form">/modules/bc/cert/certCfg/form.jsp</result>
+		</action>	
+	</package>
+
 </struts>

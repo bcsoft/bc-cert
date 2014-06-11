@@ -12,6 +12,7 @@ import cn.bc.identity.web.SystemContext;
 import cn.bc.web.formater.AbstractFormater;
 import cn.bc.web.struts2.ViewAction;
 import cn.bc.web.ui.html.grid.Column;
+import cn.bc.web.ui.html.grid.HiddenColumn4MapKey;
 import cn.bc.web.ui.html.grid.IdColumn4MapKey;
 import cn.bc.web.ui.html.grid.TextColumn4MapKey;
 import cn.bc.web.ui.html.page.PageOption;
@@ -60,8 +61,7 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 
 	@Override
 	protected String getHtmlPageJs() {
-		//return this.getModuleContextPath() + "/partOut/view.js";
-		return null;
+		return this.getModuleContextPath() + "/certCfg/view.js";
 	}
 
 	/** 页面加载后调用的js初始化方法 */
@@ -79,10 +79,14 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 		StringBuffer sql = new StringBuffer();
 		sql.append("select cc.id,cc.status_ as status,cc.order_no as order_no,ct.name as type_name,cc.name as name,cc.page_count as page_count,");
 		sql.append("cc.width as width,cc.combine as combine,cc.tpl as tpl,");
-		sql.append("iah.actor_name as actor_name,cc.modified_date as modify_date");
+		sql.append("iah.actor_name as actor_name,cc.modified_date as modify_date,");
+		//sql.append("ad.doc_id as doc_id,ad.doc_type as doc_type,ad.doc_name as doc_name");
+		sql.append("getaccessactors4docidtype4docidinteger(cc.id,'CertCfg')");
 		sql.append(" from bc_cert_cfg cc");
 		sql.append(" left join bc_identity_actor_history iah on iah.id = cc.modifier_id");
 		sql.append(" join bc_cert_type ct on ct.id = cc.type_id");
+		//sql.append(" left join bc_acl_doc ad on ad.doc_id = cc.id");
+		//sql.append(" left join bc_acl_actor aa on aa.pid = ad.id");
 		sqlObject.setSql(sql.toString());
 		// 注入参数
 		sqlObject.setArgs(null);
@@ -103,6 +107,8 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 				map.put("tpl", rs[i++]);
 				map.put("actor_name", rs[i++]);
 				map.put("modify_date", rs[i++]);
+				map.put("accessactors", rs[i++]);
+				map.put("accessControlDocType","CertCfg");
 				return map;
 			}
 		});
@@ -142,6 +148,10 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 		// 证件名称
 		columns.add(new TextColumn4MapKey("cc.name", "name",
 				getText("certCfg.name"),100).setSortable(true));
+		//访问配置
+		columns.add(new TextColumn4MapKey("", "accessactors",
+				getText("certCfg.access"),150).setSortable(true)
+				.setUseTitleFromLabel(true));
 	
 		// 分拆页数
 		columns.add(new TextColumn4MapKey("cc.page_count", "page_count",
@@ -182,6 +192,9 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 
 					}
 				}).setUseTitleFromLabel(true));
+		
+		columns.add(new HiddenColumn4MapKey("accessControlDocType","accessControlDocType"));
+		columns.add(new HiddenColumn4MapKey("accessControlDocName", "name"));
 		return columns;
 	}
 
@@ -219,7 +232,7 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 			// 访问配置按钮
 			tb.addButton(new ToolbarButton().setIcon("ui-icon-lightbulb")
 					.setText(getText("certCfg.access"))
-					.setClick("bc.certCfg.access"));
+					.setClick("bc.certCfgFormView.access"));
 			
 			// 搜索按钮
 			tb.addButton(this.getDefaultSearchToolbarButton());

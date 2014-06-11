@@ -33,9 +33,9 @@ public class CertCfgDetail extends EntityImpl{
 	private BigDecimal width; //打印宽度
 	private String name; //标记
 	
-	private CertCfgDetail certCfgDetail; //原始条目
+	//private CertCfgDetail certCfgDetail; //原始条目
 	
-	//private CertCfg certCfg;
+	private CertCfg certCfg;
 
 	@Column(name = "PAGE_NO")
 	public int getPage_no() {
@@ -64,7 +64,7 @@ public class CertCfgDetail extends EntityImpl{
 		this.name = name;
 	}
 
-	/*@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "pid", referencedColumnName = "ID")
 	public CertCfg getCertCfg() {
 		return certCfg;
@@ -72,8 +72,8 @@ public class CertCfgDetail extends EntityImpl{
 
 	public void setCertCfg(CertCfg certCfg) {
 		this.certCfg = certCfg;
-	}*/
-
+	}
+/*
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "pid", referencedColumnName = "ID")
 	public CertCfgDetail getCertCfgDetail() {
@@ -82,7 +82,7 @@ public class CertCfgDetail extends EntityImpl{
 
 	public void setCertCfgDetail(CertCfgDetail certCfgDetail) {
 		this.certCfgDetail = certCfgDetail;
-	}
+	}*/
 	
 	
 	

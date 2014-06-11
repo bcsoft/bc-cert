@@ -15,7 +15,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -24,8 +23,8 @@ import cn.bc.cert.domain.CertCfg;
 import cn.bc.cert.domain.CertCfgDetail;
 import cn.bc.cert.service.CertCfgService;
 import cn.bc.cert.service.CertCfgTypeService;
-import cn.bc.core.service.CrudService;
 
+import cn.bc.identity.service.IdGeneratorService;
 import cn.bc.identity.web.SystemContext;
 import cn.bc.identity.web.struts2.FileEntityAction;
 import cn.bc.web.ui.html.page.ButtonOption;
@@ -46,27 +45,37 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 	public Map<String,String> certTypes = null;//证件类别列表
 	
 	private CertCfgTypeService certCfgTypeService;
-	//private CertCfgService certCfgService;
+	private CertCfgService certCfgService;
+	private IdGeneratorService idGeneratorService;
 	
 	public String details; //证件配置明细json字符串
+	
+	public Map<String,String> statusList = null; //状态列表
 	
 	@Autowired
 	public void setCertCfgTypeService(CertCfgTypeService certCfgTypeService){
 		this.certCfgTypeService = certCfgTypeService;
 	}
 	
-	/*@Autowired
-	public void setCertCfgService(CertCfgService certCfgService){
-		this.certCfgService = certCfgService;
-	}*/
-
-
 	@Autowired
+	public void setIdGeneratorService(IdGeneratorService idGeneratorService){
+		this.idGeneratorService = idGeneratorService;
+	}
+	
+	
+	@Autowired
+	public void setCertCfgService(CertCfgService certCfgService){
+		this.setCrudService(certCfgService);
+		this.certCfgService = certCfgService;
+	}
+
+
+	/*@Autowired
 	public void setCertCfgService(
 			@Qualifier(value = "certCfgService") CrudService<CertCfg> crudService) {
 		this.setCrudService(crudService);
 	}
-
+*/
 
 	@Override
 	public boolean isReadonly() {
@@ -84,9 +93,12 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 	protected void initForm(boolean editable) throws Exception {
 		//初始化销售对象类型下拉列表
 		this.certTypes = getCertTypes(); 
+		this.statusList = getStatusList();
+		
 		super.initForm(editable);
 	}
 	
+
 	@Override
 	protected PageOption buildFormPageOption(boolean editable) {
 		return super.buildFormPageOption(editable).setWidth(680)
@@ -102,6 +114,18 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 		option.addButton(saveButtonOption);
 		
 	}
+	
+	@Override
+	protected void afterCreate(CertCfg entity) {
+		SystemContext context = (SystemContext) this.getContext();
+		CertCfg e = entity;		
+		e.setTpl("DEFAULT_CERT_FORM"); // 设置默认模板
+		e.setFileDate(Calendar.getInstance()); // 设置创建人
+		e.setAuthor(context.getUserHistory()); // 设置创建时间
+		
+		e.setUid(this.idGeneratorService.next("cert.cfg"));
+	}
+
 	
 	
 	@Override
@@ -122,6 +146,25 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 			}
 		}
 	}
+	
+	@Override
+	public String save() throws Exception {
+		CertCfg e = this.getE();
+		
+		this.beforeSave(this.getE());
+		this.certCfgService.save(e);
+		this.afterSave(this.getE());
+
+		JSONObject json = new JSONObject();
+		String msg = "保存成功！";
+		json.put("success", true);
+		json.put("id", e.getId());
+		json.put("msg", msg);
+		this.json = json.toString();
+	
+
+		return "json";
+	}
 
 	private void addDetails() throws JSONException{
 		Set<CertCfgDetail> certCfgDetails = null;
@@ -136,22 +179,16 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 				certCfgDetail = new CertCfgDetail();
 				if (json.has("id"))
 					certCfgDetail.setId(json.getLong("id"));
-
-				
-				
 				certCfgDetail.setName(json.getString("name"));
 				certCfgDetail.setPage_no(json.getInt("page_no"));
 				certCfgDetail.setWidth(new BigDecimal(json.getString("width")));
-				//certCfgDetail.setStatus(PartOut.STATUS_WAIT_FOR_OUT); // 由于hibernate级联更新时，先update主控方，
-				// 再update被动方，所以这里统一设置进货单状态为待出库，否则当进行出库操作时，触发器会出错
-				long pid = (long)25;
-				;
-				//certCfgService.loadById(pid);
-				certCfgDetail.setCertCfg(this.getCrudService().load(pid));
-				
+				//CertCfg certCfg = new CertCfg();
+				//long pid = json.getLong("pid");	
+				//certCfg.setId(pid);
+				certCfgDetail.setCertCfg(this.getE());
+				//certCfgDetail.setCertCfg(this.certCfgService.load(pid));	
 
 				certCfgDetails.add(certCfgDetail);
-
 			}
 		}
 
@@ -163,6 +200,7 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 		}
 		
 	}
+	
 
 	@Override
     protected boolean useFormPrint() {
@@ -180,6 +218,12 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 		}	
 		return map;
 	}
-	
+	//状态的下拉列表
+	private Map<String, String> getStatusList() {
+		Map<String, String> map = new LinkedHashMap<String, String>();
+		map.put(String.valueOf(CertCfg.STATUS_ENABLED), getText("certCfg.status.enabled"));
+		map.put(String.valueOf(CertCfg.STATUS_DISABLED), getText("certCfg.status.disabled"));
+		return map;
+	}
 
 }

@@ -10,9 +10,10 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
-import cn.bc.identity.domain.FileEntityImpl;
+import cn.bc.identity.domain.RichFileEntityImpl;
 
 /**
  * 证件配置
@@ -21,7 +22,7 @@ import cn.bc.identity.domain.FileEntityImpl;
  */
 @Entity
 @Table(name = "BC_CERT_CFG")
-public class CertCfg extends FileEntityImpl {
+public class CertCfg extends RichFileEntityImpl {
 	private static final long serialVersionUID = 1L;
 	public static final String KEY_UID = "cert.uid";
 	public static final String ATTACH_TYPE =CertCfg.class.getSimpleName();
@@ -29,7 +30,7 @@ public class CertCfg extends FileEntityImpl {
 	public static final int STATUS_ENABLED = 0;
 	/** 禁用 */
 	public static final int STATUS_DISABLED = 1;
-	private int status; //-- 状态 : 0-正常,1-禁用
+	//private int status; //-- 状态 : 0-正常,1-禁用
 
 	private String name; //名称
 	private CertType certType; //证件类型，多对一的关系
@@ -41,14 +42,14 @@ public class CertCfg extends FileEntityImpl {
 	
 	private Set<CertCfgDetail> certCfgDetails;
 
-	@Column(name = "STATUS_")
+	/*@Column(name = "STATUS_")
 	public int getStatus() {
 		return status;
 	}
 
 	public void setStatus(int status) {
 		this.status = status;
-	}
+	}*/
 	@Column(name = "NAME",length=100)
 	public String getName() {
 		return name;
@@ -113,7 +114,8 @@ public class CertCfg extends FileEntityImpl {
 		this.tpl = tpl;
 	}
 
-	@OneToMany(mappedBy="certCfgDetail",fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
+	@OneToMany(mappedBy="certCfg",fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OrderBy(value = "page_no asc")
 	public Set<CertCfgDetail> getCertCfgDetails() {
 		return certCfgDetails;
 	}

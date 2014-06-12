@@ -11,12 +11,38 @@
  * 		将存储函数的查询放到分页外，从而保证只查询25次来提高性能
  * 		注：排序及查询条件必须放在内层查询中，否则分页结果就不正确了
  */
+-- 账号及其隶属的组织（单位、部门或岗位）及这些组织的所有祖先
+with actor(id) as (
+	select id from bc_identity_actor where code = 'dragon'
+	union
+	select identity_find_actor_ancestor_ids('dragon')
+),
 -- 证件
-with cert(id, t_name, c_name, order_no) as (
+cert_(id, t_name, c_name, order_no) as (
 	select c.id, t.name, c.name, c.order_no
 		from bc_cert_cfg c
 		inner join bc_cert_type t on t.id = c.type_id 
 		where t.name = '车辆证件' 
+),
+-- 有 ACL 控制权限的证件
+acl(cert_id, role_) as (
+	select c.id, aa.role from bc_acl_actor aa
+		inner join bc_acl_doc ad on ad.id = aa.pid
+		inner join cert_ c on (c.id::text = ad.doc_id and ad.doc_type = 'CertCfg')
+		where aa.aid in (select id from actor)
+		--and aa.role in ('10', '11')
+),
+-- 有权限查阅的证件
+cert(id, t_name, c_name, order_no) as (
+	select * from cert_ c
+		where (
+			-- 有 ACL 查阅权限
+			exists (select 0 from acl where acl.cert_id = c.id and acl.role_ in ('10', '11', '01'))
+			-- 无 ACL 权限控制
+			or not exists (select 0 from acl where acl.cert_id = c.id)
+		) 
+		-- 没有 ACL 的限制权限
+		and not exists (select 0 from acl where acl.cert_id = c.id and acl.role_ = '00')
 ),
 -- 车辆+证件
 car_cert(car_id, plate_type, plate_no, t_name, c_name, c_order, file_date) as (

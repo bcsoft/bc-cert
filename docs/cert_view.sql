@@ -3,12 +3,7 @@
  * 		pid 			= [businessTable.id]
  * 		type_ 		= '[bc_cert_type.name]'
  * 		code 			= '[bc_cert_cfg.name]'
- * > bc_acl_doc 表字段值设计：
- * 		doc_id 		= '[bc_cert_cfg.id]'
- * 		doc_type 	= 'CertCfg'
- * 		doc_name 	= '[bc_cert_cfg.name]'
  */
-
 select t.name, c.name, f.subject, f.* 
 	from bc_cert_cfg c
 	inner join bc_cert_type t on t.id = c.type_id

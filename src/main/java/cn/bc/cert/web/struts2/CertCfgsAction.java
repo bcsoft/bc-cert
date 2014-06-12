@@ -80,13 +80,11 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 		sql.append("select cc.id,cc.status_ as status,cc.order_no as order_no,ct.name as type_name,cc.name as name,cc.page_count as page_count,");
 		sql.append("cc.width as width,cc.combine as combine,cc.tpl as tpl,");
 		sql.append("iah.actor_name as actor_name,cc.modified_date as modify_date,");
-		//sql.append("ad.doc_id as doc_id,ad.doc_type as doc_type,ad.doc_name as doc_name");
 		sql.append("getaccessactors4docidtype4docidinteger(cc.id,'CertCfg')");
 		sql.append(" from bc_cert_cfg cc");
 		sql.append(" left join bc_identity_actor_history iah on iah.id = cc.modifier_id");
 		sql.append(" join bc_cert_type ct on ct.id = cc.type_id");
-		//sql.append(" left join bc_acl_doc ad on ad.doc_id = cc.id");
-		//sql.append(" left join bc_acl_actor aa on aa.pid = ad.id");
+
 		sqlObject.setSql(sql.toString());
 		// 注入参数
 		sqlObject.setArgs(null);
@@ -215,7 +213,8 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 	
 		Toolbar tb = new Toolbar();
 
-
+		boolean flag = this.isReadonly();
+		
 		if(!this.isReadonly()){
 			// 新建按钮
 			tb.addButton(Toolbar

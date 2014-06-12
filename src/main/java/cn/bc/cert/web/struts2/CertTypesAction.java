@@ -155,7 +155,7 @@ public class CertTypesAction extends ViewAction<Map<String, Object>> {
 	
 		Toolbar tb = new Toolbar();
 
-
+		boolean flag = this.isReadonly();
 		if(!this.isReadonly()){
 			// 新建按钮
 			tb.addButton(Toolbar

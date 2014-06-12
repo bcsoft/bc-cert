@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:WidgetGroup" id="607" x="8" y="8" measuredWidth="585" measuredHeight="145">
+    <widgets xsi:type="model:Window" id="608" width="585" height="145" text="证件信息 - 视图" measuredWidth="585" measuredHeight="145" minimizeButton="true" maximizeButton="true"/>
+    <widgets xsi:type="model:Table" id="610" y="49" width="585" text="(w:30). !,(w:30). 创建时间{desc},(w:20). 证件类别,证件名称,(w:20). 标题,(w:20). 版本,(w:20). 备注,(w:20). 最后修改&#xD;&#xA;1,2014-01-03 10:00,司机证件,身份证,张三身份证,2.0,,小强 (2014-01-02 10:00)&#xD;&#xA;1,2014-01-02 10:00,司机证件,身份证,张三身份证,1.0,,小强 (2014-01-02 10:00)&#xD;&#xA;1,2014-01-01 10:00,车辆证件,购车发票,粤A.12345购车发票,1.0,,小强 (2014-01-01 10:00)" measuredWidth="585" measuredHeight="96" alternative="#eeeeee">
+      <font bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:SearchField" id="612" x="398" y="23" width="183" measuredWidth="183" measuredHeight="25">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:ButtonBar" id="1173" x="4" y="23" height="25" text="新建,编辑,删除" measuredWidth="134" measuredHeight="25">
+      <font/>
+      <items x="0" y="0" width="45" height="25" text="新建"/>
+      <items x="45" y="0" width="44" height="25" text="编辑"/>
+      <items x="89" y="0" width="45" height="25" text="删除"/>
+    </widgets>
+  </widgets>
+  <widgets xsi:type="model:Note" id="777" x="8" y="160" width="585" height="329" text="说明：&#xD;&#xA;1）证件的实例信息通过 bc-form 模块保存，bc_form 相关字段的值规范如下：&#xD;&#xA;* pid &#x9;&#x9;- 有相应的证件管理模块实现，对司机证件为司机招聘的ID，对车辆证件为车辆的ID&#xD;&#xA;* type_ &#x9;&#x9;- 对应证件配置的&quot;证件类别&quot;&#xD;&#xA;* code &#x9;&#x9;- 对应证件配置的&quot;证件名称&quot;&#xD;&#xA;* subject &#x9;- 对司机证件为&quot;[ 司机姓名 ][ 证件名称 ]&quot;，对车辆证件为&quot;[ 车牌号码 ][ 证件名称 ]&quot;&#xD;&#xA;* tpl_ &#x9;&#x9;- 对应证件配置的&quot;所用模板&quot;&#xD;&#xA;&#xD;&#xA;2）视图 SQL 参考&#xD;&#xA;select * from bc_form f&#xD;&#xA;  inner join bc_cert_cfg c on c.name = f.type_&#xD;&#xA;  inner join bc_cert_type t on t.name = f.code&#xD;&#xA;  ...  &#xD;&#xA;  &#xD;&#xA;3）bc_form 表增加版本升级功能&#xD;&#xA;* 增加字段 version_ 记录版本号信息&#xD;&#xA;* 增加字段 desc_ 记录备注信息&#xD;&#xA;* 增加版本升级功能" measuredWidth="585" measuredHeight="329" annotation="true" textAlignment="Left">
+    <font/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font size="12px"/>
+</model:Screen>

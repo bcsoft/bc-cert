@@ -208,6 +208,7 @@ INSERT INTO bc_cert_cfg_detail(id, pid, page_no, name, width)
 
 
 /*
+-- 证件配置
 select t.name, c.name, c.uid_, c.width, c.combine, d.name, d.*, c.* 
 	from bc_cert_cfg c
 	inner join bc_cert_type t on t.id = c.type_id

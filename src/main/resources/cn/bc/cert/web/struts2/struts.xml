@@ -49,5 +49,28 @@
 			<result name="form">/modules/bc/cert/certCfg/form.jsp</result>
 		</action>	
 	</package>
+	
+	<!-- 证件信息 视图 -->
+	<package name="certInfos" extends="bc-default" namespace="/modules/bc/cert/certInfos">
+		<action name="paging" class="certInfosAction" method="paging"/>
+		<action name="export" class="certInfosAction" method="export"/>
+		<action name="list" class="certInfosAction" method="list"/>
+		<action name="data" class="certInfosAction" method="data"/>
+	</package>
+	<!-- 证件信息  表单 -->
+	<package name="certInfo" extends="bc-default" namespace="/modules/bc/cert/certInfo">
+		
+		<action name="save" class="certInfoAction" method="save"/>
+		<action name="delete" class="certInfoAction" method="delete"/>
+		<action name="open" class="certInfoAction" method="open">
+			<result name="formr">/modules/bc/cert/certInfo/form.jsp</result>
+		</action>	
+		<action name="edit" class="certInfoAction" method="edit">
+			<result name="form">/modules/bc/cert/certInfo/form.jsp</result>
+		</action>	
+		<action name="create" class="certInfoAction" method="create">
+			<result name="form">/modules/bc/cert/certInfo/form.jsp</result>
+		</action>	
+	</package>
 
 </struts>

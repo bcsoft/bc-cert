@@ -1,15 +1,15 @@
 ﻿-- 资源配置：证件类别030701
 insert into BC_IDENTITY_RESOURCE (ID,STATUS_,INNER_,TYPE_,BELONG,ORDER_,NAME,URL,ICONCLASS,PNAME) 
-	select NEXTVAL('CORE_SEQUENCE'), 0, false, 2, m.id, '030701','证件类别', '/modules/bc/cert/certTypes/paging', 'i0001','营运系统'
+	select NEXTVAL('CORE_SEQUENCE'), 0, false, 2, m.id, '030701','证件类别', '/modules/bc/cert/certTypes/paging', 'i0001','系统维护'
 	from BC_IDENTITY_RESOURCE m 
-	where m.order_='030000'
+	where m.order_='800000'
 	and not EXISTS(select 1 from bc_identity_resource where order_='030701');
 	
 -- 资源配置：证件配置030702
 insert into BC_IDENTITY_RESOURCE (ID,STATUS_,INNER_,TYPE_,BELONG,ORDER_,NAME,URL,ICONCLASS,PNAME) 
-	select NEXTVAL('CORE_SEQUENCE'), 0, false, 2, m.id, '030702','证件配置', '/modules/bc/cert/certCfgs/paging', 'i0003','营运系统'
+	select NEXTVAL('CORE_SEQUENCE'), 0, false, 2, m.id, '030702','证件配置', '/modules/bc/cert/certCfgs/paging', 'i0003','系统维护'
 	from BC_IDENTITY_RESOURCE m 
-	where m.order_='030000'
+	where m.order_='800000'
 	and not EXISTS(select 1 from bc_identity_resource where order_='030702');
 
 -- 角色配置：证件管理员 BC_CERT_MANAGE

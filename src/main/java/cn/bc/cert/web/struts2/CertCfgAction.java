@@ -27,6 +27,7 @@ import cn.bc.cert.service.CertCfgTypeService;
 import cn.bc.identity.service.IdGeneratorService;
 import cn.bc.identity.web.SystemContext;
 import cn.bc.identity.web.struts2.FileEntityAction;
+import cn.bc.option.service.OptionService;
 import cn.bc.web.ui.html.page.ButtonOption;
 import cn.bc.web.ui.html.page.PageOption;
 
@@ -46,7 +47,8 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 	
 	private CertCfgTypeService certCfgTypeService;
 	private CertCfgService certCfgService;
-	private IdGeneratorService idGeneratorService;
+	private IdGeneratorService idGeneratorService;	
+	private OptionService optionService;
 	
 	public String details; //证件配置明细json字符串
 	
@@ -70,12 +72,10 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 	}
 
 
-	/*@Autowired
-	public void setCertCfgService(
-			@Qualifier(value = "certCfgService") CrudService<CertCfg> crudService) {
-		this.setCrudService(crudService);
+	@Autowired
+	public void setOptionService(OptionService optionService) {
+		this.optionService = optionService;
 	}
-*/
 
 	@Override
 	public boolean isReadonly() {
@@ -126,7 +126,7 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 	protected void afterCreate(CertCfg entity) {
 		SystemContext context = (SystemContext) this.getContext();
 		CertCfg e = entity;		
-		e.setTpl("DEFAULT_CERT_FORM"); // 设置默认模板
+		e.setTpl(this.optionService.getItemValue("carman.cert", "cert.Cfg.defaultTplCode")); // 设置默认模板
 		e.setPage_count(1);
 		e.setFileDate(Calendar.getInstance()); // 设置创建人
 		e.setAuthor(context.getUserHistory()); // 设置创建时间

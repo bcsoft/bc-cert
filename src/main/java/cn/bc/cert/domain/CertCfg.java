@@ -32,6 +32,7 @@ public class CertCfg extends RichFileEntityImpl {
 	public static final int STATUS_DISABLED = 1;
 	//private int status; //-- 状态 : 0-正常,1-禁用
 
+	private String code;//编码
 	private String name; //名称
 	private CertType certType; //证件类型，多对一的关系
 	private int page_count; //面数
@@ -50,11 +51,20 @@ public class CertCfg extends RichFileEntityImpl {
 	public void setStatus(int status) {
 		this.status = status;
 	}*/
+	@Column(name = "CODE",length=100)
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+	
 	@Column(name = "NAME",length=100)
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}

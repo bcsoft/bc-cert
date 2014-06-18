@@ -14,4 +14,11 @@ public interface CertCfgTypeService extends CrudService<CertType>{
 	 * @return
 	 */
 	public List<Map<String, String>> findCertTypes();
+	
+	/**
+	 * 根据Id找到对应的证件类型
+	 * 
+	 * @return
+	 */
+	public CertType loadById(Long id);
 }

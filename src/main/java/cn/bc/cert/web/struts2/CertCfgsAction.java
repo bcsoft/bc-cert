@@ -77,8 +77,8 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 
 		// 构建查询语句,where和order by不要包含在sql中(要统一放到condition中)
 		StringBuffer sql = new StringBuffer();
-		sql.append("select cc.id,cc.status_ as status,cc.order_no as order_no,ct.name as type_name,cc.name as name,cc.page_count as page_count,");
-		sql.append("cc.width as width,cc.combine as combine,cc.tpl as tpl,");
+		sql.append("select cc.id,cc.status_ as status,cc.order_no as order_no,ct.name as type_name,cc.name as name,cc.code as code,cc.page_count as page_count,");
+		sql.append("cc.width as width,cc.combine as combine,cc.tpl as tpl,ct.order_no as ct_order,");
 		sql.append("iah.actor_name as actor_name,cc.modified_date as modify_date,");
 		sql.append("getaccessactors4docidtype4docidinteger(cc.id,'CertCfg')");
 		sql.append(" from bc_cert_cfg cc");
@@ -99,10 +99,12 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 				map.put("order_no", rs[i++]);
 				map.put("type_name", rs[i++]);
 				map.put("name", rs[i++]);
+				map.put("code", rs[i++]);
 				map.put("page_count", rs[i++]);
 				map.put("width", rs[i++]);
 				map.put("combine", rs[i++]);
 				map.put("tpl", rs[i++]);
+				map.put("ct_order", rs[i++]);
 				map.put("actor_name", rs[i++]);
 				map.put("modify_date", rs[i++]);
 				map.put("accessactors", rs[i++]);
@@ -145,7 +147,12 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 		
 		// 证件名称
 		columns.add(new TextColumn4MapKey("cc.name", "name",
-				getText("certCfg.name"),100).setSortable(true));
+				getText("certCfg.name"),100).setSortable(true).setUseTitleFromLabel(true));
+	
+		// 编码
+		columns.add(new TextColumn4MapKey("cc.code", "code",
+				getText("certCfg.code"), 100).setSortable(true));
+		
 		//访问配置
 		columns.add(new TextColumn4MapKey("", "accessactors",
 				getText("certCfg.access"),150).setSortable(true)
@@ -153,7 +160,7 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 	
 		// 分拆页数
 		columns.add(new TextColumn4MapKey("cc.page_count", "page_count",
-				getText("certCfg.page_count"),100).setSortable(true));
+				getText("certCfg.page_count")).setSortable(true));
 		
 		// 打印宽度
 		columns.add(new TextColumn4MapKey("cc.width", "width",
@@ -163,7 +170,7 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 				getText("certCfg.combine"),100).setSortable(true));
 		// 所用模板
 		columns.add(new TextColumn4MapKey("cc.tpl", "tpl",
-				getText("certCfg.tpl"),100).setSortable(true));
+				getText("certCfg.tpl"),100).setSortable(true).setUseTitleFromLabel(true));
 		
 		// 最后修改
 		columns.add(new TextColumn4MapKey("iah.actor_name", "actor_name",
@@ -208,13 +215,8 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 	}
 
 	@Override
-	protected Toolbar getHtmlPageToolbar() {
-		/*SystemContext context = (SystemContext) this.getContext();*/
-	
-		Toolbar tb = new Toolbar();
-
-		boolean flag = this.isReadonly();
-		
+	protected Toolbar getHtmlPageToolbar() {	
+		Toolbar tb = new Toolbar();		
 		if(!this.isReadonly()){
 			// 新建按钮
 			tb.addButton(Toolbar
@@ -256,8 +258,8 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 
 	@Override
 	protected OrderCondition getGridDefaultOrderCondition() {
-		return new OrderCondition("cc.name", Direction.Asc).add(
-				"cc.order_no", Direction.Desc);
+		return new OrderCondition("cc.status_", Direction.Asc).add(
+				"ct.order_no", Direction.Asc).add("cc.order_no",Direction.Asc);
 	}
 
 	@Override
@@ -267,7 +269,7 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 
 	@Override
 	protected String[] getGridSearchFields() {
-		return new String[] { "cc.name", "cc.order_no"};
+		return new String[] { "cc.name", "cc.order_no","cc.name","cc.tpl"};
 	}
 	
 	private Map<String, String> getStatuses() {

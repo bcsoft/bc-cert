@@ -105,12 +105,19 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 				.setMinHeight(200).setMinWidth(280);
 	}
 	
+	
 	@Override
 	protected void buildFormPageButtons(PageOption option, boolean editable) {
 		
 		// 保存按钮
 		ButtonOption saveButtonOption = new ButtonOption(
 				getText("certCfg.save"), null, "bc.certCfgForm.save");
+		
+		// 预览按钮
+				ButtonOption previewButtonOption = new ButtonOption(
+						getText("certCfg.preview"), null, "bc.certCfgForm.preview");
+		
+		option.addButton(previewButtonOption);
 		option.addButton(saveButtonOption);
 		
 	}
@@ -120,6 +127,7 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 		SystemContext context = (SystemContext) this.getContext();
 		CertCfg e = entity;		
 		e.setTpl("DEFAULT_CERT_FORM"); // 设置默认模板
+		e.setPage_count(1);
 		e.setFileDate(Calendar.getInstance()); // 设置创建人
 		e.setAuthor(context.getUserHistory()); // 设置创建时间
 		

@@ -4,6 +4,11 @@
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 
+	<!-- 预览模板 表单 -->
+	<package name="previewTemplate" extends="bc-default" namespace="/modules/bc/cert/previewTemplate">
+		<action name="preview" class="previewTemplateAction" method="preview" />
+	</package>
+
 	<!-- 证件类型 视图 -->
 	<package name="certTypes" extends="bc-default" namespace="/modules/bc/cert/certTypes">
 		<action name="paging" class="certTypesAction" method="paging"/>

@@ -18,6 +18,7 @@ public class CertType extends FileEntityImpl{
 	private static final long serialVersionUID = 1L;
 	public static final String KEY_UID = "cert.uid";
 	
+	private String code;  //编码
 	private String name ;// 名称
 	private String order_no; //排序号
 	
@@ -35,7 +36,13 @@ public class CertType extends FileEntityImpl{
 	public void setOrder_no(String order_no) {
 		this.order_no = order_no;
 	}
-
 	
+	@Column(name = "CODE",length=100)
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
 	
 }

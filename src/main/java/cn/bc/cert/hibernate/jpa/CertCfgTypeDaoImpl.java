@@ -6,6 +6,8 @@ import java.util.Map;
 
 import cn.bc.cert.Dao.CertCfgTypeDao;
 import cn.bc.cert.domain.CertType;
+import cn.bc.core.query.condition.impl.AndCondition;
+import cn.bc.core.query.condition.impl.EqualsCondition;
 import cn.bc.db.jdbc.RowMapper;
 import cn.bc.orm.hibernate.jpa.HibernateCrudJpaDao;
 import cn.bc.orm.hibernate.jpa.HibernateJpaNativeQuery;
@@ -26,5 +28,15 @@ public class CertCfgTypeDaoImpl extends HibernateCrudJpaDao<CertType> implements
 						}
 					});
 		}
+
+	public CertType loadById(Long id) {
+		AndCondition ac = new AndCondition();
+		ac.add(new EqualsCondition("id", id));
+		if (this.createQuery().condition(ac).count() == 0) {
+			return null;
+		} else {
+			return this.createQuery().condition(ac).list().get(0);
+		}
+	}
 
 }

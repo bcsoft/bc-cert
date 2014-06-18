@@ -23,4 +23,8 @@ public class CertCfgTypeServiceImpl  extends DefaultCrudService<CertType> implem
 		
 		return this.certCfgTypeDao.findCertTypes();
 	}
+
+	public CertType loadById(Long id) {
+		return this.certCfgTypeDao.loadById(id);
+	}
 }

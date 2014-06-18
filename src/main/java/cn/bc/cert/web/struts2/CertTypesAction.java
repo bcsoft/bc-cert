@@ -72,7 +72,8 @@ public class CertTypesAction extends ViewAction<Map<String, Object>> {
 
 		// 构建查询语句,where和order by不要包含在sql中(要统一放到condition中)
 		StringBuffer sql = new StringBuffer();
-		sql.append("select ct.id,ct.name as name,ct.order_no as order,iah.actor_name as actor_name,ct.modified_date as modify_date");
+		sql.append("select ct.id,ct.code as code,ct.name as name,ct.order_no as order,iah.actor_name as actor_name,");
+		sql.append("ct.modified_date as modify_date");
 		sql.append(" from bc_cert_type ct");
 		sql.append(" left join bc_identity_actor_history iah on iah.id = ct.modifier_id");
 		sqlObject.setSql(sql.toString());
@@ -85,6 +86,7 @@ public class CertTypesAction extends ViewAction<Map<String, Object>> {
 				Map<String, Object> map = new HashMap<String, Object>();
 				int i = 0;
 				map.put("id", rs[i++]);
+				map.put("code",rs[i++]);
 				map.put("name", rs[i++]);
 				map.put("order", rs[i++]);
 				map.put("actor_name", rs[i++]);
@@ -103,11 +105,15 @@ public class CertTypesAction extends ViewAction<Map<String, Object>> {
 
 		// 排序号
 		columns.add(new TextColumn4MapKey("ct.order_no", "order",
-				getText("certType.order"), 150).setSortable(true));
+				getText("certType.order"), 100).setSortable(true));
 
 		// 名称
+		columns.add(new TextColumn4MapKey("ct.code", "code",
+				getText("certType.code"),100).setSortable(true));
+		
+		// 名称
 		columns.add(new TextColumn4MapKey("ct.name", "name",
-				getText("certType.name")).setSortable(true));
+				getText("certType.name"),200).setSortable(true));
 
 		
 		// 最后修改
@@ -145,7 +151,7 @@ public class CertTypesAction extends ViewAction<Map<String, Object>> {
 
 	@Override
 	protected PageOption getHtmlPageOption() {
-		return super.getHtmlPageOption().setWidth(870).setMinWidth(450)
+		return super.getHtmlPageOption().setWidth(670).setMinWidth(450)
 				.setHeight(400).setMinHeight(200);
 	}
 
@@ -154,8 +160,6 @@ public class CertTypesAction extends ViewAction<Map<String, Object>> {
 		/*SystemContext context = (SystemContext) this.getContext();*/
 	
 		Toolbar tb = new Toolbar();
-
-		boolean flag = this.isReadonly();
 		if(!this.isReadonly()){
 			// 新建按钮
 			tb.addButton(Toolbar
@@ -178,8 +182,7 @@ public class CertTypesAction extends ViewAction<Map<String, Object>> {
 
 	@Override
 	protected OrderCondition getGridDefaultOrderCondition() {
-		return new OrderCondition("ct.name", Direction.Asc).add(
-				"ct.order_no", Direction.Desc);
+		return new OrderCondition("ct.order_no", Direction.Desc);
 	}
 
 	@Override
@@ -189,7 +192,7 @@ public class CertTypesAction extends ViewAction<Map<String, Object>> {
 
 	@Override
 	protected String[] getGridSearchFields() {
-		return new String[] { "ct.name", "ct.order_no"};
+		return new String[] { "ct.name", "ct.order_no","ct.code"};
 	}
 
 }

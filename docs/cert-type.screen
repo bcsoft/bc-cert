@@ -8,35 +8,41 @@
       <items x="45" y="0" width="44" height="25" text="编辑"/>
       <items x="89" y="0" width="45" height="25" text="删除"/>
     </widgets>
-    <widgets xsi:type="model:Table" id="610" y="49" width="553" text="(w:30). !,(w:20). 排序号,名称,(w:20). 最后修改&#xD;&#xA;1,01,司机证件,小强 (2014-01-01 10:00)&#xD;&#xA;2,02,车辆证件,小强 (2014-01-01 10:00)" measuredWidth="553" measuredHeight="73" alternative="#eeeeee">
+    <widgets xsi:type="model:Table" id="610" y="49" width="553" text="(w:30). !,(w:20). 排序号,(w:20). 编码,名称,(w:20). 最后修改&#xD;&#xA;1,01,CarManCert,司机证件,小强 (2014-01-01 10:00)&#xD;&#xA;2,02,CarCert,车辆证件,小强 (2014-01-01 10:00)" measuredWidth="553" measuredHeight="73" alternative="#eeeeee">
       <font bold="false"/>
     </widgets>
     <widgets xsi:type="model:SearchField" id="612" x="365" y="23" width="183" measuredWidth="183" measuredHeight="25">
       <font/>
     </widgets>
   </widgets>
-  <widgets xsi:type="model:Note" id="777" x="8" y="328" width="297" height="33" text="管理角色：证件管理（BC_CERT_MANAGE）" measuredWidth="297" measuredHeight="33" annotation="true" textAlignment="Left">
+  <widgets xsi:type="model:Note" id="777" x="8" y="360" width="297" height="33" text="管理角色：证件管理（BC_CERT_MANAGE）" measuredWidth="297" measuredHeight="33" annotation="true" textAlignment="Left">
     <font/>
   </widgets>
-  <widgets xsi:type="model:WidgetGroup" id="938" x="8" y="160" measuredWidth="297" measuredHeight="161">
-    <widgets xsi:type="model:Window" id="939" width="297" height="161" text="证件类别 - 表单" measuredWidth="297" measuredHeight="161"/>
+  <widgets xsi:type="model:WidgetGroup" id="938" x="8" y="160" measuredWidth="297" measuredHeight="187">
+    <widgets xsi:type="model:Window" id="939" width="297" height="187" text="证件类别 - 表单" measuredWidth="297" measuredHeight="187"/>
     <widgets xsi:type="model:Label" id="950" x="46" y="25" text="*名称：" measuredWidth="46" measuredHeight="25" textAlignment="Right">
       <font/>
     </widgets>
     <widgets xsi:type="model:TextField" id="978" x="88" y="25" width="200" text="司机证件" measuredWidth="200" measuredHeight="25">
       <font/>
     </widgets>
-    <widgets xsi:type="model:Button" id="1026" x="236" y="128" width="51" text="保存" measuredWidth="51" measuredHeight="27">
+    <widgets xsi:type="model:Button" id="1026" x="236" y="155" width="51" text="保存" measuredWidth="51" measuredHeight="27">
       <font/>
     </widgets>
-    <widgets xsi:type="model:Text" id="1158" x="75" y="80" width="212" height="41" text="登记：张三(2011-01-01 12:00)&#xD;&#xA;最后修改：李四(2013-01-01 14:00)" measuredWidth="212" measuredHeight="41" textAlignment="Right" foreground="#999999">
+    <widgets xsi:type="model:Text" id="1158" x="75" y="107" width="212" height="41" text="登记：张三(2011-01-01 12:00)&#xD;&#xA;最后修改：李四(2013-01-01 14:00)" measuredWidth="212" measuredHeight="41" textAlignment="Right" foreground="#999999">
       <font/>
     </widgets>
-    <widgets xsi:type="model:HLine" id="1160" y="120" width="297" measuredWidth="297" measuredHeight="6"/>
-    <widgets xsi:type="model:Label" id="1161" x="39" y="52" text="排序号：" measuredWidth="53" measuredHeight="25" textAlignment="Right">
+    <widgets xsi:type="model:HLine" id="1160" y="147" width="297" measuredWidth="297" measuredHeight="6"/>
+    <widgets xsi:type="model:Label" id="1161" x="39" y="79" text="排序号：" measuredWidth="53" measuredHeight="25" textAlignment="Right">
       <font/>
     </widgets>
-    <widgets xsi:type="model:TextField" id="1162" x="88" y="52" width="200" text="01" measuredWidth="200" measuredHeight="25">
+    <widgets xsi:type="model:TextField" id="1162" x="88" y="79" width="200" text="01" measuredWidth="200" measuredHeight="25">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="1163" x="46" y="52" text="*编码：" measuredWidth="46" measuredHeight="25" textAlignment="Right">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="1164" x="88" y="52" width="200" text="CarManCert" measuredWidth="200" measuredHeight="25">
       <font/>
     </widgets>
   </widgets>

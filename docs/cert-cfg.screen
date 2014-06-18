@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
-  <widgets xsi:type="model:WidgetGroup" id="607" x="8" y="8" measuredWidth="681" measuredHeight="146">
-    <widgets xsi:type="model:Window" id="608" width="681" height="146" text="证件配置 - 视图" measuredWidth="681" measuredHeight="146" minimizeButton="true" maximizeButton="true"/>
+  <widgets xsi:type="model:WidgetGroup" id="607" x="8" y="8" measuredWidth="745" measuredHeight="146">
+    <widgets xsi:type="model:Window" id="608" width="745" height="146" text="证件配置 - 视图" measuredWidth="745" measuredHeight="146" minimizeButton="true" maximizeButton="true"/>
     <widgets xsi:type="model:ButtonBar" id="609" x="4" y="23" height="25" text="新建,编辑,删除" measuredWidth="134" measuredHeight="25">
       <font/>
       <items x="0" y="0" width="45" height="25" text="新建"/>
       <items x="45" y="0" width="44" height="25" text="编辑"/>
       <items x="89" y="0" width="45" height="25" text="删除"/>
     </widgets>
-    <widgets xsi:type="model:Table" id="610" y="50" width="681" text="(w:30). !,(w:30). 状态,(w:30). 排序号,(w:20). 证件类别,证件名称,(w:20). 访问配置,(w:20). 分拆页数,(w:20). 打印宽度,(w:20). 合并配置,(w:20). 所用模板,(w:20). 最后修改&#xD;&#xA;1,正常,2001,司机证件,身份证,小明(查阅),2,172mm,1\,1,,小强 (2014-01-01 10:00)&#xD;&#xA;2,正常,2002,司机证件,驾驶证,,2,172mm,1\,1,,小强 (2014-01-01 10:00)&#xD;&#xA;3,禁用,3001,车辆证件,购车发票,,1,?mm,,,小强 (2014-01-01 10:00)" measuredWidth="681" measuredHeight="96" alternative="#eeeeee">
+    <widgets xsi:type="model:Table" id="610" y="50" width="745" text="(w:30). !,(w:30). 状态,(w:30). 排序号,(w:20). 证件类别,证件名称,(w:20). 证件编码,(w:20). 访问配置,(w:20). 分拆页数,(w:20). 打印宽度,(w:20). 合并配置,(w:20). 所用模板,(w:20). 最后修改&#xD;&#xA;1,正常,2001,司机证件,身份证,certIdentity,小明(查阅),2,172mm,1\,1,,小强 (2014-01-01 10:00)&#xD;&#xA;2,正常,2002,司机证件,驾驶证,certJSZ,,2,172mm,1\,1,,小强 (2014-01-01 10:00)&#xD;&#xA;3,禁用,3001,车辆证件,购车发票,CAR_GCFP,,1,?mm,,,小强 (2014-01-01 10:00)" measuredWidth="745" measuredHeight="96" alternative="#eeeeee">
       <font bold="false"/>
     </widgets>
-    <widgets xsi:type="model:SearchField" id="612" x="494" y="23" width="183" measuredWidth="183" measuredHeight="25">
+    <widgets xsi:type="model:SearchField" id="612" x="558" y="23" width="183" measuredWidth="183" measuredHeight="25">
       <font/>
     </widgets>
     <widgets xsi:type="model:ButtonBar" id="614" x="140" y="23" height="25" text="访问配置" measuredWidth="70" measuredHeight="25" selection="2">
@@ -25,12 +25,12 @@
       <items x="89" y="0" width="45" height="25" text="全部"/>
     </widgets>
   </widgets>
-  <widgets xsi:type="model:Note" id="777" x="8" y="480" width="585" height="137" text="说明：&#xD;&#xA;1）合并配置用于控制各扫描面的水平和垂直合并方式，其编写规范参考 cn.bc.docs.util.ImageUtils.combineMix 方法的注释说明。&#xD;&#xA;2）新建时，所用模板的值默认为 &quot;DEFAULT_CERT_FORM&quot;。&#xD;&#xA;3）打印宽度指合并后图片的实物宽度，用于控制浏览器打印出来的效果。&#xD;&#xA;4）当改变扫描面数时，自动生成相应的&quot;各页参数&quot;条目。&#xD;&#xA;5）管理角色：证件管理（BC_CERT_MANAGE）" measuredWidth="585" measuredHeight="137" annotation="true" textAlignment="Left">
+  <widgets xsi:type="model:Note" id="777" x="8" y="504" width="585" height="137" text="说明：&#xD;&#xA;1）合并配置用于控制各扫描面的水平和垂直合并方式，其编写规范参考 cn.bc.docs.util.ImageUtils.combineMix 方法的注释说明。&#xD;&#xA;2）新建时，所用模板的值默认为 &quot;DEFAULT_CERT_FORM&quot;。&#xD;&#xA;3）打印宽度指合并后图片的实物宽度，用于控制浏览器打印出来的效果。&#xD;&#xA;4）当改变扫描面数时，自动生成相应的&quot;各页参数&quot;条目，当分拆页数为1时，无需&quot;各页参数&quot;。&#xD;&#xA;5）管理角色：证件管理（BC_CERT_MANAGE）" measuredWidth="585" measuredHeight="137" annotation="true" textAlignment="Left">
     <font/>
   </widgets>
-  <widgets xsi:type="model:WidgetGroup" id="1168" x="8" y="160" measuredWidth="585" measuredHeight="313">
-    <widgets xsi:type="model:Window" id="1169" width="585" height="313" text="证件配置 - 表单" measuredWidth="585" measuredHeight="313"/>
-    <widgets xsi:type="model:WidgetGroup" id="1170" y="159" measuredWidth="585" measuredHeight="96">
+  <widgets xsi:type="model:WidgetGroup" id="1168" x="8" y="160" measuredWidth="585" measuredHeight="339">
+    <widgets xsi:type="model:Window" id="1169" width="585" height="339" text="证件配置 - 表单" measuredWidth="585" measuredHeight="339"/>
+    <widgets xsi:type="model:WidgetGroup" id="1170" y="184" measuredWidth="585" measuredHeight="96">
       <widgets xsi:type="model:Accordion" id="1171" width="585" height="96" text="各页参数" measuredWidth="585" measuredHeight="96" selection="0">
         <items x="0" y="2" width="585" height="27" text="各页参数"/>
       </widgets>
@@ -38,9 +38,13 @@
         <font/>
       </widgets>
       <widgets xsi:type="model:Icon" id="1173" x="565" y="7" measuredWidth="16" measuredHeight="16" icon="line-arrow-up (small)"/>
+      <widgets xsi:type="model:Icon" id="1203" x="548" y="7" measuredWidth="16" measuredHeight="16" icon="circled-mul (small)"/>
+      <widgets xsi:type="model:Icon" id="1204" x="529" y="7" measuredWidth="16" measuredHeight="16" icon="circled-plus (small)"/>
+      <widgets xsi:type="model:Icon" id="1205" x="511" y="7" measuredWidth="16" measuredHeight="16" icon="arrow-down (small)"/>
+      <widgets xsi:type="model:Icon" id="1206" x="493" y="7" measuredWidth="16" measuredHeight="16" icon="arrow-up (small)"/>
     </widgets>
-    <widgets xsi:type="model:WidgetGroup" id="1174" y="19" measuredWidth="585" measuredHeight="142">
-      <widgets xsi:type="model:Accordion" id="1175" width="585" height="142" text="基本信息" measuredWidth="585" measuredHeight="142" selection="0">
+    <widgets xsi:type="model:WidgetGroup" id="1174" y="19" measuredWidth="585" measuredHeight="167">
+      <widgets xsi:type="model:Accordion" id="1175" width="585" height="167" text="基本信息" measuredWidth="585" measuredHeight="167" selection="0">
         <items x="0" y="2" width="585" height="27" text="基本信息"/>
       </widgets>
       <widgets xsi:type="model:Icon" id="1176" x="564" y="6" measuredWidth="16" measuredHeight="16" icon="line-arrow-up (small)"/>
@@ -53,7 +57,7 @@
       <widgets xsi:type="model:TextField" id="1179" x="88" y="59" width="200" text="身份证" measuredWidth="200" measuredHeight="25">
         <font/>
       </widgets>
-      <widgets xsi:type="model:WidgetGroup" id="1180" x="344" y="113" measuredWidth="126" measuredHeight="26">
+      <widgets xsi:type="model:WidgetGroup" id="1180" x="336" y="141" measuredWidth="126" measuredHeight="26">
         <widgets xsi:type="model:Label" id="1181" y="1" text="状态：" measuredWidth="41" measuredHeight="25" textAlignment="Right">
           <font/>
         </widgets>
@@ -73,19 +77,16 @@
       <widgets xsi:type="model:TextField" id="1186" x="380" y="32" width="200" text="DEFAULT_CERT_FORM" measuredWidth="200" measuredHeight="25">
         <font/>
       </widgets>
-      <widgets xsi:type="model:Label" id="1187" x="5" y="86" width="87" text="*打印宽度：" measuredWidth="87" measuredHeight="25" textAlignment="Right">
+      <widgets xsi:type="model:Label" id="1187" x="5" y="86" width="87" text="*证件编码：" measuredWidth="87" measuredHeight="25" textAlignment="Right">
         <font/>
       </widgets>
-      <widgets xsi:type="model:TextField" id="1188" x="88" y="86" width="61" text="172" measuredWidth="61" measuredHeight="25" textAlignment="Right">
+      <widgets xsi:type="model:TextField" id="1188" x="88" y="86" width="200" text="certIdentity" measuredWidth="200" measuredHeight="25">
         <font/>
       </widgets>
-      <widgets xsi:type="model:Label" id="1189" x="151" y="86" width="28" text="毫米" measuredWidth="28" measuredHeight="25">
+      <widgets xsi:type="model:Label" id="1190" x="331" y="113" text="排序号：" measuredWidth="53" measuredHeight="25" textAlignment="Right">
         <font/>
       </widgets>
-      <widgets xsi:type="model:Label" id="1190" x="331" y="86" text="排序号：" measuredWidth="53" measuredHeight="25" textAlignment="Right">
-        <font/>
-      </widgets>
-      <widgets xsi:type="model:TextField" id="1191" x="380" y="86" width="200" text="2001" measuredWidth="200" measuredHeight="25">
+      <widgets xsi:type="model:TextField" id="1191" x="380" y="113" width="200" text="2001" measuredWidth="200" measuredHeight="25">
         <font/>
       </widgets>
       <widgets xsi:type="model:Label" id="1192" x="22" y="113" text="*分拆页数：" measuredWidth="70" measuredHeight="25" textAlignment="Right">
@@ -94,23 +95,32 @@
       <widgets xsi:type="model:TextField" id="1193" x="88" y="113" width="200" text="2" measuredWidth="200" measuredHeight="25">
         <font/>
       </widgets>
-      <widgets xsi:type="model:Label" id="1194" x="319" y="58" text="合并配置：" measuredWidth="65" measuredHeight="25" textAlignment="Right">
+      <widgets xsi:type="model:Label" id="1194" x="314" y="59" text="合并配置：" measuredWidth="65" measuredHeight="25" textAlignment="Right">
         <font/>
       </widgets>
-      <widgets xsi:type="model:TextField" id="1195" x="380" y="58" width="200" text="1,1" measuredWidth="200" measuredHeight="25">
+      <widgets xsi:type="model:TextField" id="1195" x="380" y="59" width="200" text="1,1" measuredWidth="200" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="1200" x="297" y="85" width="87" text="*打印宽度：" measuredWidth="87" measuredHeight="25" textAlignment="Right">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:TextField" id="1201" x="380" y="85" width="61" text="172" measuredWidth="61" measuredHeight="25" textAlignment="Right">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="1202" x="443" y="85" width="28" text="毫米" measuredWidth="28" measuredHeight="25">
         <font/>
       </widgets>
     </widgets>
-    <widgets xsi:type="model:Button" id="1196" x="529" y="282" width="51" text="保存" measuredWidth="51" measuredHeight="27">
+    <widgets xsi:type="model:Button" id="1196" x="529" y="307" width="51" text="保存" measuredWidth="51" measuredHeight="27">
       <font/>
     </widgets>
-    <widgets xsi:type="model:Text" id="1197" x="120" y="259" width="460" height="22" text="登记：张三(2011-01-01 12:00)，最后修改：李四(2013-01-01 14:00)" measuredWidth="460" measuredHeight="22" textAlignment="Right" foreground="#999999">
+    <widgets xsi:type="model:Text" id="1197" x="120" y="284" width="460" height="22" text="登记：张三(2011-01-01 12:00)，最后修改：李四(2013-01-01 14:00)" measuredWidth="460" measuredHeight="22" textAlignment="Right" foreground="#999999">
       <font/>
     </widgets>
-    <widgets xsi:type="model:Button" id="1198" x="472" y="282" width="51" text="预览" measuredWidth="51" measuredHeight="27">
+    <widgets xsi:type="model:Button" id="1198" x="472" y="307" width="51" text="预览" measuredWidth="51" measuredHeight="27">
       <font/>
     </widgets>
-    <widgets xsi:type="model:HLine" id="1199" y="275" width="585" measuredWidth="585" measuredHeight="6"/>
+    <widgets xsi:type="model:HLine" id="1199" y="300" width="585" measuredWidth="585" measuredHeight="6"/>
   </widgets>
   <hRuler/>
   <vRuler/>

@@ -123,7 +123,7 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 
 		// 状态
 		columns.add(new TextColumn4MapKey("cc.status_", "status",
-				getText("certCfg.status"),100).setSortable(true).setValueFormater(new AbstractFormater<String>() {
+				getText("certCfg.status"),60).setSortable(true).setValueFormater(new AbstractFormater<String>() {
 
 					@Override
 					public String format(Object context, Object value) {
@@ -147,30 +147,30 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 		
 		// 证件名称
 		columns.add(new TextColumn4MapKey("cc.name", "name",
-				getText("certCfg.name"),100).setSortable(true).setUseTitleFromLabel(true));
+				getText("certCfg.name"),150).setSortable(true).setUseTitleFromLabel(true));
 	
 		// 编码
 		columns.add(new TextColumn4MapKey("cc.code", "code",
-				getText("certCfg.code"), 100).setSortable(true));
+				getText("certCfg.code"), 100).setSortable(true).setUseTitleFromLabel(true));
 		
 		//访问配置
 		columns.add(new TextColumn4MapKey("", "accessactors",
-				getText("certCfg.access"),150).setSortable(true)
+				getText("certCfg.access")).setSortable(true)
 				.setUseTitleFromLabel(true));
 	
 		// 分拆页数
 		columns.add(new TextColumn4MapKey("cc.page_count", "page_count",
-				getText("certCfg.page_count")).setSortable(true));
+				getText("certCfg.page_count"),60).setSortable(true));
 		
 		// 打印宽度
 		columns.add(new TextColumn4MapKey("cc.width", "width",
-				getText("certCfg.width"),100).setSortable(true));
+				getText("certCfg.width"),60).setSortable(true));
 		// 合并配置
 		columns.add(new TextColumn4MapKey("cc.combine", "combine",
 				getText("certCfg.combine"),100).setSortable(true));
 		// 所用模板
 		columns.add(new TextColumn4MapKey("cc.tpl", "tpl",
-				getText("certCfg.tpl"),100).setSortable(true).setUseTitleFromLabel(true));
+				getText("certCfg.tpl"),150).setSortable(true).setUseTitleFromLabel(true));
 		
 		// 最后修改
 		columns.add(new TextColumn4MapKey("iah.actor_name", "actor_name",
@@ -240,7 +240,7 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 			
 			// 切换状态
 			tb.addButton(Toolbar.getDefaultToolbarRadioGroup(
-					this.getStatuses(), "status", 2,
+					this.getStatuses(), "status", CertCfg.STATUS_ENABLED,
 					getText("title.click2changeSearchStatus")));
 		}
 		
@@ -269,7 +269,7 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 
 	@Override
 	protected String[] getGridSearchFields() {
-		return new String[] { "cc.name", "cc.order_no","cc.name","cc.tpl"};
+		return new String[] { "cc.name", "ct.name","cc.code","cc.tpl"};
 	}
 	
 	private Map<String, String> getStatuses() {

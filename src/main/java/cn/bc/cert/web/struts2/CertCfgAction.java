@@ -102,7 +102,7 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 	@Override
 	protected PageOption buildFormPageOption(boolean editable) {
 		return super.buildFormPageOption(editable).setWidth(680)
-				.setMinHeight(200).setMinWidth(280);
+				.setMinHeight(200).setMinWidth(600);
 	}
 	
 	

@@ -13,20 +13,20 @@ INSERT INTO bc_form(id, uid_, status_, tpl_, type_, code, pid, subject
 INSERT INTO bc_form(id, uid_, status_, tpl_, type_, code, pid, subject
 	, file_date, author_id, modified_date, modifier_id)
 	select NEXTVAL('hibernate_sequence'), 'cert.' || NEXTVAL('hibernate_sequence'), 0, 'TEST', '车辆证件', '机动车行驶证'
-	, (select id from bs_car where plate_no = '3DD47'), '粤A.3DD47机动车行驶证'
+	, (select id from bs_car where plate_no = '031RZ'), '粤A.031RZ机动车行驶证'
 	, now(), (select id from bc_identity_actor_history where actor_code = 'admin' and current = true)
 	, now(), (select id from bc_identity_actor_history where actor_code = 'admin' and current = true)
 	from bc_dual where not exists (
-		select 0 from bc_form where type_ = '车辆证件' and code = '机动车行驶证' and subject = '粤A.3DD47机动车行驶证'
+		select 0 from bc_form where type_ = '车辆证件' and code = '机动车行驶证' and subject = '粤A.031RZ机动车行驶证'
 	);
 INSERT INTO bc_form(id, uid_, status_, tpl_, type_, code, pid, subject
 	, file_date, author_id, modified_date, modifier_id)
 	select NEXTVAL('hibernate_sequence'), 'cert.' || NEXTVAL('hibernate_sequence'), 0, 'TEST', '车辆证件', '道路运输证'
-	, (select id from bs_car where plate_no = '3DD47'), '粤A.3DD47道路运输证'
+	, (select id from bs_car where plate_no = '031RZ'), '粤A.031RZ道路运输证'
 	, now(), (select id from bc_identity_actor_history where actor_code = 'admin' and current = true)
 	, now(), (select id from bc_identity_actor_history where actor_code = 'admin' and current = true)
 	from bc_dual where not exists (
-		select 0 from bc_form where type_ = '车辆证件' and code = '道路运输证' and subject = '粤A.3DD47道路运输证'
+		select 0 from bc_form where type_ = '车辆证件' and code = '道路运输证' and subject = '粤A.031RZ道路运输证'
 	);
 -- ACL
 INSERT INTO bc_acl_doc(id, doc_id, doc_type, doc_name, file_date, author_id, modified_date, modifier_id)

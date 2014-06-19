@@ -116,7 +116,20 @@ public class CertInfosAction extends ViewAction<Map<String, Object>> {
 		
 		// 创建时间
 		columns.add(new TextColumn4MapKey("f.file_date", "file_date",
-				getText("certInfo.file_date"), 150).setSortable(true));
+				getText("certInfo.file_date"), 150).setSortable(true)
+				.setValueFormater(new AbstractFormater<String>() {
+
+					@Override
+					public String format(Object context, Object value) {
+						@SuppressWarnings("unchecked")
+						Map<String, Object> map = (Map<String, Object>) context;
+						return value
+								+ " ("
+								+ DateUtils
+										.formatDateTime2Minute((Date) map
+												.get("file_date")) + ")";
+					}
+				}));
 
 		// 证件类别
 		columns.add(new TextColumn4MapKey("t.name", "type",
@@ -128,7 +141,7 @@ public class CertInfosAction extends ViewAction<Map<String, Object>> {
 				
 		// 标题
 		columns.add(new TextColumn4MapKey("f.subject", "subject",
-				getText("certInfo.subject"),150).setSortable(true));
+				getText("certInfo.subject"),150).setSortable(true).setUseTitleFromLabel(true));
 				
 		//访问配置
 		columns.add(new TextColumn4MapKey("", "accessactors",
@@ -220,8 +233,7 @@ public class CertInfosAction extends ViewAction<Map<String, Object>> {
 
 	@Override
 	protected OrderCondition getGridDefaultOrderCondition() {
-		return new OrderCondition("c.name", Direction.Asc).add(
-				"t.name", Direction.Desc);
+		return new OrderCondition("f.file_date", Direction.Desc);
 	}
 
 	@Override
@@ -231,7 +243,7 @@ public class CertInfosAction extends ViewAction<Map<String, Object>> {
 
 	@Override
 	protected String[] getGridSearchFields() {
-		return new String[] { "t.name", "c.name"};
+		return new String[] { "t.name", "c.name","f.subject","f.desc_"};
 	}
 
 

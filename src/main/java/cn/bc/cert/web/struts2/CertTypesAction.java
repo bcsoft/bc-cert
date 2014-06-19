@@ -105,7 +105,7 @@ public class CertTypesAction extends ViewAction<Map<String, Object>> {
 
 		// 排序号
 		columns.add(new TextColumn4MapKey("ct.order_no", "order",
-				getText("certType.order"), 100).setSortable(true));
+				getText("certType.order"), 60).setSortable(true));
 
 		// 名称
 		columns.add(new TextColumn4MapKey("ct.code", "code",
@@ -113,7 +113,7 @@ public class CertTypesAction extends ViewAction<Map<String, Object>> {
 		
 		// 名称
 		columns.add(new TextColumn4MapKey("ct.name", "name",
-				getText("certType.name"),200).setSortable(true));
+				getText("certType.name")).setSortable(true));
 
 		
 		// 最后修改

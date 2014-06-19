@@ -30,21 +30,19 @@
   </widgets>
   <widgets xsi:type="model:WidgetGroup" id="1168" x="8" y="160" measuredWidth="585" measuredHeight="339">
     <widgets xsi:type="model:Window" id="1169" width="585" height="339" text="证件配置 - 表单" measuredWidth="585" measuredHeight="339"/>
-    <widgets xsi:type="model:WidgetGroup" id="1170" y="184" measuredWidth="585" measuredHeight="96">
-      <widgets xsi:type="model:Accordion" id="1171" width="585" height="96" text="各页参数" measuredWidth="585" measuredHeight="96" selection="0">
-        <items x="0" y="2" width="585" height="27" text="各页参数"/>
+    <widgets xsi:type="model:WidgetGroup" id="1170" y="186" measuredWidth="585" measuredHeight="96">
+      <widgets xsi:type="model:Accordion" id="1171" width="585" height="96" text="各分拆页配置" measuredWidth="585" measuredHeight="96" selection="0">
+        <items x="0" y="2" width="585" height="27" text="各分拆页配置"/>
       </widgets>
-      <widgets xsi:type="model:Table" id="1172" y="27" width="585" height="69" text=">(w:20). 页码,>(w:20).打印宽度(毫米),&lt;.标记&#xD;&#xA;第1页,86,正面&#xD;&#xA;第2页,86,背面" measuredWidth="585" measuredHeight="69" rowHeight="20" horizontalLines="true" alternative="#eeeeee">
+      <widgets xsi:type="model:Table" id="1172" y="27" width="585" height="69" text="=(w:20). 页码,=(w:60).标记,&lt;.打印宽度(毫米)&#xD;&#xA;1,正面,86&#xD;&#xA;2,背面,86" measuredWidth="585" measuredHeight="69" rowHeight="20" horizontalLines="true" alternative="#eeeeee">
         <font/>
       </widgets>
       <widgets xsi:type="model:Icon" id="1173" x="565" y="7" measuredWidth="16" measuredHeight="16" icon="line-arrow-up (small)"/>
-      <widgets xsi:type="model:Icon" id="1203" x="548" y="7" measuredWidth="16" measuredHeight="16" icon="circled-mul (small)"/>
+      <widgets xsi:type="model:Icon" id="1203" x="548" y="7" measuredWidth="16" measuredHeight="16" icon="circled-minus (small)"/>
       <widgets xsi:type="model:Icon" id="1204" x="529" y="7" measuredWidth="16" measuredHeight="16" icon="circled-plus (small)"/>
-      <widgets xsi:type="model:Icon" id="1205" x="511" y="7" measuredWidth="16" measuredHeight="16" icon="arrow-down (small)"/>
-      <widgets xsi:type="model:Icon" id="1206" x="493" y="7" measuredWidth="16" measuredHeight="16" icon="arrow-up (small)"/>
     </widgets>
-    <widgets xsi:type="model:WidgetGroup" id="1174" y="19" measuredWidth="585" measuredHeight="167">
-      <widgets xsi:type="model:Accordion" id="1175" width="585" height="167" text="基本信息" measuredWidth="585" measuredHeight="167" selection="0">
+    <widgets xsi:type="model:WidgetGroup" id="1174" y="19" measuredWidth="585" measuredHeight="169">
+      <widgets xsi:type="model:Accordion" id="1175" width="585" height="169" text="基本信息" measuredWidth="585" measuredHeight="169" selection="0">
         <items x="0" y="2" width="585" height="27" text="基本信息"/>
       </widgets>
       <widgets xsi:type="model:Icon" id="1176" x="564" y="6" measuredWidth="16" measuredHeight="16" icon="line-arrow-up (small)"/>
@@ -57,7 +55,7 @@
       <widgets xsi:type="model:TextField" id="1179" x="88" y="59" width="200" text="身份证" measuredWidth="200" measuredHeight="25">
         <font/>
       </widgets>
-      <widgets xsi:type="model:WidgetGroup" id="1180" x="336" y="141" measuredWidth="126" measuredHeight="26">
+      <widgets xsi:type="model:WidgetGroup" id="1180" x="331" y="113" measuredWidth="126" measuredHeight="26">
         <widgets xsi:type="model:Label" id="1181" y="1" text="状态：" measuredWidth="41" measuredHeight="25" textAlignment="Right">
           <font/>
         </widgets>
@@ -71,10 +69,10 @@
       <widgets xsi:type="model:Combo" id="1184" x="88" y="32" width="200" text="司机证件" measuredWidth="200" measuredHeight="25">
         <font/>
       </widgets>
-      <widgets xsi:type="model:Label" id="1185" x="314" y="32" text="*所用模板：" measuredWidth="70" measuredHeight="25" textAlignment="Right">
+      <widgets xsi:type="model:Label" id="1185" x="22" y="113" text="*所用模板：" measuredWidth="70" measuredHeight="25" textAlignment="Right">
         <font/>
       </widgets>
-      <widgets xsi:type="model:TextField" id="1186" x="380" y="32" width="200" text="DEFAULT_CERT_FORM" measuredWidth="200" measuredHeight="25">
+      <widgets xsi:type="model:TextField" id="1186" x="88" y="113" width="200" text="DEFAULT_CERT_FORM" measuredWidth="200" measuredHeight="25">
         <font/>
       </widgets>
       <widgets xsi:type="model:Label" id="1187" x="5" y="86" width="87" text="*证件编码：" measuredWidth="87" measuredHeight="25" textAlignment="Right">
@@ -83,44 +81,165 @@
       <widgets xsi:type="model:TextField" id="1188" x="88" y="86" width="200" text="certIdentity" measuredWidth="200" measuredHeight="25">
         <font/>
       </widgets>
-      <widgets xsi:type="model:Label" id="1190" x="331" y="113" text="排序号：" measuredWidth="53" measuredHeight="25" textAlignment="Right">
+      <widgets xsi:type="model:Label" id="1190" x="330" y="86" text="排序号：" measuredWidth="53" measuredHeight="25" textAlignment="Right">
         <font/>
       </widgets>
-      <widgets xsi:type="model:TextField" id="1191" x="380" y="113" width="200" text="2001" measuredWidth="200" measuredHeight="25">
+      <widgets xsi:type="model:TextField" id="1191" x="379" y="86" width="200" text="2001" measuredWidth="200" measuredHeight="25">
         <font/>
       </widgets>
-      <widgets xsi:type="model:Label" id="1192" x="22" y="113" text="*分拆页数：" measuredWidth="70" measuredHeight="25" textAlignment="Right">
+      <widgets xsi:type="model:Label" id="1194" x="314" y="32" text="*合并配置：" measuredWidth="70" measuredHeight="25" textAlignment="Right">
         <font/>
       </widgets>
-      <widgets xsi:type="model:TextField" id="1193" x="88" y="113" width="200" text="2" measuredWidth="200" measuredHeight="25">
+      <widgets xsi:type="model:TextField" id="1195" x="380" y="32" width="200" text="1,1" measuredWidth="200" measuredHeight="25">
         <font/>
       </widgets>
-      <widgets xsi:type="model:Label" id="1194" x="314" y="59" text="合并配置：" measuredWidth="65" measuredHeight="25" textAlignment="Right">
+      <widgets xsi:type="model:WidgetGroup" id="1209" x="296" y="59" measuredWidth="174" measuredHeight="25">
+        <widgets xsi:type="model:Label" id="1200" width="87" text="*打印宽度：" measuredWidth="87" measuredHeight="25" textAlignment="Right">
+          <font/>
+        </widgets>
+        <widgets xsi:type="model:TextField" id="1201" x="83" width="61" text="172" measuredWidth="61" measuredHeight="25" textAlignment="Right">
+          <font/>
+        </widgets>
+        <widgets xsi:type="model:Label" id="1202" x="146" width="28" text="毫米" measuredWidth="28" measuredHeight="25">
+          <font/>
+        </widgets>
+      </widgets>
+      <widgets xsi:type="model:Label" id="1207" x="22" y="140" text="*分拆页数：" measuredWidth="70" measuredHeight="25" textAlignment="Right">
         <font/>
       </widgets>
-      <widgets xsi:type="model:TextField" id="1195" x="380" y="59" width="200" text="1,1" measuredWidth="200" measuredHeight="25">
-        <font/>
-      </widgets>
-      <widgets xsi:type="model:Label" id="1200" x="297" y="85" width="87" text="*打印宽度：" measuredWidth="87" measuredHeight="25" textAlignment="Right">
-        <font/>
-      </widgets>
-      <widgets xsi:type="model:TextField" id="1201" x="380" y="85" width="61" text="172" measuredWidth="61" measuredHeight="25" textAlignment="Right">
-        <font/>
-      </widgets>
-      <widgets xsi:type="model:Label" id="1202" x="443" y="85" width="28" text="毫米" measuredWidth="28" measuredHeight="25">
+      <widgets xsi:type="model:TextField" id="1208" x="88" y="140" width="200" text="2" measuredWidth="200" measuredHeight="25">
         <font/>
       </widgets>
     </widgets>
-    <widgets xsi:type="model:Button" id="1196" x="529" y="307" width="51" text="保存" measuredWidth="51" measuredHeight="27">
+    <widgets xsi:type="model:Button" id="1196" x="529" y="309" width="51" text="保存" measuredWidth="51" measuredHeight="27">
       <font/>
     </widgets>
-    <widgets xsi:type="model:Text" id="1197" x="120" y="284" width="460" height="22" text="登记：张三(2011-01-01 12:00)，最后修改：李四(2013-01-01 14:00)" measuredWidth="460" measuredHeight="22" textAlignment="Right" foreground="#999999">
+    <widgets xsi:type="model:Text" id="1197" x="120" y="286" width="460" height="22" text="登记：张三(2011-01-01 12:00)，最后修改：李四(2013-01-01 14:00)" measuredWidth="460" measuredHeight="22" textAlignment="Right" foreground="#999999">
       <font/>
     </widgets>
-    <widgets xsi:type="model:Button" id="1198" x="472" y="307" width="51" text="预览" measuredWidth="51" measuredHeight="27">
+    <widgets xsi:type="model:Button" id="1198" x="472" y="309" width="51" text="预览" measuredWidth="51" measuredHeight="27">
       <font/>
     </widgets>
-    <widgets xsi:type="model:HLine" id="1199" y="300" width="585" measuredWidth="585" measuredHeight="6"/>
+    <widgets xsi:type="model:HLine" id="1199" y="302" width="585" measuredWidth="585" measuredHeight="6"/>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="1210" x="600" y="160" measuredWidth="585" measuredHeight="253">
+    <widgets xsi:type="model:Window" id="1211" width="585" height="253" text="X证预览 - 单页证件的情况" measuredWidth="585" measuredHeight="253"/>
+    <widgets xsi:type="model:WidgetGroup" id="1212" y="126" measuredWidth="585" measuredHeight="91">
+      <widgets xsi:type="model:Accordion" id="1213" width="585" height="91" text="证件图片：实物宽度 [123.50] 毫米" measuredWidth="585" measuredHeight="91" selection="0">
+        <items x="0" y="2" width="585" height="27" text="证件图片：实物宽度 [123.50] 毫米"/>
+      </widgets>
+      <widgets xsi:type="model:Icon" id="1215" x="565" y="7" measuredWidth="16" measuredHeight="16" icon="line-arrow-up (small)"/>
+      <widgets xsi:type="model:Icon" id="1216" x="544" y="7" measuredWidth="16" measuredHeight="16" icon="print (small)"/>
+      <widgets xsi:type="model:Icon" id="1217" x="520" y="7" measuredWidth="16" measuredHeight="16" icon="edit (small)"/>
+      <widgets xsi:type="model:Icon" id="1251" x="10" y="37" width="48" height="48" measuredWidth="48" measuredHeight="48" foreground="#666666" icon="sad (xlarge)"/>
+      <widgets xsi:type="model:Label" id="1307" x="72" y="48" text="注：img图片的样式设置 max-width: 100 %" measuredWidth="242" measuredHeight="25" foreground="#999999">
+        <font/>
+      </widgets>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="1218" y="19" measuredWidth="585" measuredHeight="109">
+      <widgets xsi:type="model:Accordion" id="1219" width="585" height="109" text="基本信息" measuredWidth="585" measuredHeight="109" selection="0">
+        <items x="0" y="2" width="585" height="27" text="基本信息"/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="1221" x="46" y="59" text="*备注：" measuredWidth="46" measuredHeight="25" textAlignment="Right">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="1222" x="46" y="32" text="*标题：" measuredWidth="46" measuredHeight="25" textAlignment="Right">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:TextField" id="1223" x="88" y="59" width="492" measuredWidth="492" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="1235" x="326" y="32" text="*版本号：" measuredWidth="58" measuredHeight="25" textAlignment="Right">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:TextField" id="1236" x="380" y="32" width="200" text="1.0" measuredWidth="200" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:TextField" id="1247" x="88" y="32" width="200" text="张三X证" measuredWidth="200" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Text" id="1248" x="120" y="87" width="460" height="22" text="登记：张三(2011-01-01 12:00)，最后修改：李四(2013-01-01 14:00)" measuredWidth="460" measuredHeight="22" textAlignment="Right" foreground="#999999">
+        <font/>
+      </widgets>
+    </widgets>
+    <widgets xsi:type="model:Button" id="1243" x="503" y="221" width="76" text="保存并关闭" measuredWidth="76" measuredHeight="27">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Button" id="1245" x="447" y="221" width="51" text="保存" measuredWidth="51" measuredHeight="27">
+      <font/>
+    </widgets>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="1272" x="600" y="424" measuredWidth="585" measuredHeight="433">
+    <widgets xsi:type="model:Window" id="1273" width="585" height="433" text="X证预览 - 多页证件的情况" measuredWidth="585" measuredHeight="433"/>
+    <widgets xsi:type="model:WidgetGroup" id="1274" y="126" measuredWidth="585" measuredHeight="91">
+      <widgets xsi:type="model:Accordion" id="1275" width="585" height="91" text="证件图片：实物宽度 [334.50] 毫米" measuredWidth="585" measuredHeight="91" selection="0">
+        <items x="0" y="2" width="585" height="27" text="证件图片：实物宽度 [334.50] 毫米"/>
+      </widgets>
+      <widgets xsi:type="model:Icon" id="1276" x="565" y="7" measuredWidth="16" measuredHeight="16" icon="line-arrow-up (small)"/>
+      <widgets xsi:type="model:Icon" id="1277" x="544" y="7" measuredWidth="16" measuredHeight="16" icon="print (small)"/>
+      <widgets xsi:type="model:Icon" id="1278" x="520" y="7" measuredWidth="16" measuredHeight="16" icon="edit (small)"/>
+      <widgets xsi:type="model:Icon" id="1279" x="10" y="37" width="48" height="48" measuredWidth="48" measuredHeight="48" foreground="#666666" icon="sad (xlarge)"/>
+      <widgets xsi:type="model:Icon" id="1297" x="496" y="7" measuredWidth="16" measuredHeight="16" icon="table (small)"/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="1280" y="19" measuredWidth="585" measuredHeight="109">
+      <widgets xsi:type="model:Accordion" id="1281" width="585" height="109" text="基本信息" measuredWidth="585" measuredHeight="109" selection="0">
+        <items x="0" y="2" width="585" height="27" text="基本信息"/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="1282" x="46" y="59" text="*备注：" measuredWidth="46" measuredHeight="25" textAlignment="Right">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="1283" x="46" y="32" text="*标题：" measuredWidth="46" measuredHeight="25" textAlignment="Right">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:TextField" id="1284" x="88" y="59" width="492" measuredWidth="492" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="1285" x="326" y="32" text="*版本号：" measuredWidth="58" measuredHeight="25" textAlignment="Right">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:TextField" id="1286" x="380" y="32" width="200" text="1.0" measuredWidth="200" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:TextField" id="1287" x="88" y="32" width="200" text="张三X证" measuredWidth="200" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Text" id="1288" x="120" y="87" width="460" height="22" text="登记：张三(2011-01-01 12:00)，最后修改：李四(2013-01-01 14:00)" measuredWidth="460" measuredHeight="22" textAlignment="Right" foreground="#999999">
+        <font/>
+      </widgets>
+    </widgets>
+    <widgets xsi:type="model:Button" id="1289" x="503" y="400" width="76" text="保存并关闭" measuredWidth="76" measuredHeight="27">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Button" id="1290" x="447" y="400" width="51" text="保存" measuredWidth="51" measuredHeight="27">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="1291" y="215" measuredWidth="585" measuredHeight="91">
+      <widgets xsi:type="model:Accordion" id="1292" width="585" height="91" text="第1页（正面）图片：实物宽度 [111.50] 毫米" measuredWidth="585" measuredHeight="91" selection="0">
+        <items x="0" y="2" width="585" height="27" text="第1页（正面）图片：实物宽度 [111.50] 毫米"/>
+      </widgets>
+      <widgets xsi:type="model:Icon" id="1293" x="565" y="7" measuredWidth="16" measuredHeight="16" icon="line-arrow-up (small)"/>
+      <widgets xsi:type="model:Icon" id="1294" x="544" y="7" measuredWidth="16" measuredHeight="16" icon="print (small)"/>
+      <widgets xsi:type="model:Icon" id="1295" x="520" y="7" measuredWidth="16" measuredHeight="16" icon="edit (small)"/>
+      <widgets xsi:type="model:Icon" id="1296" x="10" y="37" width="48" height="48" measuredWidth="48" measuredHeight="48" foreground="#666666" icon="sad (xlarge)"/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="1298" y="305" measuredWidth="585" measuredHeight="91">
+      <widgets xsi:type="model:Accordion" id="1299" width="585" height="91" text="第2页（背面）图片：实物宽度 [222.50] 毫米" measuredWidth="585" measuredHeight="91" selection="0">
+        <items x="0" y="2" width="585" height="27" text="第2页（背面）图片：实物宽度 [222.50] 毫米"/>
+      </widgets>
+      <widgets xsi:type="model:Icon" id="1300" x="565" y="7" measuredWidth="16" measuredHeight="16" icon="line-arrow-up (small)"/>
+      <widgets xsi:type="model:Icon" id="1301" x="544" y="7" measuredWidth="16" measuredHeight="16" icon="print (small)"/>
+      <widgets xsi:type="model:Icon" id="1302" x="520" y="7" measuredWidth="16" measuredHeight="16" icon="edit (small)"/>
+      <widgets xsi:type="model:Icon" id="1303" x="10" y="37" width="48" height="48" measuredWidth="48" measuredHeight="48" foreground="#666666" icon="sad (xlarge)"/>
+    </widgets>
+  </widgets>
+  <widgets xsi:type="model:Tooltip" id="1304" x="1075" y="574" text="合并" measuredWidth="34" measuredHeight="42" background="#ffff00" position="topRight">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Tooltip" id="1305" x="1098" y="309" text="编辑" measuredWidth="34" measuredHeight="42" background="#ffff00" position="topRight">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Tooltip" id="1306" x="1148" y="309" text="打印" measuredWidth="34" measuredHeight="42" background="#ffff00" position="topLeft">
+    <font/>
   </widgets>
   <hRuler/>
   <vRuler/>

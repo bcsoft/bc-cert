@@ -73,7 +73,7 @@ insert into BC_IDENTITY_ROLE_RESOURCE (RID,SID)
 -- 插入证件表单模板
 -- 默认模板
 insert into BC_TEMPLATE (ID,UID_,STATUS_,ORDER_,CATEGORY,CODE,VERSION_,FORMATTED,INNER_,PATH,SIZE_,SUBJECT,DESC_,TYPE_ID,FILE_DATE,AUTHOR_ID) 
-	select NEXTVAL('CORE_SEQUENCE'),'Template.cmc.0',0,'6000','证件模板','DEFAULT_CERT_FORM','1',true,false,'/bs/default.cert.form.ftl',25000,'默认证件表单模板','',
+	select NEXTVAL('CORE_SEQUENCE'),'Template.cmc.0',0,'6000','证件模板','DEFAULT_CERT_FORM','1',true,false,'/bc/default.cert.form.ftl',25000,'默认证件表单模板','',
 	(select id from BC_TEMPLATE_TYPE where code='freemarker'),now(),(select id from BC_IDENTITY_ACTOR_HISTORY where actor_name='系统管理员' and current=true)
 	from bc_dual where  not exists(select 1 from bc_template where uid_= 'Template.cmc.0');
 	

@@ -6,7 +6,10 @@ import cn.bc.cert.Dao.CertCfgDao;
 import cn.bc.cert.domain.CertCfg;
 import cn.bc.core.service.DefaultCrudService;
 
-public class CertCfgServiceImpl  extends DefaultCrudService<CertCfg> implements CertCfgService {
+import java.util.List;
+import java.util.Map;
+
+public class CertCfgServiceImpl extends DefaultCrudService<CertCfg> implements CertCfgService {
 
 	private CertCfgDao certCfgDao;
 	
@@ -17,7 +20,10 @@ public class CertCfgServiceImpl  extends DefaultCrudService<CertCfg> implements 
 	}
 	
 	public CertCfg loadById(Long id) {
-		
 		return this.certCfgDao.loadById(id);
+	}
+
+	public List<Map<String, String>> findEnabled4Option(String typeCode) {
+		return this.certCfgDao.findEnabled4Option(typeCode);
 	}
 }

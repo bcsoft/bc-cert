@@ -22,11 +22,6 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>cn.bc.business</groupId>
-			<artifactId>bc-business-carman</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>cn.bc</groupId>
 			<artifactId>bc-template</artifactId>
 			<version>${project.version}</version>

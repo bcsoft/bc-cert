@@ -241,7 +241,84 @@
   <widgets xsi:type="model:Tooltip" id="1306" x="1148" y="309" text="打印" measuredWidth="34" measuredHeight="42" background="#ffff00" position="topLeft">
     <font/>
   </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="1308" x="8" y="648" measuredWidth="585" measuredHeight="289">
+    <widgets xsi:type="model:Window" id="1309" width="585" height="289" text="张三X证 - 新建|编辑 时的表单界面，直接编辑 BC_FORM 表相关字段的信息" measuredWidth="585" measuredHeight="289"/>
+    <widgets xsi:type="model:Label" id="1316" x="10" y="216" text="以下部分与“预览”功能相应的表单区域相同" measuredWidth="233" measuredHeight="25" foreground="#ff0000">
+      <font bold="true"/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="1317" y="19" measuredWidth="585" measuredHeight="191">
+      <widgets xsi:type="model:Accordion" id="1318" width="585" height="187" text="基本信息" measuredWidth="585" measuredHeight="187" selection="0">
+        <items x="0" y="2" width="585" height="27" text="基本信息"/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="1319" x="46" y="140" text="*备注：" measuredWidth="46" measuredHeight="25" textAlignment="Right">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="1320" x="46" y="32" text="*标题：" measuredWidth="46" measuredHeight="25" textAlignment="Right">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:TextField" id="1321" x="88" y="140" width="492" measuredWidth="492" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="1322" x="326" y="32" text="*版本号：" measuredWidth="58" measuredHeight="25" textAlignment="Right">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:TextField" id="1323" x="380" y="32" width="200" text="1.0" measuredWidth="200" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:TextField" id="1324" x="88" y="32" width="200" text="张三X证" measuredWidth="200" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Text" id="1325" x="120" y="169" width="460" height="22" text="登记：张三(2011-01-01 12:00)，最后修改：李四(2013-01-01 14:00)" measuredWidth="460" measuredHeight="22" textAlignment="Right" foreground="#999999">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="1328" x="50" y="59" text="*PID：" measuredWidth="42" measuredHeight="25" textAlignment="Right">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="1329" x="314" y="59" text="*类别编码：" measuredWidth="70" measuredHeight="25" textAlignment="Right">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:TextField" id="1330" x="380" y="59" width="200" text="DriverCert" measuredWidth="200" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:TextField" id="1331" x="88" y="59" width="200" text="123" measuredWidth="200" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="1332" x="48" y="86" text="*UID：" measuredWidth="44" measuredHeight="25" textAlignment="Right">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="1333" x="314" y="86" text="*证件编码：" measuredWidth="70" measuredHeight="25" textAlignment="Right">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:TextField" id="1334" x="380" y="86" width="200" text="SFZ" measuredWidth="200" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:TextField" id="1335" x="88" y="86" width="200" text="Cert.uid.123" measuredWidth="200" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="1336" x="46" y="113" text="*状态：" measuredWidth="46" measuredHeight="25" textAlignment="Right">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:TextField" id="1337" x="88" y="113" width="200" text="0" measuredWidth="200" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="1338" x="314" y="113" text="*所用模板：" measuredWidth="70" measuredHeight="25" textAlignment="Right">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:TextField" id="1339" x="380" y="113" width="200" text="DEFAULT_CERT_FORM" measuredWidth="200" measuredHeight="25">
+        <font/>
+      </widgets>
+    </widgets>
+    <widgets xsi:type="model:Button" id="1326" x="504" y="257" width="76" text="保存并关闭" measuredWidth="76" measuredHeight="27">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Button" id="1327" x="448" y="257" width="51" text="保存" measuredWidth="51" measuredHeight="27">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:HLine" id="1340" y="249" width="585" measuredWidth="585" measuredHeight="6"/>
+  </widgets>
   <hRuler/>
-  <vRuler/>
+  <vRuler>
+    <guides position="847"/>
+  </vRuler>
   <font size="12px"/>
 </model:Screen>

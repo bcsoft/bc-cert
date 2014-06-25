@@ -26,6 +26,12 @@
 	<bean id="certCfgService" class="cn.bc.cert.service.CertCfgServiceImpl"
 		p:crudDao-ref="certCfgDao" /> 
 		
+		<!--  证件类型 -->
+	<bean id="certInfoDao" class="cn.bc.cert.hibernate.jpa.CertInfoDaoImpl"
+		p:entityManagerFactory-ref="entityManagerFactory" />
+	<bean id="certInfoService" class="cn.bc.cert.service.CertInfoServiceImpl"
+		p:crudDao-ref="certInfoDao" /> 
+		
 	<!-- <bean id="certCfgDao" class="cn.bc.orm.hibernate.jpa.HibernateCrudJpaDao"
 		p:entityClass="cn.bc.cert.domain.CertCfg"
 		p:entityManagerFactory-ref="entityManagerFactory" />

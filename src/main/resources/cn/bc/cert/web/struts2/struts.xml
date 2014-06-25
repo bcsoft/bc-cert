@@ -77,5 +77,8 @@
 			<result name="form">/modules/bc/cert/certInfo/form.jsp</result>
 		</action>	
 	</package>
-
+    <!-- 证件打印 -->
+    <package name="printCert" extends="bc-default" namespace="/modules/bc/cert">
+        <action name="print" class="certPrintAction" method="execute"/>
+    </package>
 </struts>

@@ -151,7 +151,7 @@ public class CertTypesAction extends ViewAction<Map<String, Object>> {
 
 	@Override
 	protected PageOption getHtmlPageOption() {
-		return super.getHtmlPageOption().setWidth(670).setMinWidth(450)
+		return super.getHtmlPageOption().setWidth(600).setMinWidth(500)
 				.setHeight(400).setMinHeight(200);
 	}
 
@@ -182,7 +182,7 @@ public class CertTypesAction extends ViewAction<Map<String, Object>> {
 
 	@Override
 	protected OrderCondition getGridDefaultOrderCondition() {
-		return new OrderCondition("ct.order_no", Direction.Desc);
+		return new OrderCondition("ct.order_no", Direction.Asc);
 	}
 
 	@Override

@@ -41,7 +41,7 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 	public boolean isReadonly() {
 		// 证件管理
 		SystemContext context = (SystemContext) this.getContext();
-		return !context.hasAnyRole(getText("key.role.bc.cert.manage"));
+		return !context.hasAnyRole(getText("key.role.bc.cert.acl.manage"));
 	}
 
 	@Override
@@ -123,7 +123,7 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 
 		// 状态
 		columns.add(new TextColumn4MapKey("cc.status_", "status",
-				getText("certCfg.status"),60).setSortable(true).setValueFormater(new AbstractFormater<String>() {
+				getText("certCfg.status"),40).setSortable(true).setValueFormater(new AbstractFormater<String>() {
 
 					@Override
 					public String format(Object context, Object value) {
@@ -147,7 +147,7 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 		
 		// 证件名称
 		columns.add(new TextColumn4MapKey("cc.name", "name",
-				getText("certCfg.name"),150).setSortable(true).setUseTitleFromLabel(true));
+				getText("certCfg.name"),120).setSortable(true).setUseTitleFromLabel(true));
 	
 		// 编码
 		columns.add(new TextColumn4MapKey("cc.code", "code",
@@ -167,7 +167,7 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 				getText("certCfg.width"),60).setSortable(true));
 		// 合并配置
 		columns.add(new TextColumn4MapKey("cc.combine", "combine",
-				getText("certCfg.combine"),100).setSortable(true));
+				getText("certCfg.combine"),80).setSortable(true));
 		// 所用模板
 		columns.add(new TextColumn4MapKey("cc.tpl", "tpl",
 				getText("certCfg.tpl"),150).setSortable(true).setUseTitleFromLabel(true));
@@ -210,7 +210,7 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 
 	@Override
 	protected PageOption getHtmlPageOption() {
-		return super.getHtmlPageOption().setWidth(870).setMinWidth(450)
+		return super.getHtmlPageOption().setWidth(870).setMinWidth(680)
 				.setHeight(400).setMinHeight(200);
 	}
 

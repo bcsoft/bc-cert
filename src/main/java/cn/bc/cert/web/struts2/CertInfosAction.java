@@ -57,7 +57,10 @@ public class CertInfosAction extends ViewAction<Map<String, Object>> {
 
 	@Override
 	protected String getHtmlPageJs() {
-		return this.getModuleContextPath() + "/certInfo/view.js";
+		return this.getModuleContextPath() + "/certInfo/view.js"+","+this.getContextPath()+"/bc-business/bs.js"
+				+","+this.getContextPath()+"/modules/bc/cert/certCfg/form.js"+","+this.getContextPath()+"/bc-business/carManCert/view.js"
+				+","+this.getContextPath()+"/bc/form/customForm.js"+","+this.getContextPath()+"/bc-business/carManCert/carManCert.js"
+				+","+this.getContextPath()+"/bc-business/carManCert/form.js";
 	}
 
 	/** 页面加载后调用的js初始化方法 */
@@ -73,13 +76,16 @@ public class CertInfosAction extends ViewAction<Map<String, Object>> {
 
 		// 构建查询语句,where和order by不要包含在sql中(要统一放到condition中)
 		StringBuffer sql = new StringBuffer();
-		sql.append("select f.id as id,f.file_date as file_date,t.name as type,c.name as name,");
-		sql.append("f.subject as subject,f.version_ as version,f.desc_ as desc,");
+		sql.append("select f.id as id,f.uid_ as uid,f.file_date as file_date,f.type_ as f_type,t.name as type,c.name as name,f.code as code,");
+		sql.append("f.subject as subject,f.ver_ as version,f.desc_ as desc,");
 		sql.append("iah.actor_name as actor_name,f.modified_date as modify_date,");
+		sql.append("f.tpl_ as tpl,f.pid as pid,c.combine as combine,c.page_count as page_count,c.width as width,");
+		//sql.append("d.page_no as page_no,d.width as page_width,d.name as page_name,");
 		sql.append("getaccessactors4docidtype4docidinteger(f.id,'CertInfo')");
 		sql.append(" from bc_form f");
-		sql.append(" inner join bc_cert_cfg c on c.name = f.code");
-		sql.append(" inner join bc_cert_type t on t.name = f.type_");
+		sql.append(" inner join bc_cert_cfg c on c.code = f.code");
+		sql.append(" inner join bc_cert_type t on t.code = f.type_");
+		//sql.append(" join bc_cert_cfg_detail d on d.pid = c.id");
 		sql.append(" left join bc_identity_actor_history iah on iah.id = f.modifier_id");
 
 		sqlObject.setSql(sql.toString());
@@ -92,14 +98,26 @@ public class CertInfosAction extends ViewAction<Map<String, Object>> {
 				Map<String, Object> map = new HashMap<String, Object>();
 				int i = 0;
 				map.put("id", rs[i++]);
+				map.put("uid", rs[i++]);
+				//map.put("pid", rs[i++]);
 				map.put("file_date", rs[i++]);
+				map.put("f_type", rs[i++]);
 				map.put("type", rs[i++]);
 				map.put("name", rs[i++]);
+				map.put("code", rs[i++]);
 				map.put("subject", rs[i++]);
 				map.put("version", rs[i++]);
 				map.put("desc", rs[i++]);
 				map.put("actor_name", rs[i++]);
 				map.put("modify_date", rs[i++]);
+				map.put("tpl", rs[i++]);
+				map.put("pid", rs[i++]);
+				map.put("combine", rs[i++]);
+				map.put("page_count", rs[i++]);
+				map.put("width", rs[i++]);
+				/*map.put("page_no", rs[i++]);
+				map.put("page_width", rs[i++]);
+				map.put("page_name", rs[i++]);*/
 				map.put("accessactors", rs[i++]);
 				map.put("accessControlDocType","CertInfo");
 				return map;
@@ -149,7 +167,7 @@ public class CertInfosAction extends ViewAction<Map<String, Object>> {
 				.setUseTitleFromLabel(true));
 	
 		// 版本
-		columns.add(new TextColumn4MapKey("f.version_", "version",
+		columns.add(new TextColumn4MapKey("f.ver_", "version",
 				getText("certInfo.version"),100).setSortable(true));
 		
 		// 备注
@@ -182,8 +200,20 @@ public class CertInfosAction extends ViewAction<Map<String, Object>> {
 					}
 				}).setUseTitleFromLabel(true));
 		
+		columns.add(new HiddenColumn4MapKey("uid", "uid"));
+		columns.add(new HiddenColumn4MapKey("code", "code"));
 		columns.add(new HiddenColumn4MapKey("accessControlDocType","accessControlDocType"));
 		columns.add(new HiddenColumn4MapKey("accessControlDocName", "name"));
+		columns.add(new HiddenColumn4MapKey("tpl", "tpl"));
+		columns.add(new HiddenColumn4MapKey("pid", "pid"));
+		columns.add(new HiddenColumn4MapKey("type", "f_type"));
+		columns.add(new HiddenColumn4MapKey("combine", "combine"));
+		columns.add(new HiddenColumn4MapKey("page_count", "page_count"));
+		columns.add(new HiddenColumn4MapKey("width", "width"));
+		columns.add(new HiddenColumn4MapKey("subject", "subject"));
+		/*columns.add(new HiddenColumn4MapKey("d.page_no", "page_no"));
+		columns.add(new HiddenColumn4MapKey("d.width", "page_width"));
+		columns.add(new HiddenColumn4MapKey("d.name", "page_name"));*/
 		return columns;
 	}
 
@@ -210,8 +240,11 @@ public class CertInfosAction extends ViewAction<Map<String, Object>> {
 					.getDefaultCreateToolbarButton(getText("label.create")));
 
 			// 编辑按钮
-			tb.addButton(Toolbar
-					.getDefaultEditToolbarButton(getText("label.edit")));
+			tb.addButton(new ToolbarButton()
+					.setIcon("ui-icon-pencil")
+					.setText(getText("label.edit"))
+					.setClick(
+							("bc.certInfoFormView.edit")));
 
 			// 删除按钮
 			tb.addButton(Toolbar
@@ -230,6 +263,11 @@ public class CertInfosAction extends ViewAction<Map<String, Object>> {
 		return tb;
 	}
 	
+	@Override
+	protected String getGridDblRowMethod() {
+		return "bc.certInfoFormView.edit";
+	}
+	
 
 	@Override
 	protected OrderCondition getGridDefaultOrderCondition() {
@@ -238,7 +276,7 @@ public class CertInfosAction extends ViewAction<Map<String, Object>> {
 
 	@Override
 	protected String getGridRowLabelExpression() {
-		return "['name']";
+		return "['subject']";
 	}
 
 	@Override

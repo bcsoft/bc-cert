@@ -17,8 +17,7 @@
 		<action name="data" class="certTypesAction" method="data"/>
 	</package>
 	<!-- 证件类型  表单 -->
-	<package name="certType" extends="bc-default" namespace="/modules/bc/cert/certType">
-		
+	<package name="certType" extends="bc-default" namespace="/modules/bc/cert/certType">		
 		<action name="save" class="certTypeAction" method="save"/>
 		<action name="delete" class="certTypeAction" method="delete"/>
 		<action name="open" class="certTypeAction" method="open">

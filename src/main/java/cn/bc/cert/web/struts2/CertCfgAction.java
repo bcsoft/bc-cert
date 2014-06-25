@@ -84,7 +84,7 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 		SystemContext context = (SystemContext) this.getContext();
 		
 		boolean flag = context.hasAnyRole(
-				getText("key.role.bc.cert.manage"));
+				getText("key.role.bc.cert.acl.manage"));
 		return !flag;
 		
 	}
@@ -101,7 +101,7 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 
 	@Override
 	protected PageOption buildFormPageOption(boolean editable) {
-		return super.buildFormPageOption(editable).setWidth(680)
+		return super.buildFormPageOption(editable).setWidth(650)
 				.setMinHeight(200).setMinWidth(600);
 	}
 	
@@ -190,12 +190,7 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 				certCfgDetail.setName(json.getString("name"));
 				certCfgDetail.setPage_no(json.getInt("page_no"));
 				certCfgDetail.setWidth(new BigDecimal(json.getString("width")));
-				//CertCfg certCfg = new CertCfg();
-				//long pid = json.getLong("pid");	
-				//certCfg.setId(pid);
 				certCfgDetail.setCertCfg(this.getE());
-				//certCfgDetail.setCertCfg(this.certCfgService.load(pid));	
-
 				certCfgDetails.add(certCfgDetail);
 			}
 		}

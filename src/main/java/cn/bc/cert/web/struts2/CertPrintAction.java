@@ -50,7 +50,7 @@ public class CertPrintAction extends ActionSupport {
 
         // 获取数据,格式为: [{typeName, typeCode, certName, certCode, version, attachWidth, attachId},...]
         StringBuffer sql = new StringBuffer();
-        sql.append("with cfg(type_, code, pid, ver_) as (\r\n");
+        sql.append("with cfg(type_, code, pid, ver_, order_) as (\r\n");
         JSONObject cfg;
         for (int i = 0; i < cfgs.length(); i++) {
             cfg = cfgs.getJSONObject(i);
@@ -61,6 +61,7 @@ public class CertPrintAction extends ActionSupport {
             sql.append(", '" + cfg.getString("code") + "'::text");
             sql.append(", " + cfg.getString("pid"));
             sql.append(", '" + cfg.getString("ver") + "'::text");
+            sql.append(", " + i);
         }
         sql.append("\r\n) select ct.name typeName, ct.code typeCode, cc.name certName, cc.code certCode, c.pid pid, c.ver_ as version\r\n");
         sql.append("	, f.subject subject, f.desc_ as description\r\n");
@@ -70,7 +71,7 @@ public class CertPrintAction extends ActionSupport {
         sql.append("	inner join cfg c on (c.type_ = f.type_ and c.code = f.code and c.pid = f.pid and c.ver_ = f.ver_)\r\n");
         sql.append("	inner join bc_cert_cfg cc on (cc.code = c.code)\r\n");
         sql.append("	inner join bc_cert_type ct on (ct.code = c.type_)\r\n");
-        sql.append("	order by ct.order_no, cc.order_no;\r\n");
+        sql.append("	order by c.order_, ct.order_no, cc.order_no;\r\n");
         if(logger.isDebugEnabled()){
             logger.debug("sql=" + sql);
         }

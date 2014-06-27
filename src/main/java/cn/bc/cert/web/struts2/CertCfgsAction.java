@@ -39,9 +39,9 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 
 	@Override
 	public boolean isReadonly() {
-		// 证件管理
+		// 证件管理||超级管理员
 		SystemContext context = (SystemContext) this.getContext();
-		return !context.hasAnyRole(getText("key.role.bc.cert.acl.manage"));
+		return !context.hasAnyRole(getText("key.role.bc.cert.manage"),getText("key.role.bc.admin"));
 	}
 
 	@Override
@@ -230,10 +230,15 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 			tb.addButton(Toolbar
 					.getDefaultDeleteToolbarButton(getText("label.delete")));
 			
-			// 访问配置按钮
-			tb.addButton(new ToolbarButton().setIcon("ui-icon-lightbulb")
-					.setText(getText("certCfg.access"))
-					.setClick("bc.certCfgFormView.access"));
+			SystemContext context = (SystemContext) this.getContext();
+			boolean isAcl = !context.hasAnyRole(getText("key.role.bc.cert.acl.manage"));
+			
+			if(!isAcl){
+				// 访问配置按钮
+				tb.addButton(new ToolbarButton().setIcon("ui-icon-lightbulb")
+						.setText(getText("certCfg.access"))
+						.setClick("bc.certCfgFormView.access"));
+			}
 			
 			// 搜索按钮
 			tb.addButton(this.getDefaultSearchToolbarButton());

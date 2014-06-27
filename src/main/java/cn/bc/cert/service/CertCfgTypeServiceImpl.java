@@ -27,4 +27,9 @@ public class CertCfgTypeServiceImpl  extends DefaultCrudService<CertType> implem
 	public CertType loadById(Long id) {
 		return this.certCfgTypeDao.loadById(id);
 	}
+
+	public boolean isUnique(Long id, String code) {
+		
+		return this.certCfgTypeDao.isUnique(id, code);
+	}
 }

@@ -82,6 +82,15 @@ insert into BC_IDENTITY_ROLE_RESOURCE (RID,SID)
 			and sid=(select m2.id from BC_IDENTITY_RESOURCE m2 where m2.type_ > 1 and m2.order_ in ('800601')))
 	order by m.order_;
 	
+-- 权限配置：证件管理访问证件配置
+insert into BC_IDENTITY_ROLE_RESOURCE (RID,SID) 
+	select r.id,m.id from BC_IDENTITY_ROLE r,BC_IDENTITY_RESOURCE m where r.code='BC_CERT_MANAGE' 
+	and m.type_ > 1 and m.order_ in ('800602')
+	and not exists(select 1 from BC_IDENTITY_ROLE_RESOURCE 
+			where rid=(select r2.id from BC_IDENTITY_ROLE r2 where r2.code='BC_CERT_MANAGE')
+			and sid=(select m2.id from BC_IDENTITY_RESOURCE m2 where m2.type_ > 1 and m2.order_ in ('800602')))
+	order by m.order_;
+	
 	-- 权限配置：证件管理员访问证件信息
 insert into BC_IDENTITY_ROLE_RESOURCE (RID,SID) 
 	select r.id,m.id from BC_IDENTITY_ROLE r,BC_IDENTITY_RESOURCE m where r.code='BC_CERT_MANAGE' 
@@ -115,15 +124,6 @@ insert into  BC_IDENTITY_ROLE (ID, STATUS_,INNER_,TYPE_,ORDER_,CODE,NAME)
 	from bc_dual
 	where not exists(select 1 from bc_identity_role where code='BC_CERT_ACL_MANAGE');	
 	
-
--- 权限配置：证件访问权限管理访问证件配置
-insert into BC_IDENTITY_ROLE_RESOURCE (RID,SID) 
-	select r.id,m.id from BC_IDENTITY_ROLE r,BC_IDENTITY_RESOURCE m where r.code='BC_CERT_ACL_MANAGE' 
-	and m.type_ > 1 and m.order_ in ('800602')
-	and not exists(select 1 from BC_IDENTITY_ROLE_RESOURCE 
-			where rid=(select r2.id from BC_IDENTITY_ROLE r2 where r2.code='BC_CERT_ACL_MANAGE')
-			and sid=(select m2.id from BC_IDENTITY_RESOURCE m2 where m2.type_ > 1 and m2.order_ in ('800602')))
-	order by m.order_;
 	
 --	增加证件访问权限管理岗CertACLManageGroup
 insert into BC_IDENTITY_ACTOR (ID,UID_,STATUS_,INNER_,TYPE_,CODE, NAME, ORDER_,PCODE,PNAME) 
@@ -139,12 +139,20 @@ insert into BC_IDENTITY_ACTOR_RELATION (TYPE_,MASTER_ID,FOLLOWER_ID)
 	and af.CODE = 'CertACLManageGroup' 
 	and not exists (select 0 from BC_IDENTITY_ACTOR_RELATION r where r.TYPE_=0 and r.MASTER_ID=am.id and r.FOLLOWER_ID=af.id);
 
--- 配置岗位跟角色的关系
+-- 配置证件访问权限管理岗位跟证件访问权限角色的关系
 insert into BC_IDENTITY_ROLE_ACTOR (RID,AID) 
 	select r.id,a.id 
 	from BC_IDENTITY_ROLE r,BC_IDENTITY_ACTOR a 
 	where r.CODE = 'BC_CERT_ACL_MANAGE'
 	and a.NAME in ('证件访问权限管理岗')
+	and not exists (select 0 from BC_IDENTITY_ROLE_ACTOR ra where ra.RID=r.id and ra.AID=a.id);
+	
+-- 配置超级岗岗位跟证件管理角色的关系
+insert into BC_IDENTITY_ROLE_ACTOR (RID,AID) 
+	select r.id,a.id 
+	from BC_IDENTITY_ROLE r,BC_IDENTITY_ACTOR a 
+	where r.CODE = 'BC_CERT_MANAGE'
+	and a.NAME in ('超级管理岗')
 	and not exists (select 0 from BC_IDENTITY_ROLE_ACTOR ra where ra.RID=r.id and ra.AID=a.id);
 
 	

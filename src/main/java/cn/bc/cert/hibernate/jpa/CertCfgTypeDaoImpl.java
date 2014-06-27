@@ -4,10 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import junit.framework.Assert;
+
 import cn.bc.cert.Dao.CertCfgTypeDao;
 import cn.bc.cert.domain.CertType;
 import cn.bc.core.query.condition.impl.AndCondition;
 import cn.bc.core.query.condition.impl.EqualsCondition;
+import cn.bc.core.query.condition.impl.NotEqualsCondition;
 import cn.bc.db.jdbc.RowMapper;
 import cn.bc.orm.hibernate.jpa.HibernateCrudJpaDao;
 import cn.bc.orm.hibernate.jpa.HibernateJpaNativeQuery;
@@ -37,6 +40,17 @@ public class CertCfgTypeDaoImpl extends HibernateCrudJpaDao<CertType> implements
 		} else {
 			return this.createQuery().condition(ac).list().get(0);
 		}
+	}
+
+	public boolean isUnique(Long id ,String code) {
+		Assert.assertNotNull(code);
+		AndCondition ac=new AndCondition();
+		if(id != null) {
+			ac.add(new NotEqualsCondition("id",id));
+		}
+		ac.add(new EqualsCondition("code", code));
+		
+		return this.createQuery().condition(ac).count()==0;
 	}
 
 }

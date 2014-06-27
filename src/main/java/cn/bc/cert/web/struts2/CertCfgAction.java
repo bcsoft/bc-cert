@@ -84,7 +84,7 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 		SystemContext context = (SystemContext) this.getContext();
 		
 		boolean flag = context.hasAnyRole(
-				getText("key.role.bc.cert.acl.manage"));
+				getText("key.role.bc.cert.manage"),getText("key.role.bc.admin"));
 		return !flag;
 		
 	}

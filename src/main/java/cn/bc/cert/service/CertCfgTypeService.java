@@ -21,4 +21,11 @@ public interface CertCfgTypeService extends CrudService<CertType>{
 	 * @return
 	 */
 	public CertType loadById(Long id);
+	
+	/**
+	 *判断编号是否唯一
+	 * 
+	 * @return
+	 */
+	public boolean isUnique(Long id,String code);
 }

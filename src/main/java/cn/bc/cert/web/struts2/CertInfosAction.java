@@ -37,7 +37,7 @@ public class CertInfosAction extends ViewAction<Map<String, Object>> {
 	public boolean isReadonly() {
 		// 证件管理
 		SystemContext context = (SystemContext) this.getContext();
-		return !context.hasAnyRole(getText("key.role.bc.cert.manage"));
+		return !context.hasAnyRole(getText("key.role.bc.cert.manage"),getText("key.role.bc.admin"));
 	}
 
 	@Override
@@ -136,16 +136,9 @@ public class CertInfosAction extends ViewAction<Map<String, Object>> {
 		columns.add(new TextColumn4MapKey("f.file_date", "file_date",
 				getText("certInfo.file_date"), 150).setSortable(true)
 				.setValueFormater(new AbstractFormater<String>() {
-
 					@Override
 					public String format(Object context, Object value) {
-						@SuppressWarnings("unchecked")
-						Map<String, Object> map = (Map<String, Object>) context;
-						return value
-								+ " ("
-								+ DateUtils
-										.formatDateTime2Minute((Date) map
-												.get("file_date")) + ")";
+						return DateUtils.formatDateTime2Minute((Date)value);
 					}
 				}));
 
@@ -163,16 +156,15 @@ public class CertInfosAction extends ViewAction<Map<String, Object>> {
 				
 		//访问配置
 		columns.add(new TextColumn4MapKey("", "accessactors",
-				getText("certCfg.access"),150).setSortable(true)
-				.setUseTitleFromLabel(true));
+				getText("certCfg.access"),150).setUseTitleFromLabel(true));
 	
 		// 版本
 		columns.add(new TextColumn4MapKey("f.ver_", "version",
-				getText("certInfo.version"),100).setSortable(true));
+				getText("certInfo.version"),40));
 		
 		// 备注
 		columns.add(new TextColumn4MapKey("f.desc_", "desc",
-				getText("certInfo.desc")).setSortable(true));
+				getText("certInfo.desc")));
 		
 		// 最后修改
 		columns.add(new TextColumn4MapKey("iah.actor_name", "actor_name",

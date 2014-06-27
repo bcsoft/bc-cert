@@ -31,37 +31,37 @@
 			<tr>
 				<td class="label">*PID:</td>
 				<td class="value">
-					<input type="text" name="pid" value="${form.pid!}" cssStyle="width:200px;" cssClass="ui-widget-content" data-validate="required"/>
+					<input type="text" name="pid" value="${form.pid!}" cssStyle="width:200px;" data-scope="form" cssClass="ui-widget-content" data-validate="required"/>
 				</td>
 				<td class="label">*类别编码:</td>
 				<td class="value">
-					<input type="text" name="type" value="${form.type!}" cssStyle="width:200px;" cssClass="ui-widget-content" data-validate="required"/>
+					<input type="text" name="type" value="${form.type!}" cssStyle="width:200px;" data-scope="form" cssClass="ui-widget-content" data-validate="required"/>
 				</td>	
 			</tr>
 			<tr>
 				<td class="label">*UID:</td>
 				<td class="value">
-					<input type="text" name="uid" value="${form.uid!}" cssStyle="width:200px;" cssClass="ui-widget-content" data-validate="required"/>
+					<input type="text" name="uid" value="${form.uid!}" cssStyle="width:200px;" data-scope="form" cssClass="ui-widget-content" data-validate="required"/>
 				</td>	
 				<td class="label">*证件编码:</td>
 				<td class="value">
-					<input type="text" name="code" value="${form.code!}" cssStyle="width:200px;" cssClass="ui-widget-content" data-validate="required"/>
+					<input type="text" name="code" value="${form.code!}" cssStyle="width:200px;" data-scope="form" cssClass="ui-widget-content" data-validate="required"/>
 				</td>	
 			</tr>
 			<tr>
 				<td class="label">*状态:</td>
 				<td class="value">
-					<input type="text" name="status" value="${form.status!}" cssStyle="width:200px;" cssClass="ui-widget-content" data-validate="required"/>
+					<input type="text" name="status" value="${form.status!}" cssStyle="width:200px;" data-scope="form" cssClass="ui-widget-content" data-validate="required"/>
 				</td>	
 				<td class="label">*所用模板:</td>
 				<td class="value">
-					<input type="text" name="tpl" value="${form.tpl!}" cssStyle="width:200px;" cssClass="ui-widget-content" data-validate="required"/>
+					<input type="text" name="tpl" value="${form.tpl!}" cssStyle="width:200px;" data-scope="form" cssClass="ui-widget-content" data-validate="required"/>
 				</td>	
 			</tr>
 			<tr>
 				<td class="label">备注:</td>
 				<td class="value" colspan="3">
-					<input type="text" name="description" value="${form.description!}" data-scope="form" cssStyle="width:200px;" cssClass="ui-widget-content"/>
+					<input type="text" name="description" value="${form.description!}" data-scope="form" data-scope="form" cssStyle="width:200px;" cssClass="ui-widget-content"/>
 				</td>	
 			</tr>
 			<tr>
@@ -130,17 +130,17 @@
 			<tr>
 				<td class="label">*标题:</td>
 				<td class="value">
-					<input type="text" name="subject" value="${subject!}" cssStyle="width:200px;" cssClass="ui-widget-content"/>
+					<input type="text" name="subject" value="${form.subject!}" data-scope="form" cssStyle="width:200px;" cssClass="ui-widget-content"/>
 				</td>	
 				<td class="label">*版本号:</td>
 				<td class="value">
-					<input type="text" name="version" value="${version!}" cssStyle="width:200px;" cssClass="ui-widget-content"/>
+					<input type="text" name="version" value="${form.version!}" data-scope="form" cssStyle="width:200px;" cssClass="ui-widget-content"/>
 				</td>									
 			</tr>	
 			<tr>
 				<td class="label">*备注:</td>
 				<td class="value" colspan="3">
-					<input type="text" name="desc" value="${desc!}" cssStyle="width:200px;" cssClass="ui-widget-content"/>
+					<input type="text" name="description" value="${form.description!}" data-scope="form" cssStyle="width:200px;" cssClass="ui-widget-content"/>
 				</td>	
 			</tr>
 			<tr>

@@ -35,7 +35,7 @@ public class CertTypesAction extends ViewAction<Map<String, Object>> {
 	public boolean isReadonly() {
 		// 证件管理
 		SystemContext context = (SystemContext) this.getContext();
-		return !context.hasAnyRole(getText("key.role.bc.cert.manage"));
+		return !context.hasAnyRole(getText("key.role.bc.cert.manage"),getText("key.role.bc.admin"));
 	}
 
 	@Override

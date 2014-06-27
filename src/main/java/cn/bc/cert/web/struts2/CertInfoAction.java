@@ -59,12 +59,7 @@ public class CertInfoAction extends FileEntityAction<Long, Form> implements
 		this.certInfoService = certInfoService;
 		this.setCrudService(certInfoService);
 	}
-	/*
-	@Autowired
-	public void setCertInfoService(@Qualifier(value = "certInfoService") CrudService<Form> crudService) {
-		this.setCrudService(crudService);
-	}
-*/
+	
 	@Autowired
 	public void setOptionService(OptionService optionService) {
 		this.optionService = optionService;
@@ -73,11 +68,10 @@ public class CertInfoAction extends FileEntityAction<Long, Form> implements
 	@Override
 	public boolean isReadonly() {
 		
-		
 		SystemContext context = (SystemContext) this.getContext();
 		
 		boolean flag = context.hasAnyRole(
-				getText("key.role.bc.cert.manage"));
+				getText("key.role.bc.cert.manage"),getText("key.role.bc.admin"));
 		return !flag;
 		
 	}
@@ -141,18 +135,6 @@ public class CertInfoAction extends FileEntityAction<Long, Form> implements
 		SystemContext context = (SystemContext) this.getContext();
 		entity.setModifier(context.getUserHistory()); // 设置修改人
 		entity.setModifiedDate(Calendar.getInstance()); // 设置修改时间
-
-		/*try {
-			// 插入明细条目
-			//this.addDetails();
-		} catch (JSONException e) {
-			logger.error(e.getMessage(), e);
-			try {
-				throw e;
-			} catch (JSONException e1) {
-				e1.printStackTrace();
-			}
-		}*/
 	}
 	
 	@Override
@@ -178,13 +160,6 @@ public class CertInfoAction extends FileEntityAction<Long, Form> implements
     protected boolean useFormPrint() {
         return false;
     }
-	//状态的下拉列表
-	private Map<String, String> getStatusList() {
-		Map<String, String> map = new LinkedHashMap<String, String>();
-		map.put(String.valueOf(CertCfg.STATUS_ENABLED), getText("certCfg.status.enabled"));
-		map.put(String.valueOf(CertCfg.STATUS_DISABLED), getText("certCfg.status.disabled"));
-		return map;
-	}
-
+	
 
 }

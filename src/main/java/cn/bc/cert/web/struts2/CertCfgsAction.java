@@ -157,7 +157,6 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 		columns.add(new TextColumn4MapKey("", "accessactors",
 				getText("certCfg.access")).setSortable(true)
 				.setUseTitleFromLabel(true));
-	
 		// 分拆页数
 		columns.add(new TextColumn4MapKey("cc.page_count", "page_count",
 				getText("certCfg.page_count"),60).setSortable(true));
@@ -217,7 +216,7 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 	@Override
 	protected Toolbar getHtmlPageToolbar() {	
 		Toolbar tb = new Toolbar();		
-		if(!this.isReadonly()){
+		if(!this.isReadonly()){ //证件管理||超级管理员
 			// 新建按钮
 			tb.addButton(Toolbar
 					.getDefaultCreateToolbarButton(getText("label.create")));
@@ -230,16 +229,6 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 			tb.addButton(Toolbar
 					.getDefaultDeleteToolbarButton(getText("label.delete")));
 			
-			SystemContext context = (SystemContext) this.getContext();
-			boolean isAcl = !context.hasAnyRole(getText("key.role.bc.cert.acl.manage"));
-			
-			if(!isAcl){
-				// 访问配置按钮
-				tb.addButton(new ToolbarButton().setIcon("ui-icon-lightbulb")
-						.setText(getText("certCfg.access"))
-						.setClick("bc.certCfgFormView.access"));
-			}
-			
 			// 搜索按钮
 			tb.addButton(this.getDefaultSearchToolbarButton());
 			
@@ -247,6 +236,21 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 			tb.addButton(Toolbar.getDefaultToolbarRadioGroup(
 					this.getStatuses(), "status", CertCfg.STATUS_ENABLED,
 					getText("title.click2changeSearchStatus")));
+		}else{
+			// 查看按钮
+			tb.addButton(this.getDefaultOpenToolbarButton());
+		}
+		
+		SystemContext context = (SystemContext) this.getContext();
+		boolean isAcl = !context.hasAnyRole(getText("key.role.bc.cert.acl.manage"));
+		
+		if(!isAcl){
+
+			// 访问配置按钮
+			tb.addButton(new ToolbarButton().setIcon("ui-icon-lightbulb")
+					.setText(getText("certCfg.access"))
+					.setClick("bc.certCfgFormView.access"));
+			
 		}
 		
 		return tb;

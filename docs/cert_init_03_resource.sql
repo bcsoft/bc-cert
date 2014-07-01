@@ -124,6 +124,15 @@ insert into  BC_IDENTITY_ROLE (ID, STATUS_,INNER_,TYPE_,ORDER_,CODE,NAME)
 	from bc_dual
 	where not exists(select 1 from bc_identity_role where code='BC_CERT_ACL_MANAGE');	
 	
+-- 权限配置：证件访问权限管理访问证件配置
+insert into BC_IDENTITY_ROLE_RESOURCE (RID,SID) 
+	select r.id,m.id from BC_IDENTITY_ROLE r,BC_IDENTITY_RESOURCE m where r.code='BC_CERT_ACL_MANAGE' 
+	and m.type_ > 1 and m.order_ in ('800602')
+	and not exists(select 1 from BC_IDENTITY_ROLE_RESOURCE 
+			where rid=(select r2.id from BC_IDENTITY_ROLE r2 where r2.code='BC_CERT_ACL_MANAGE')
+			and sid=(select m2.id from BC_IDENTITY_RESOURCE m2 where m2.type_ > 1 and m2.order_ in ('800602')))
+	order by m.order_;
+	
 	
 --	增加证件访问权限管理岗CertACLManageGroup
 insert into BC_IDENTITY_ACTOR (ID,UID_,STATUS_,INNER_,TYPE_,CODE, NAME, ORDER_,PCODE,PNAME) 
@@ -156,4 +165,11 @@ insert into BC_IDENTITY_ROLE_ACTOR (RID,AID)
 	and not exists (select 0 from BC_IDENTITY_ROLE_ACTOR ra where ra.RID=r.id and ra.AID=a.id);
 
 	
+--	插入证件管理岗位与用户之间的关系
+insert into BC_IDENTITY_ACTOR_RELATION (TYPE_,MASTER_ID,FOLLOWER_ID) 
+    select 0,am.id,af.id
+    from BC_IDENTITY_ACTOR am,BC_IDENTITY_ACTOR af
+    where am.CODE='CertACLManageGroup' 
+	and af.CODE in ('wing','may') -- 用户帐号
+	and not exists (select 0 from BC_IDENTITY_ACTOR_RELATION r where r.TYPE_=0 and r.MASTER_ID=am.id and r.FOLLOWER_ID=af.id);	
 	

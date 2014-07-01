@@ -109,17 +109,19 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 	@Override
 	protected void buildFormPageButtons(PageOption option, boolean editable) {
 		
-		// 保存按钮
-		ButtonOption saveButtonOption = new ButtonOption(
-				getText("certCfg.save"), null, "bc.certCfgForm.save");
-		
-		// 预览按钮
-				ButtonOption previewButtonOption = new ButtonOption(
-						getText("certCfg.preview"), null, "bc.certCfgForm.preview");
-		
-		option.addButton(previewButtonOption);
-		option.addButton(saveButtonOption);
-		
+		if(editable && !isReadonly()){
+
+			// 保存按钮
+			ButtonOption saveButtonOption = new ButtonOption(
+					getText("certCfg.save"), null, "bc.certCfgForm.save");
+			
+			// 预览按钮
+			ButtonOption previewButtonOption = new ButtonOption(
+					getText("certCfg.preview"), null, "bc.certCfgForm.preview");
+			
+			option.addButton(previewButtonOption);
+			option.addButton(saveButtonOption);
+		}
 	}
 	
 	@Override

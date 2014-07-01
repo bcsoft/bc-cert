@@ -216,6 +216,17 @@ INSERT INTO bc_cert_cfg_detail(id, pid, page_no, name, width)
   from bc_dual where not exists (select 0 from bc_cert_cfg_detail where id = 272);
 
 
+-- 证件图片打印页面模板
+-- DELETE FROM BC_TEMPLATE WHERE CODE IN ('DEFAULT_CERT_PRINT');
+-- 数据 SQL
+insert into BC_TEMPLATE (ID,UID_,STATUS_,ORDER_,CATEGORY,CODE,VERSION_,FORMATTED,INNER_
+	,PATH,SIZE_,SUBJECT,DESC_,TYPE_ID,FILE_DATE,AUTHOR_ID) 
+	select NEXTVAL('HIBERNATE_SEQUENCE'), 'cert.' || NEXTVAL('HIBERNATE_SEQUENCE'), 0, '5003'
+	, '平台/证件管理', 'DEFAULT_CERT_PRINT', '1', true, false, '/bc/default.cert.print.ftl', 1000
+	, '证件图片打印模板', '', (select id from BC_TEMPLATE_TYPE where code='freemarker')
+	, now(), (select id from BC_IDENTITY_ACTOR_HISTORY where actor_code = 'admin' and current = true)
+	from bc_dual where not exists (select 0 from bc_template where CODE = 'DEFAULT_CERT_PRINT' and version_ = '1');
+
 /*
 -- 证件配置
 select t.CODE, t.name, c.CODE, c.name, c.uid_, c.width, c.combine, d.name, d.*, c.* 

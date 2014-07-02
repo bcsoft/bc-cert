@@ -134,7 +134,7 @@ public class CertInfosAction extends ViewAction<Map<String, Object>> {
 		
 		// 创建时间
 		columns.add(new TextColumn4MapKey("f.file_date", "file_date",
-				getText("certInfo.file_date"), 150).setSortable(true)
+				getText("certInfo.file_date"), 120).setSortable(true)
 				.setValueFormater(new AbstractFormater<String>() {
 					@Override
 					public String format(Object context, Object value) {
@@ -144,11 +144,11 @@ public class CertInfosAction extends ViewAction<Map<String, Object>> {
 
 		// 证件类别
 		columns.add(new TextColumn4MapKey("t.name", "type",
-				getText("certInfo.type"), 100).setSortable(true));
+				getText("certInfo.type"), 60).setSortable(true));
 		
 		// 证件名称
 		columns.add(new TextColumn4MapKey("c.name", "name",
-				getText("certInfo.name"),100).setSortable(true));
+				getText("certInfo.name"),80).setSortable(true));
 				
 		// 标题
 		columns.add(new TextColumn4MapKey("f.subject", "subject",
@@ -160,7 +160,7 @@ public class CertInfosAction extends ViewAction<Map<String, Object>> {
 	
 		// 版本
 		columns.add(new TextColumn4MapKey("f.ver_", "version",
-				getText("certInfo.version"),40));
+				getText("certInfo.version"),30));
 		
 		// 备注
 		columns.add(new TextColumn4MapKey("f.desc_", "desc",

@@ -60,7 +60,7 @@ public class CertPrintAction extends ActionSupport {
             sql.append("	select '" + cfg.getString("type") + "'::text");
             sql.append(", '" + cfg.getString("code") + "'::text");
             sql.append(", " + cfg.getString("pid"));
-            sql.append(", '" + cfg.getString("ver") + "'::text");
+            sql.append(", '" + (cfg.has("ver") ? cfg.getString("ver") : "1.0") + "'::text");// 默认1.0版避免报错
             sql.append(", " + i);
         }
         sql.append("\r\n) select ct.name typeName, ct.code typeCode, cc.name certName, cc.code certCode, c.pid pid, c.ver_ as version\r\n");

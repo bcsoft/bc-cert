@@ -1,20 +1,20 @@
 package cn.bc.cert.web.struts2;
 
 import java.util.Calendar;
-import java.util.LinkedHashMap;
+
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.interceptor.SessionAware;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import cn.bc.cert.domain.CertCfg;
+import cn.bc.cert.service.CertCfgService;
 import cn.bc.cert.service.CertInfoService;
 import cn.bc.form.domain.Form;
 
@@ -42,12 +42,13 @@ public class CertInfoAction extends FileEntityAction<Long, Form> implements
 	private OptionService optionService;
 	
 	private CertInfoService certInfoService;
-	
+
 	public String details; //证件配置明细json字符串
 	
 	public Map<String,String> statusList = null; //状态列表
 	
 	public Form e = null;
+	
 	
 	@Autowired
 	public void setIdGeneratorService(IdGeneratorService idGeneratorService){
@@ -59,6 +60,7 @@ public class CertInfoAction extends FileEntityAction<Long, Form> implements
 		this.certInfoService = certInfoService;
 		this.setCrudService(certInfoService);
 	}
+	
 	
 	@Autowired
 	public void setOptionService(OptionService optionService) {
@@ -75,6 +77,8 @@ public class CertInfoAction extends FileEntityAction<Long, Form> implements
 		return !flag;
 		
 	}
+	
+
 	
 	/*@Override
 	public String edit() throws Exception {

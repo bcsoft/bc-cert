@@ -3,6 +3,7 @@ package cn.bc.cert.hibernate.jpa;
 import cn.bc.BCConstants;
 import cn.bc.cert.Dao.CertCfgDao;
 import cn.bc.cert.domain.CertCfg;
+import cn.bc.cert.domain.CertCfgDetail;
 import cn.bc.core.query.condition.impl.AndCondition;
 import cn.bc.core.query.condition.impl.EqualsCondition;
 import cn.bc.db.jdbc.RowMapper;
@@ -16,6 +17,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 public class CertCfgDaoImpl extends HibernateCrudJpaDao<CertCfg> implements CertCfgDao {
     private static Log logger = LogFactory.getLog(CertCfgDaoImpl.class);
@@ -87,4 +91,12 @@ public class CertCfgDaoImpl extends HibernateCrudJpaDao<CertCfg> implements Cert
                     }
                 });
     }
+
+	
+	public CertCfg loadByCode(String typeCode, String cfgCode) {
+		return this.createQuery().condition(new AndCondition()
+			.add(new EqualsCondition("certType.code", typeCode))
+			.add(new EqualsCondition("code", cfgCode)))
+			.singleResult();
+	}
 }

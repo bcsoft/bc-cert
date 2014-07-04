@@ -59,7 +59,7 @@ public class CertInfosAction extends ViewAction<Map<String, Object>> {
 	protected String getHtmlPageJs() {
 		return this.getModuleContextPath() + "/certInfo/view.js"+","+this.getContextPath()+"/bc-business/bs.js"
 				+","+this.getContextPath()+"/modules/bc/cert/certCfg/form.js"+","+this.getContextPath()+"/bc-business/carManCert/view.js"
-				+","+this.getContextPath()+"/bc/form/customForm.js"+","+this.getContextPath()+"/bc-business/carManCert/carManCert.js"
+				+","+this.getContextPath()+"/bc/form/customForm.js"+","+this.getContextPath() + "/modules/bc/cert/api.js"
 				+","+this.getContextPath()+"/bc-business/carManCert/form.js";
 	}
 
@@ -79,7 +79,7 @@ public class CertInfosAction extends ViewAction<Map<String, Object>> {
 		sql.append("select f.id as id,f.uid_ as uid,f.file_date as file_date,f.type_ as f_type,t.name as type,c.name as name,f.code as code,");
 		sql.append("f.subject as subject,f.ver_ as version,f.desc_ as desc,");
 		sql.append("iah.actor_name as actor_name,f.modified_date as modify_date,");
-		sql.append("f.tpl_ as tpl,f.pid as pid,c.combine as combine,c.page_count as page_count,c.width as width,");
+		sql.append("f.tpl_ as tpl,f.pid as pid,");
 		//sql.append("d.page_no as page_no,d.width as page_width,d.name as page_name,");
 		sql.append("getaccessactors4docidtype4docidinteger(f.id,'CertInfo')");
 		sql.append(" from bc_form f");
@@ -112,12 +112,6 @@ public class CertInfosAction extends ViewAction<Map<String, Object>> {
 				map.put("modify_date", rs[i++]);
 				map.put("tpl", rs[i++]);
 				map.put("pid", rs[i++]);
-				map.put("combine", rs[i++]);
-				map.put("page_count", rs[i++]);
-				map.put("width", rs[i++]);
-				/*map.put("page_no", rs[i++]);
-				map.put("page_width", rs[i++]);
-				map.put("page_name", rs[i++]);*/
 				map.put("accessactors", rs[i++]);
 				map.put("accessControlDocType","CertInfo");
 				return map;
@@ -191,7 +185,7 @@ public class CertInfosAction extends ViewAction<Map<String, Object>> {
 
 					}
 				}).setUseTitleFromLabel(true));
-		
+		columns.add(new HiddenColumn4MapKey("id", "id"));
 		columns.add(new HiddenColumn4MapKey("uid", "uid"));
 		columns.add(new HiddenColumn4MapKey("code", "code"));
 		columns.add(new HiddenColumn4MapKey("accessControlDocType","accessControlDocType"));
@@ -199,9 +193,6 @@ public class CertInfosAction extends ViewAction<Map<String, Object>> {
 		columns.add(new HiddenColumn4MapKey("tpl", "tpl"));
 		columns.add(new HiddenColumn4MapKey("pid", "pid"));
 		columns.add(new HiddenColumn4MapKey("type", "f_type"));
-		columns.add(new HiddenColumn4MapKey("combine", "combine"));
-		columns.add(new HiddenColumn4MapKey("page_count", "page_count"));
-		columns.add(new HiddenColumn4MapKey("width", "width"));
 		columns.add(new HiddenColumn4MapKey("subject", "subject"));
 		/*columns.add(new HiddenColumn4MapKey("d.page_no", "page_no"));
 		columns.add(new HiddenColumn4MapKey("d.width", "page_width"));

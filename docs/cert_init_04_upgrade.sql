@@ -1,14 +1,14 @@
---更新宽度
-update bc_form_filed set name_='attach_width_1' where name_='attach_width_a'
-update bc_form_filed set name_='attach_width_2' where name_='attach_width_b'
-update bc_form_filed set name_='attach_width_3' where name_='attach_width_c'
-update bc_form_filed set name_='attach_width_4' where name_='attach_width_d'
+﻿--更新宽度
+update bc_form_field set name_='attach_width_1' where name_='attach_width_a';
+update bc_form_field set name_='attach_width_2' where name_='attach_width_b';
+update bc_form_field set name_='attach_width_3' where name_='attach_width_c';
+update bc_form_field set name_='attach_width_4' where name_='attach_width_d';
 
 --
-update bc_form_filed set name_='attach_id_1' where name_='attach_id_a'
-update bc_form_filed set name_='attach_id_2' where name_='attach_id_b'
-update bc_form_filed set name_='attach_id_3' where name_='attach_id_c'
-update bc_form_filed set name_='attach_id_4' where name_='attach_id_d'
+update bc_form_field set name_='attach_id_1' where name_='attach_id_a';
+update bc_form_field set name_='attach_id_2' where name_='attach_id_b';
+update bc_form_field set name_='attach_id_3' where name_='attach_id_c';
+update bc_form_field set name_='attach_id_4' where name_='attach_id_d';
 
 --户口簿
 UPDATE bc_form

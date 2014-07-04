@@ -1,6 +1,7 @@
 package cn.bc.cert.Dao;
 
 import cn.bc.cert.domain.CertCfg;
+import cn.bc.cert.domain.CertCfgDetail;
 import cn.bc.core.dao.CrudDao;
 
 import java.util.List;
@@ -36,4 +37,13 @@ public interface CertCfgDao extends CrudDao<CertCfg> {
      * @return 返回结果中的元素Map格式为：：key - CertCfg的code, value - CertCfg的name
      */
     List<Map<String, String>> find4Option(Integer[] statuses, String[] typeCodes);
+
+
+    /**
+     * 获取证件配置信息
+     * @param typeCode
+     * @param cfgCode
+     * @return
+     */
+	CertCfg loadByCode(String typeCode, String cfgCode);
 }

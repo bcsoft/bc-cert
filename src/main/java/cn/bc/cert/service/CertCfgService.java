@@ -2,6 +2,7 @@ package cn.bc.cert.service;
 
 
 import cn.bc.cert.domain.CertCfg;
+import cn.bc.cert.domain.CertCfgDetail;
 import cn.bc.core.service.CrudService;
 
 import java.util.List;
@@ -22,4 +23,12 @@ public interface CertCfgService extends CrudService<CertCfg>{
      * @return 返回结果中的元素Map格式为：：key - CertCfg的code, value - CertCfg的name
      */
     public List<Map<String, String>> findEnabled4Option(String typeCode);
+    
+    /**
+     * 获取证件配置信息
+     * @param typeCode
+     * @param cfgCode
+     * @return
+     */
+	public CertCfg loadByCode(String typeCode, String cfgCode);
 }

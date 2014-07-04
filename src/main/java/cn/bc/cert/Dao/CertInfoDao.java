@@ -1,5 +1,8 @@
 package cn.bc.cert.Dao;
 
+import java.util.List;
+
+import cn.bc.cert.domain.CertCfgDetail;
 import cn.bc.core.dao.CrudDao;
 import cn.bc.form.domain.Form;
 
@@ -18,4 +21,5 @@ public interface CertInfoDao extends CrudDao<Form> {
 	 * @return
 	 */
 	public Form loadById(Long id);
+	
 }

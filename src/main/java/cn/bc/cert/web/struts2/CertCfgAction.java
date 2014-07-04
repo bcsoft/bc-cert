@@ -2,6 +2,8 @@ package cn.bc.cert.web.struts2;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -30,6 +32,7 @@ import cn.bc.identity.web.struts2.FileEntityAction;
 import cn.bc.option.service.OptionService;
 import cn.bc.web.ui.html.page.ButtonOption;
 import cn.bc.web.ui.html.page.PageOption;
+import cn.bc.web.ui.json.Json;
 
 /**
  * 证件配置表单action
@@ -53,6 +56,8 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 	public String details; //证件配置明细json字符串
 	
 	public Map<String,String> statusList = null; //状态列表
+	
+	public String codes;
 	
 	@Autowired
 	public void setCertCfgTypeService(CertCfgTypeService certCfgTypeService){
@@ -97,6 +102,48 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 		
 		super.initForm(editable);
 	}
+	
+	public String typeCode;
+	public String cfgCode;
+	
+	/**
+	 * 根据配置获得配置信息的数据
+	 */
+	public String getData() throws JSONException {
+		CertCfg certCfg = this.certCfgService.loadByCode(typeCode, cfgCode);
+		JSONObject json = new JSONObject();
+		if(certCfg.getCertCfgDetails()!=null){
+			Set<CertCfgDetail> details = certCfg.getCertCfgDetails();
+			
+			json.put("detail",dealDetail(details));
+		}
+	
+		json.put("success", true);
+		json.put("combine", certCfg.getCombine());
+		json.put("total_width", certCfg.getWidth());
+		json.put("page_num", certCfg.getPage_count());
+		json.put("uid", certCfg.getUid());
+		this.json = json.toString();
+		return "json";
+
+	}
+	
+	public JSONArray dealDetail(Set<CertCfgDetail> details) throws JSONException  {
+		JSONArray jsons = new JSONArray();
+		JSONObject object;
+		Iterator<CertCfgDetail> it = details.iterator();
+		while(it.hasNext()){
+			CertCfgDetail cd = it.next();
+			object = new JSONObject();
+			object.put("page_no" ,cd.getPage_no());
+			object.put("width" ,cd.getWidth());
+			object.put("attach_name" ,cd.getName());
+			jsons.put(object);
+		}
+		
+		return jsons;
+	}
+	
 	
 
 	@Override

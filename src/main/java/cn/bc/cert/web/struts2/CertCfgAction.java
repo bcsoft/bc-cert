@@ -120,7 +120,7 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 	
 		json.put("success", true);
 		json.put("combine", certCfg.getCombine());
-		json.put("total_width", certCfg.getWidth());
+		json.put("attach_width", certCfg.getWidth());
 		json.put("page_num", certCfg.getPage_count());
 		json.put("uid", certCfg.getUid());
 		this.json = json.toString();

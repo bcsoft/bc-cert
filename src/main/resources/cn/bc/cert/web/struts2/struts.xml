@@ -43,7 +43,7 @@
 		
 		<action name="save" class="certCfgAction" method="save"/>
 		<action name="delete" class="certCfgAction" method="delete"/>
-		<action name="getData" class="certCfgAction" method="getData"/>
+		<action name="getDataByDetail" class="certCfgAction" method="getData"/>
 		
 		<action name="open" class="certCfgAction" method="open">
 			<result name="formr">/modules/bc/cert/certCfg/form.jsp</result>

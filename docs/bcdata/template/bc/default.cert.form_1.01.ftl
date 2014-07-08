@@ -77,7 +77,7 @@
 <#elseif operate_type='preview'><!-- 预览的时候-->
 	<div  class="formTable2 ui-widget-content bs-carManCert-containers" style="width:640px;" >
 		<div class="ui-widget-header title" style="position:relative;">
-			<span class="text" >${subject!}基本信息:</span>
+			<span class="text" >${subject!}信息:</span>
 			<span style="font-weight:normal;" ></span>
 		</div>
 	</div>
@@ -96,15 +96,15 @@
 				<tr>
 					<td class="label">*标题:</td>
 					<td class="value">
-						<input type="text" name="subject" value="${form.subject!}" data-scope="form" cssStyle="width:200px;" cssClass="ui-widget-content" data-validate="required"/>
+						<input type="text" name="subject" value="${form.subject!}" data-scope="form" cssStyle="width:200px;" cssClass="ui-widget-content"/>
 					</td>	
 					<td class="label">*版本号:</td>
 					<td class="value">
-						<input type="text" name="version" value="${form.version!}" data-scope="form" cssStyle="width:200px;" cssClass="ui-widget-content" data-validate="required"/>
+						<input type="text" name="version" value="${form.version!}" data-scope="form" cssStyle="width:200px;" cssClass="ui-widget-content"/>
 				</td>									
 				</tr>	
 				<tr>
-					<td class="label">备注:</td>
+					<td class="label">*备注:</td>
 					<td class="value" colspan="3">
 						<input type="text" name="description" value="${form.description!}" data-scope="form" cssStyle="width:200px;" cssClass="ui-widget-content"/>
 					</td>	
@@ -113,15 +113,15 @@
 				<tr>
 					<td class="label">*标题:</td>
 					<td class="value">
-						<input type="text" name="subject" value="${info.subject!2}" data-scope="form" cssStyle="width:200px;" cssClass="ui-widget-content" data-validate="required"/>
+						<input type="text" name="subject" value="${info.subject!2}" data-scope="form" cssStyle="width:200px;" cssClass="ui-widget-content"/>
 					</td>	
 					<td class="label">*版本号:</td>
 					<td class="value">
-						<input type="text" name="version" value="${info.version!}" data-scope="form" cssStyle="width:200px;" cssClass="ui-widget-content" data-validate="required"/>
+						<input type="text" name="version" value="${info.version!}" data-scope="form" cssStyle="width:200px;" cssClass="ui-widget-content"/>
 				</td>									
 				</tr>	
 				<tr>
-					<td class="label">备注:</td>
+					<td class="label">*备注:</td>
 					<td class="value" colspan="3">
 						<input type="text" name="description" value="${info.description!}" data-scope="form" cssStyle="width:200px;" cssClass="ui-widget-content"/>
 					</td>	
@@ -143,7 +143,7 @@
 
 	<div  class="formTable2 ui-widget-content bs-carManCert-containers"  style="width:640px;">
 	<div class="ui-widget-header title" style="position:relative;">
-		<span class="text" >证件图片:</span>
+		<span class="text" >${subject!}图片:</span>
 		<span >实物宽度<input type="text" name="attach_width" style="width:50px;" class="bs-cert-attach-width" data-validate='{"required":true,"type":"number"}' value="<#if total_width?exists>${total_width!171.0}<#else>${attach_width!171.1}</#if>" data-label="${subject!}宽度"/>毫米</span>
 		<ul class="inputIcons">
 			<li class="bs-cert-print inputIcon ui-icon ui-icon-print" title='打印'></li>
@@ -167,7 +167,7 @@
 			<#assign x=x+1>
 				<div  class="formTable2 ui-widget-content bs-carManCert-containers"  style="width:640px;">
 					<div class="ui-widget-header title" style="position:relative;">
-						<span class="text" >第${x}页(${.vars['attach_name_'+x]!})图片:</span>
+						<span class="text" >图片:</span>
 						<span >实物宽度<input type="text" name="attach_width_${x}" style="width:50px;" class="bs-cert-attach-width" data-validate='{"required":true,"type":"number"}' value="${.vars['attach_width_'+x]!}" data-label="${.vars['attach_width_'+x]!}宽度"/>毫米</span>
 						<ul class="inputIcons">
 							<li class="bs-cert-print inputIcon ui-icon ui-icon-print" data-print-width="120mm" title='打印'></li>

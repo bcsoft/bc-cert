@@ -158,7 +158,7 @@
 	<div class="bs-carManCert-Groups" style="border-width:1px 1px 0 0;margin-bottom:8px;">
 		<#if attach_id??&&attach_id!=""><img src="${htmlPageNamespace}/bc/image/download?id=${attach_id}&ts=${appTs}" style="width:100%;" /></#if>
 	</div>
-	<input type="hidden" class="bs-cert-attach-id bs-cert-added" name="attach_id" value="${attach_id!}" data-label="${subject!}"/>
+	<input type="hidden" class="bs-cert-attach-id bs-cert-added" name="attach_id" value="${attach_id!}" data-label="<#if form??>${form.subject!}<#else>${info.subject!}</#if>"/>
 	</div>
 
 	<#if page_num gt 1>

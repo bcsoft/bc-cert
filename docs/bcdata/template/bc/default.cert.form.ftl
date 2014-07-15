@@ -1,17 +1,19 @@
-﻿<div  data-type='form' class="bc-page" data-option='{"width":670,"height":400}' style="overflow-y:auto;"
-	data-js='${htmlPageNamespace}/bc-business/carManCert/form.js?ts=${appTs}'
-	data-initMethod='bs.carManCertForm.init'>
+﻿<div data-type='form' class="bc-page" data-option='{"min-width":640,"width":670,"min-height":250,"height":400}'
+	data-js='${htmlPageNamespace}/modules/bc/cert/default/form.js?ts=${appTs}'
+	data-initMethod='bc.defaultCertForm.init' style="overflow-y:auto">
 <form class="bc-from" method="post" data-form-info='${form_info!}'>
-<#assign x=0>
-<#assign attach=''>
-<!-- 新建和编辑的时候-->
-<#if operate_type=='edit'>
-	<div class="ui-widget-header title" style="position:relative;border-width:0!important;">
-		<span class="text" >基本信息:</span>
-	</div>
-	<div class="formFields ui-widget-content" id="formEditorDiv" >
+	<!-- 基本信息区 -->
+	<div class="blockContainer formTable2 ui-widget-content" style="width:auto">
+		<div class="header ui-widget-header title" style="position:relative;">
+			<span class="text">基本信息:</span>
+			<ul class="inputIcons">
+				<li class="inputIcon toggleAll verticalMiddle ui-icon ui-icon-carat-2-n-s" title="折叠|展开所有区域"></li>
+				<li class="inputIcon toggleMe verticalMiddle ui-icon ui-icon-triangle-1-n" title="折叠|展开此区域"></li>
+			</ul>
+		</div>
 		<#assign info=form_info?eval />
-		<table class="formFields ui-widget-content" cellspacing="2" cellpadding="0">
+		<#if operate_type=='edit'><!-- 新建和编辑的时候-->
+		<table class="detail formFields ui-widget-content" cellspacing="2" cellpadding="0">
 			<tr class="widthMarker">
 				<td style="width: 80px;">&nbsp;</td>
 				<td style="width: 220px;">&nbsp;</td>
@@ -72,18 +74,8 @@
 				</td>
 			</tr>
 		</table>
-	</div>
-
-<#elseif operate_type='preview'><!-- 预览的时候-->
-	<div  class="formTable2 ui-widget-content bs-carManCert-containers" style="width:640px;" >
-		<div class="ui-widget-header title" style="position:relative;">
-			<span class="text" >${subject!}基本信息:</span>
-			<span style="font-weight:normal;" ></span>
-		</div>
-	</div>
-	<div class="formFields ui-widget-content" id="formEditorDiv" style="width:640px;" >
-		<#assign info=form_info?eval />
-		<table class="formFields ui-widget-content" cellspacing="2" cellpadding="0">
+		<#elseif operate_type='preview'><!-- 预览的时候-->
+		<table class="detail formFields ui-widget-content" cellspacing="2" cellpadding="0">
 			<tr class="widthMarker">
 				<td style="width: 80px;">&nbsp;</td>
 				<td style="width: 220px;">&nbsp;</td>
@@ -127,61 +119,56 @@
 					</td>	
 				</tr>
 			</#if>
-		
-			
 			<tr>
 				<td colspan="4">
 					<div class="formTopInfo">登记：${form_author}(${form_fileDate})<#if !form_isNew>,最后修改：${form_modifier}(${form_modifiedDate})</#if></div>
 				</td>
 			</tr>
-		
 		</table>
+		</#if>
 	</div>
 
-	
-</#if>
-
-	<div  class="formTable2 ui-widget-content bs-carManCert-containers"  style="width:640px;">
-	<div class="ui-widget-header title" style="position:relative;">
-		<span class="text" >证件图片:</span>
-		<span >实物宽度<input type="text" name="attach_width" style="width:50px;" class="bs-cert-attach-width" data-validate='{"required":true,"type":"number"}' value="<#if total_width?exists>${total_width!171.0}<#else>${attach_width!171.1}</#if>" data-label="${subject!}宽度"/>毫米</span>
-		<ul class="inputIcons">
-			<li class="bs-cert-print inputIcon ui-icon ui-icon-print" title='打印'></li>
-			<#if page_num gt 1>
-				<li class="bs-cert-merge inputIcon ui-icon ui-icon-disk" data-mixConfig='${combine!}' title='正背图片合并'></li>
-			</#if>
-			<li class="bs-cert-edit inputIcon ui-icon ui-icon-pencil" title='编辑图片'></li>
-			<li class="bs-carManCert-showGroups inputIcon ui-icon ui-icon-carat-1-s" style="display:none;" title='展开'></li>
-			<li class="bs-carManCert-hiddenGroups inputIcon ui-icon ui-icon-carat-1-n" title='隐藏'></li>
-		</ul>
-	</div>
-	<div class="bs-carManCert-Groups" style="border-width:1px 1px 0 0;margin-bottom:8px;">
-		<#if attach_id??&&attach_id!=""><img src="${htmlPageNamespace}/bc/image/download?id=${attach_id}&ts=${appTs}" style="width:100%;" /></#if>
-	</div>
-	<input type="hidden" class="bs-cert-attach-id bs-cert-added" name="attach_id" value="${attach_id!}" data-label="${subject!}"/>
+	<!-- 图片区：主图 -->
+	<div class="blockContainer formTable2 ui-widget-content" style="width:auto">
+		<div class="header ui-widget-header title" style="position:relative;">
+			<span class="text" >证件图片:</span>
+			<span >实物宽度<input type="text" name="attach_width" style="width:50px;" class="bs-cert-attach-width" data-validate='{"required":true,"type":"number"}' value="<#if total_width?exists>${total_width!171.0}<#else>${attach_width!171.1}</#if>" data-label="${subject!}宽度"/>毫米</span>
+			<ul class="inputIcons">
+				<li class="bs-cert-print inputIcon ui-icon ui-icon-print" title='打印'></li>
+				<#if page_num gt 1>
+					<li class="bs-cert-merge inputIcon ui-icon ui-icon-disk" data-mixConfig='${combine!}' title='正背图片合并'></li>
+				</#if>
+				<li class="bs-cert-edit inputIcon ui-icon ui-icon-pencil" title='编辑图片'></li>
+				<li class="inputIcon toggleMe verticalMiddle ui-icon ui-icon-triangle-1-n" title="折叠|展开此区域"></li>
+			</ul>
+		</div>
+		<div class="detail" style="border-width:1px 1px 0 0;margin-bottom:8px;">
+			<#if attach_id??&&attach_id!=""><img src="${htmlPageNamespace}/bc/image/download?id=${attach_id}&ts=${appTs}" style="max-width:100%;" /></#if>
+		</div>
+		<input type="hidden" class="bs-cert-attach-id bs-cert-added" name="attach_id" value="${attach_id!}" data-label="${subject!}"/>
 	</div>
 
 	<#if page_num gt 1>
-		
-		<#list 0..page_num-1 as num>
-			<#assign x=x+1>
-				<div  class="formTable2 ui-widget-content bs-carManCert-containers"  style="width:640px;">
-					<div class="ui-widget-header title" style="position:relative;">
-						<span class="text" >第${x}页(${.vars['attach_name_'+x]!})图片:</span>
-						<span >实物宽度<input type="text" name="attach_width_${x}" style="width:50px;" class="bs-cert-attach-width" data-validate='{"required":true,"type":"number"}' value="${.vars['attach_width_'+x]!}" data-label="${.vars['attach_width_'+x]!}宽度"/>毫米</span>
-						<ul class="inputIcons">
-							<li class="bs-cert-print inputIcon ui-icon ui-icon-print" data-print-width="120mm" title='打印'></li>
-							<li class="bs-cert-edit inputIcon ui-icon ui-icon-pencil" title='编辑图片'></li>
-							<li class="bs-carManCert-showGroups inputIcon ui-icon ui-icon-carat-1-s" style="display:none;" title='展开'></li>
-							<li class="bs-carManCert-hiddenGroups inputIcon ui-icon ui-icon-carat-1-n" title='隐藏'></li>
-						</ul>
-					</div>
-					<div class="bs-carManCert-Groups" style="border-width:1px 1px 0 0;margin-bottom:8px;">
-						<#if attach_id??&&attach_id!=""><img src="${htmlPageNamespace}/bc/image/download?id=${.vars['attach_id_'+x]!}&ts=${appTs}" style="width:100%;" /></#if>
-					</div>
-					<input type="hidden" class="bs-cert-attach-id bs-cert-add" name="attach_id_${x}" value="${.vars['attach_id_'+x]!}" data-label="${.vars['attach_name_'+x]!}"/>
-				</div>
-		</#list>
+	<!-- 图片区：拆分图 -->
+	<#assign x=0>
+	<#list 0..page_num-1 as num>
+	<#assign x=x+1>
+	<div class="blockContainer formTable2 ui-widget-content" style="width:auto">
+		<div class="header ui-widget-header title" style="position:relative;">
+			<span class="text" >第${x}页(${.vars['attach_name_'+x]!})图片:</span>
+			<span >实物宽度<input type="text" name="attach_width_${x}" style="width:50px;" class="bs-cert-attach-width" data-validate='{"required":true,"type":"number"}' value="${.vars['attach_width_'+x]!}" data-label="${.vars['attach_width_'+x]!}宽度"/>毫米</span>
+			<ul class="inputIcons">
+				<li class="bs-cert-print inputIcon ui-icon ui-icon-print" data-print-width="120mm" title='打印'></li>
+				<li class="bs-cert-edit inputIcon ui-icon ui-icon-pencil" title='编辑图片'></li>
+				<li class="inputIcon toggleMe verticalMiddle ui-icon ui-icon-triangle-1-n" title="折叠|展开此区域"></li>
+			</ul>
+		</div>
+		<div class="detail" style="border-width:1px 1px 0 0;margin-bottom:8px;">
+			<#if attach_id??&&attach_id!=""><img src="${htmlPageNamespace}/bc/image/download?id=${.vars['attach_id_'+x]!}&ts=${appTs}" style="max-width:100%;" /></#if>
+		</div>
+		<input type="hidden" class="bs-cert-attach-id bs-cert-add" name="attach_id_${x}" value="${.vars['attach_id_'+x]!}" data-label="${.vars['attach_name_'+x]!}"/>
+	</div>
+	</#list>
 	</#if>
 
 	<input type="hidden" name="man_puid" class="ignore" value="${man_puid!}"/>

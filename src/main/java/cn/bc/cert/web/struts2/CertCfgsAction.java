@@ -19,6 +19,8 @@ import cn.bc.web.ui.html.page.PageOption;
 import cn.bc.web.ui.html.toolbar.Toolbar;
 import cn.bc.web.ui.html.toolbar.ToolbarButton;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -43,6 +45,33 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 		SystemContext context = (SystemContext) this.getContext();
 		return !context.hasAnyRole(getText("key.role.bc.cert.manage"),getText("key.role.bc.admin"));
 	}
+	
+	@Override
+	protected JSONObject getGridExtrasData() {
+		JSONObject json = new JSONObject();
+		if(!isAcl()){
+			try {
+				json.put("showRole", "11");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}else{
+			try {
+				json.put("showRole", "00");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return json;
+	}
+
+	//是否有证件访问控制权限
+	public boolean isAcl(){	
+		SystemContext context = (SystemContext) this.getContext();
+		return !context.hasAnyRole(getText("key.role.bc.cert.acl.manage"));
+		
+	}
 
 	@Override
 	protected String getModuleContextPath() {
@@ -61,7 +90,7 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 
 	@Override
 	protected String getHtmlPageJs() {
-		return this.getModuleContextPath() + "/certCfg/view.js";
+		return this.getModuleContextPath() + "/certCfg/view.js," + this.getContextPath() + "/bc/acl/accessControl.js";
 	}
 
 	/** 页面加载后调用的js初始化方法 */
@@ -199,6 +228,13 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 		
 		columns.add(new HiddenColumn4MapKey("accessControlDocType","accessControlDocType"));
 		columns.add(new HiddenColumn4MapKey("accessControlDocName", "name"));
+		
+		if(!isAcl()){
+			columns.add(new HiddenColumn4MapKey("isAcl", "11"));
+		}else{
+			columns.add(new HiddenColumn4MapKey("isAcl", "00"));
+		}
+		
 		return columns;
 	}
 
@@ -240,11 +276,8 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 			// 查看按钮
 			tb.addButton(this.getDefaultOpenToolbarButton());
 		}
-		
-		SystemContext context = (SystemContext) this.getContext();
-		boolean isAcl = !context.hasAnyRole(getText("key.role.bc.cert.acl.manage"));
-		
-		if(!isAcl){
+
+		if(!isAcl()){
 
 			// 访问配置按钮
 			tb.addButton(new ToolbarButton().setIcon("ui-icon-lightbulb")

@@ -82,4 +82,13 @@
     <package name="printCert" extends="bc-default" namespace="/modules/bc/cert">
         <action name="print" class="certPrintAction" method="execute"/>
     </package>
+    
+    <!-- 查看所有证件信息 -->
+    <package name="seeAllByParent" extends="bc-default" namespace="/modules/bc/cert/seeAllByParent">
+        <action name="seeAll" class="seeAllByParentAction" method="seeAll">
+            <result name="form">/modules/bc/cert/seeAllByParent/form.jsp</result>
+        </action>
+        <action name="refresh" class="seeAllByParentAction" method="refresh"></action>
+    </package>
+    
 </struts>

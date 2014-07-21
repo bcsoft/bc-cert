@@ -1,7 +1,6 @@
 package cn.bc.cert.Dao;
 
 import cn.bc.cert.domain.CertCfg;
-import cn.bc.cert.domain.CertCfgDetail;
 import cn.bc.core.dao.CrudDao;
 
 import java.util.List;
@@ -46,4 +45,12 @@ public interface CertCfgDao extends CrudDao<CertCfg> {
      * @return
      */
 	CertCfg loadByCode(String typeCode, String cfgCode);
+	
+	/**
+	 * 根据证件类别获得所有证件的信息
+	 * @param typeCode
+	 * @param pid
+	 * @return
+	 */
+	List<Map<String,String>> find4AllCertsInfo(String typeCode,Long pid);
 }

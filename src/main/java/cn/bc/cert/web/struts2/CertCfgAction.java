@@ -2,7 +2,6 @@ package cn.bc.cert.web.struts2;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -32,7 +31,6 @@ import cn.bc.identity.web.struts2.FileEntityAction;
 import cn.bc.option.service.OptionService;
 import cn.bc.web.ui.html.page.ButtonOption;
 import cn.bc.web.ui.html.page.PageOption;
-import cn.bc.web.ui.json.Json;
 
 /**
  * 证件配置表单action
@@ -69,13 +67,11 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 		this.idGeneratorService = idGeneratorService;
 	}
 	
-	
 	@Autowired
 	public void setCertCfgService(CertCfgService certCfgService){
 		this.setCrudService(certCfgService);
 		this.certCfgService = certCfgService;
 	}
-
 
 	@Autowired
 	public void setOptionService(OptionService optionService) {
@@ -83,15 +79,11 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 	}
 
 	@Override
-	public boolean isReadonly() {
-		
-		
-		SystemContext context = (SystemContext) this.getContext();
-		
+	public boolean isReadonly() {				
+		SystemContext context = (SystemContext) this.getContext();		
 		boolean flag = context.hasAnyRole(
 				getText("key.role.bc.cert.manage"),getText("key.role.bc.admin"));
-		return !flag;
-		
+		return !flag;		
 	}
 	
 	@Override
@@ -125,7 +117,6 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 		json.put("uid", certCfg.getUid());
 		this.json = json.toString();
 		return "json";
-
 	}
 	
 	public JSONArray dealDetail(Set<CertCfgDetail> details) throws JSONException  {
@@ -139,23 +130,18 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 			object.put("width" ,cd.getWidth());
 			object.put("attach_name" ,cd.getName());
 			jsons.put(object);
-		}
-		
+		}		
 		return jsons;
 	}
 	
-	
-
 	@Override
 	protected PageOption buildFormPageOption(boolean editable) {
 		return super.buildFormPageOption(editable).setWidth(650)
 				.setMinHeight(200).setMinWidth(600);
 	}
-	
-	
-	@Override
-	protected void buildFormPageButtons(PageOption option, boolean editable) {
 		
+	@Override
+	protected void buildFormPageButtons(PageOption option, boolean editable) {		
 		if(editable && !isReadonly()){
 
 			// 保存按钮
@@ -178,19 +164,15 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 		e.setTpl(this.optionService.getItemValue("carman.cert", "cert.Cfg.defaultTplCode")); // 设置默认模板
 		e.setPage_count(1);
 		e.setFileDate(Calendar.getInstance()); // 设置创建人
-		e.setAuthor(context.getUserHistory()); // 设置创建时间
-		
+		e.setAuthor(context.getUserHistory()); // 设置创建时间		
 		e.setUid(this.idGeneratorService.next("cert.cfg"));
 	}
-
-	
 	
 	@Override
 	protected void beforeSave(CertCfg entity) {
 		SystemContext context = (SystemContext) this.getContext();
 		entity.setModifier(context.getUserHistory()); // 设置修改人
 		entity.setModifiedDate(Calendar.getInstance()); // 设置修改时间
-
 		try {
 			// 插入明细条目
 			this.addDetails();
@@ -218,7 +200,6 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 		json.put("id", e.getId());
 		json.put("msg", msg);
 		this.json = json.toString();
-	
 
 		return "json";
 	}
@@ -243,17 +224,14 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 				certCfgDetails.add(certCfgDetail);
 			}
 		}
-
 		if (this.getE().getCertCfgDetails() != null) {
 			this.getE().getCertCfgDetails().clear();
 			this.getE().getCertCfgDetails().addAll(certCfgDetails);
 		} else {
 			this.getE().setCertCfgDetails(certCfgDetails);
-		}
-		
+		}		
 	}
 	
-
 	@Override
     protected boolean useFormPrint() {
         return false;
@@ -277,5 +255,4 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 		map.put(String.valueOf(CertCfg.STATUS_DISABLED), getText("certCfg.status.disabled"));
 		return map;
 	}
-
 }

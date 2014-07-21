@@ -3,7 +3,6 @@ package cn.bc.cert.hibernate.jpa;
 import cn.bc.BCConstants;
 import cn.bc.cert.Dao.CertCfgDao;
 import cn.bc.cert.domain.CertCfg;
-import cn.bc.cert.domain.CertCfgDetail;
 import cn.bc.core.query.condition.impl.AndCondition;
 import cn.bc.core.query.condition.impl.EqualsCondition;
 import cn.bc.db.jdbc.RowMapper;
@@ -17,9 +16,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
 
 public class CertCfgDaoImpl extends HibernateCrudJpaDao<CertCfg> implements CertCfgDao {
     private static Log logger = LogFactory.getLog(CertCfgDaoImpl.class);
@@ -98,5 +94,45 @@ public class CertCfgDaoImpl extends HibernateCrudJpaDao<CertCfg> implements Cert
 			.add(new EqualsCondition("certType.code", typeCode))
 			.add(new EqualsCondition("code", cfgCode)))
 			.singleResult();
+	}
+
+	public List<Map<String,String>> find4AllCertsInfo(String typeCode,Long pid) {
+		String hql = "select c.name as name, f.ver_ as version, ";
+			hql+= "(select value_ from bc_form_field ff where ff.pid = f.id and ff.name_ = 'attach_id') attach_id ,";
+			hql+=" (case when f.id is null then 'no' else 'yes' end) isUpload ";
+			hql+="	from bc_cert_cfg c";
+			hql+=" inner join bc_cert_type t on t.id = c.type_id";
+			hql+=" left join bc_form f on (f.type_ = t.code and f.code = c.code and f.pid = ?)";
+			hql+=" where t.code = ?";
+			hql+=" order by c.order_no,f.ver_ desc ";
+        
+        List<Object> args = new ArrayList<Object>();
+        args.add(pid);
+        args.add(typeCode);
+        
+		return HibernateJpaNativeQuery.executeNativeSql(getJpaTemplate(), hql,
+                args.toArray(), new RowMapper<Map<String, String>>() {
+            public Map<String, String> mapRow(Object[] rs, int rowNum) {
+                Map<String, String> oi = new HashMap<String, String>();
+               // int i = 0;
+                oi.put("name", rs[0].toString());
+                Object version = rs[1];
+                if(version ==null){
+                    oi.put("version", "");
+                }else{
+                    oi.put("version", version.toString());
+
+                }
+                Object attach_id = rs[2];
+                if(attach_id ==null){
+                    oi.put("attach_id", "");
+                }else{
+                    oi.put("attach_id", attach_id.toString());
+
+                }
+                oi.put("isUpload", rs[3].toString());
+                return oi;
+            }
+        });
 	}
 }

@@ -70,7 +70,6 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 	public boolean isAcl(){	
 		SystemContext context = (SystemContext) this.getContext();
 		return !context.hasAnyRole(getText("key.role.bc.cert.acl.manage"));
-		
 	}
 
 	@Override
@@ -90,7 +89,7 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 
 	@Override
 	protected String getHtmlPageJs() {
-		return this.getModuleContextPath() + "/certCfg/view.js," + this.getContextPath() + "/bc/acl/accessControl.js";
+		return this.getModuleContextPath() + "/certCfg/view.js," + this.getContextPath() + "/bc/acl/api.js";
 	}
 
 	/** 页面加载后调用的js初始化方法 */
@@ -106,10 +105,11 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 
 		// 构建查询语句,where和order by不要包含在sql中(要统一放到condition中)
 		StringBuffer sql = new StringBuffer();
-		sql.append("select cc.id,cc.status_ as status,cc.order_no as order_no,ct.name as type_name,cc.name as name,cc.code as code,cc.page_count as page_count,");
-		sql.append("cc.width as width,cc.combine as combine,cc.tpl as tpl,ct.order_no as ct_order,");
-		sql.append("iah.actor_name as actor_name,cc.modified_date as modify_date,");
-		sql.append("getaccessactors4docidtype4docidinteger(cc.id,'CertCfg')");
+		sql.append("select cc.id,cc.status_ as status,cc.order_no as order_no,ct.name as type_name");
+		sql.append(",cc.name as name,cc.code as code,cc.page_count as page_count");
+		sql.append(",cc.width as width,cc.combine as combine,cc.tpl as tpl,ct.order_no as ct_order");
+		sql.append(",iah.actor_name as actor_name,cc.modified_date as modify_date");
+		sql.append(",getaccessactors4docidtype4docidinteger(cc.id,'CertCfg')");
 		sql.append(" from bc_cert_cfg cc");
 		sql.append(" left join bc_identity_actor_history iah on iah.id = cc.modifier_id");
 		sql.append(" join bc_cert_type ct on ct.id = cc.type_id");
@@ -137,7 +137,7 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 				map.put("actor_name", rs[i++]);
 				map.put("modify_date", rs[i++]);
 				map.put("accessactors", rs[i++]);
-				map.put("accessControlDocType","CertCfg");
+				map.put("docType","CertCfg");
 				return map;
 			}
 		});
@@ -225,16 +225,10 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 
 					}
 				}).setUseTitleFromLabel(true));
-		
-		columns.add(new HiddenColumn4MapKey("accessControlDocType","accessControlDocType"));
-		columns.add(new HiddenColumn4MapKey("accessControlDocName", "name"));
-		
-		if(!isAcl()){
-			columns.add(new HiddenColumn4MapKey("isAcl", "11"));
-		}else{
-			columns.add(new HiddenColumn4MapKey("isAcl", "00"));
-		}
-		
+
+		columns.add(new HiddenColumn4MapKey("docId","id"));
+		columns.add(new HiddenColumn4MapKey("docType","docType"));
+		columns.add(new HiddenColumn4MapKey("docName", "name"));
 		return columns;
 	}
 
@@ -278,12 +272,10 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 		}
 
 		if(!isAcl()){
-
 			// 访问配置按钮
 			tb.addButton(new ToolbarButton().setIcon("ui-icon-lightbulb")
 					.setText(getText("certCfg.access"))
-					.setClick("bc.certCfgFormView.access"));
-			
+					.setClick("bc.certCfgView.aclConfig"));
 		}
 		
 		return tb;

@@ -97,9 +97,9 @@ public class CertCfgDaoImpl extends HibernateCrudJpaDao<CertCfg> implements Cert
 	}
 
 	public List<Map<String,String>> find4AllCertsInfo(String typeCode,Long pid) {
-		String hql = "select c.name as name, f.ver_ as version, ";
+		String hql = "select c.name as name, f.ver_ as version,";
 			hql+= "(select value_ from bc_form_field ff where ff.pid = f.id and ff.name_ = 'attach_id') attach_id ,";
-			hql+=" (case when f.id is null then 'no' else 'yes' end) isUpload ";
+			hql+=" (case when f.id is null then 'no' else 'yes' end) isUpload,f.code code ";
 			hql+="	from bc_cert_cfg c";
 			hql+=" inner join bc_cert_type t on t.id = c.type_id";
 			hql+=" left join bc_form f on (f.type_ = t.code and f.code = c.code and f.pid = ?)";
@@ -114,7 +114,6 @@ public class CertCfgDaoImpl extends HibernateCrudJpaDao<CertCfg> implements Cert
                 args.toArray(), new RowMapper<Map<String, String>>() {
             public Map<String, String> mapRow(Object[] rs, int rowNum) {
                 Map<String, String> oi = new HashMap<String, String>();
-               // int i = 0;
                 oi.put("name", rs[0].toString());
                 Object version = rs[1];
                 if(version ==null){
@@ -131,6 +130,14 @@ public class CertCfgDaoImpl extends HibernateCrudJpaDao<CertCfg> implements Cert
 
                 }
                 oi.put("isUpload", rs[3].toString());
+                
+                Object code = rs[4];
+                if(code ==null){
+                    oi.put("code", "");
+                }else{
+                    oi.put("code", code.toString());
+
+                }
                 return oi;
             }
         });

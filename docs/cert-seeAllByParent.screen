@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Label" id="1169" x="11" y="8" text="查看业务对象的所有证件的UI" measuredWidth="214" measuredHeight="30">
+    <font size="16px" bold="true"/>
+  </widgets>
+  <widgets xsi:type="model:Note" id="1172" x="11" y="608" width="448" height="257" text="说明：&#xD;&#xA;> 显示的顺序为：按证件配置的排序号正序 + 证件版本号逆序&#xD;&#xA;&#xD;&#xA;JS API 设计：&#xD;&#xA;/**&#xD;&#xA; \* 查看业务对象的所有证件&#xD;&#xA; \* @param {Json} option 配置信息&#xD;&#xA; \* @cert {String} type 类别编码&#xD;&#xA; \* @cert {Integer} pid 业务ID&#xD;&#xA; \* @cert {String} label 业务对象的描述性名称，如司机姓名、车辆车牌&#xD;&#xA; \*/&#xD;&#xA;bc.cert.seeAllByParent = function(option){&#xD;&#xA;   .....&#xD;&#xA;};&#xD;&#xA;" measuredWidth="448" measuredHeight="257" annotation="true" textAlignment="Left">
+    <font bold="false"/>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="1301" x="11" y="37" measuredWidth="689" measuredHeight="565">
+    <widgets xsi:type="model:WidgetGroup" id="1227" y="24" measuredWidth="585" measuredHeight="505">
+      <widgets xsi:type="model:Window" id="1228" width="585" height="505" text="小明的司机证件" measuredWidth="585" measuredHeight="505"/>
+      <widgets xsi:type="model:WidgetGroup" id="1229" y="19" measuredWidth="585" measuredHeight="70">
+        <widgets xsi:type="model:Accordion" id="1230" width="585" height="70" text="汇总信息" measuredWidth="585" measuredHeight="70" selection="0">
+          <items x="0" y="2" width="585" height="27" text="汇总信息"/>
+        </widgets>
+        <widgets xsi:type="model:WidgetGroup" id="1268" x="565" y="5" measuredWidth="16" measuredHeight="21">
+          <widgets xsi:type="model:Icon" id="1231" measuredWidth="16" measuredHeight="16" icon="line-arrow-up (small)"/>
+          <widgets xsi:type="model:Icon" id="1267" y="5" measuredWidth="16" measuredHeight="16" icon="line-arrow-up (small)"/>
+        </widgets>
+        <widgets xsi:type="model:Label" id="1270" x="10" y="37" text="已上传3种证件，尚欠4种证件没有上传" measuredWidth="279" measuredHeight="29">
+          <font size="16px"/>
+        </widgets>
+      </widgets>
+      <widgets xsi:type="model:WidgetGroup" id="1247" y="87" measuredWidth="585" measuredHeight="91">
+        <widgets xsi:type="model:Accordion" id="1248" width="585" height="91" text="\[已上传\] 身份证 v2.0" measuredWidth="585" measuredHeight="91" selection="0">
+          <items x="0" y="2" width="585" height="27" text="\[已上传\] 身份证 v2.0"/>
+        </widgets>
+        <widgets xsi:type="model:Icon" id="1249" x="565" y="7" measuredWidth="16" measuredHeight="16" icon="line-arrow-up (small)"/>
+        <widgets xsi:type="model:Icon" id="1250" x="544" y="7" measuredWidth="16" measuredHeight="16" icon="print (small)"/>
+        <widgets xsi:type="model:Icon" id="1252" x="10" y="37" width="48" height="48" measuredWidth="48" measuredHeight="48" foreground="#666666" icon="image (xlarge)"/>
+      </widgets>
+      <widgets xsi:type="model:WidgetGroup" id="1271" y="176" measuredWidth="585" measuredHeight="91">
+        <widgets xsi:type="model:Accordion" id="1272" width="585" height="91" text="\[已上传\] 身份证 v1.0" measuredWidth="585" measuredHeight="91" selection="0">
+          <items x="0" y="2" width="585" height="27" text="\[已上传\] 身份证 v1.0"/>
+        </widgets>
+        <widgets xsi:type="model:Icon" id="1273" x="565" y="7" measuredWidth="16" measuredHeight="16" icon="line-arrow-up (small)"/>
+        <widgets xsi:type="model:Icon" id="1274" x="544" y="7" measuredWidth="16" measuredHeight="16" icon="print (small)"/>
+        <widgets xsi:type="model:Icon" id="1275" x="10" y="37" width="48" height="48" measuredWidth="48" measuredHeight="48" foreground="#666666" icon="image (xlarge)"/>
+      </widgets>
+      <widgets xsi:type="model:WidgetGroup" id="1282" y="376" measuredWidth="585" measuredHeight="91">
+        <widgets xsi:type="model:Accordion" id="1283" width="585" height="91" text="\[已上传\] 服务资格证 v1.0" measuredWidth="585" measuredHeight="91" selection="0">
+          <items x="0" y="2" width="585" height="27" text="\[已上传\] 服务资格证 v1.0"/>
+        </widgets>
+        <widgets xsi:type="model:Icon" id="1284" x="565" y="7" measuredWidth="16" measuredHeight="16" icon="line-arrow-up (small)"/>
+        <widgets xsi:type="model:Icon" id="1285" x="544" y="7" measuredWidth="16" measuredHeight="16" icon="print (small)"/>
+        <widgets xsi:type="model:Icon" id="1286" x="10" y="37" width="48" height="48" measuredWidth="48" measuredHeight="48" foreground="#666666" icon="image (xlarge)"/>
+      </widgets>
+      <widgets xsi:type="model:Button" id="1246" x="527" y="472" width="51" text="刷新" measuredWidth="51" measuredHeight="27">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:WidgetGroup" id="1287" y="265" measuredWidth="585" measuredHeight="91">
+        <widgets xsi:type="model:Accordion" id="1288" width="585" height="91" text="\[未上传\] 驾驶证" measuredWidth="585" measuredHeight="91" selection="0">
+          <items x="0" y="2" width="585" height="27" text="\[未上传\] 驾驶证"/>
+        </widgets>
+        <widgets xsi:type="model:Icon" id="1289" x="565" y="7" measuredWidth="16" measuredHeight="16" icon="line-arrow-up (small)"/>
+        <widgets xsi:type="model:Icon" id="1290" x="544" y="7" measuredWidth="16" measuredHeight="16" icon="print (small)"/>
+        <widgets xsi:type="model:Icon" id="1291" x="10" y="37" width="48" height="48" measuredWidth="48" measuredHeight="48" foreground="#666666" icon="sad (xlarge)"/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="1292" x="10" y="348" text="......" measuredWidth="35" measuredHeight="30">
+        <font size="16px" bold="true"/>
+      </widgets>
+    </widgets>
+    <widgets xsi:type="model:Arrow" id="1262" x="99" y="13" width="53" height="20" measuredWidth="53" measuredHeight="20" annotation="true" foreground="#999999" direction="bottom"/>
+    <widgets xsi:type="model:Label" id="1266" x="155" text="格式：【业务对象名】的【证件类别名称】" measuredWidth="233" measuredHeight="25" foreground="#999999">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Tooltip" id="1293" x="445" y="64" text="折叠|展开全部证件图片" measuredWidth="133" measuredHeight="42" background="#ffff00" position="topRight">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Tooltip" id="1294" x="568" y="134" text="折叠|展开此证件图片" measuredWidth="121" measuredHeight="42" background="#ffff00" position="topLeft">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Tooltip" id="1295" x="460" y="134" text="打印此证件图片" measuredWidth="94" measuredHeight="42" background="#ffff00" position="topRight">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Arrow" id="1296" x="64" y="166" width="57" height="8" measuredWidth="57" measuredHeight="8" annotation="true" foreground="#999999" direction="bottom"/>
+    <widgets xsi:type="model:Label" id="1297" x="122" y="154" text="已上传的直接显示证件的主图" measuredWidth="161" measuredHeight="25" foreground="#999999">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Arrow" id="1298" x="62" y="348" width="57" height="8" measuredWidth="57" measuredHeight="8" annotation="true" foreground="#999999" direction="bottom"/>
+    <widgets xsi:type="model:Label" id="1299" x="120" y="336" text="未上传的显示一个固定的提示图" measuredWidth="173" measuredHeight="25" foreground="#999999">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Tooltip" id="1300" x="340" y="523" text="点击此按钮就重新获取并显示所有证件" measuredWidth="214" measuredHeight="42" background="#ffff00" position="topRight">
+      <font/>
+    </widgets>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font size="12px"/>
+</model:Screen>

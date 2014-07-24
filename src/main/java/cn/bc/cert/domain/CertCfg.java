@@ -26,31 +26,18 @@ public class CertCfg extends RichFileEntityImpl {
 	private static final long serialVersionUID = 1L;
 	public static final String KEY_UID = "cert.uid";
 	public static final String ATTACH_TYPE =CertCfg.class.getSimpleName();
-	/** 正常 */
-	public static final int STATUS_ENABLED = 0;
-	/** 禁用 */
-	public static final int STATUS_DISABLED = 1;
-	//private int status; //-- 状态 : 0-正常,1-禁用
 
 	private String code;//编码
 	private String name; //名称
 	private CertType certType; //证件类型，多对一的关系
-	private int page_count; //面数
+	private int pageCount; //面数
 	private BigDecimal width; //打印的宽度，毫米单位
 	private String combine; //合并配置
-	private String order_no; //排序号
+	private String orderNo; //排序号
 	private String tpl; //表单模板
 	
-	private Set<CertCfgDetail> certCfgDetails;
+	private Set<CertCfgDetail> details;
 
-	/*@Column(name = "STATUS_")
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
-	}*/
 	@Column(name = "CODE",length=100)
 	public String getCode() {
 		return code;
@@ -80,12 +67,12 @@ public class CertCfg extends RichFileEntityImpl {
 	}
 
 	@Column(name = "PAGE_COUNT")
-	public int getPage_count() {
-		return page_count;
+	public int getPageCount() {
+		return pageCount;
 	}
 
-	public void setPage_count(int page_count) {
-		this.page_count = page_count;
+	public void setPageCount(int pageCount) {
+		this.pageCount = pageCount;
 	}
 
 	@Column(name = "WIDTH")
@@ -107,12 +94,12 @@ public class CertCfg extends RichFileEntityImpl {
 	}
 
 	@Column(name = "ORDER_NO",length=10)
-	public String getOrder_no() {
-		return order_no;
+	public String getOrderNo() {
+		return orderNo;
 	}
 
-	public void setOrder_no(String order_no) {
-		this.order_no = order_no;
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
 	}
 
 	@Column(name = "TPL",length=1000)
@@ -125,13 +112,13 @@ public class CertCfg extends RichFileEntityImpl {
 	}
 
 	@OneToMany(mappedBy="certCfg",fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-	@OrderBy(value = "page_no asc")
-	public Set<CertCfgDetail> getCertCfgDetails() {
-		return certCfgDetails;
+	@OrderBy(value = "pageNo asc")
+	public Set<CertCfgDetail> getDetails() {
+		return details;
 	}
 
-	public void setCertCfgDetails(Set<CertCfgDetail> certCfgDetails) {
-		this.certCfgDetails = certCfgDetails;
+	public void setDetails(Set<CertCfgDetail> details) {
+		this.details = details;
 	}
 	
 }

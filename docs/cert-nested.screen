@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:WidgetGroup" id="1165" x="8" y="8" measuredWidth="920" measuredHeight="681">
+    <widgets xsi:type="model:Label" id="1169" x="1" text="证件内嵌到其它模块的UI" measuredWidth="182" measuredHeight="30">
+      <font size="16px" bold="true"/>
+    </widgets>
+    <widgets xsi:type="model:Note" id="1171" y="384" width="468" height="68" text="说明：&#xD;&#xA;1）右上角的打印、查看 - 当没有选择任何证件时，为打印、查看此业务对象的所有证件；查看时需要在新的窗口中打开查看" measuredWidth="468" measuredHeight="68" annotation="true" textAlignment="Left">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Note" id="1172" x="472" width="448" height="681" text="JS API 设计：&#xD;&#xA;/**&#xD;&#xA; \* 在指定容器内嵌入显示某业务对象(PID + type)的所有证件信息&#xD;&#xA; \* @param option {Object} 配置参数&#xD;&#xA; \* @option container {Element} 要嵌入到的容器的jQuery对象&#xD;&#xA; \* @option type {String} 证件类别编码&#xD;&#xA; \* @option pid {Integer} 业务对象ID&#xD;&#xA; \* @option readOnly {Boolean} 是否只读显示&#xD;&#xA; \*/&#xD;&#xA;bc.cert.nestedGrid(option){&#xD;&#xA;  ......&#xD;&#xA;  bc.cert.findByParent({&#xD;&#xA;    pid: option.pid,&#xD;&#xA;    type: option.type,&#xD;&#xA;    onOk: function(certs){&#xD;&#xA;       ......&#xD;&#xA;    }&#xD;&#xA;  });&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; \* 获取某业务对象(PID + type)的所有证件信息&#xD;&#xA; \* @param option {Object} 配置参数&#xD;&#xA; \* @option pid {Integer} 业务对象ID&#xD;&#xA; \* @option type {String} 证件类别的编码&#xD;&#xA; \* @option onOk {Function} 成功获取信息后的回调函数，函数第一个参数为返回的信息，格式为：\[{},{},...\],每个json为一个证件的信息，格式为：&#xD;&#xA; \*    {&#xD;&#xA; \*      code:【证件编码】,&#xD;&#xA; \*      name:【证件名称】,&#xD;&#xA; \*      ver:【版本号】,&#xD;&#xA; \*      upload_status:【上传状态】0-已上传|1-未上传,&#xD;&#xA; \*      modified_date:【最后修改时间】yyyy-MM-dd HH:mm,&#xD;&#xA; \*      modifier_name:【最后修改人姓名】&#xD;&#xA; \*    }&#xD;&#xA; */&#xD;&#xA;bc.cert.findByParent(option){&#xD;&#xA;  ...&#xD;&#xA;}&#xD;&#xA;" measuredWidth="448" measuredHeight="681" annotation="true" textAlignment="Left">
+      <font bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="1188" x="1" y="36" measuredWidth="467" measuredHeight="166">
+      <widgets xsi:type="model:Accordion" id="1166" y="20" width="467" height="146" text="【证件类别名称】" measuredWidth="467" measuredHeight="146" selection="0">
+        <items x="0" y="2" width="467" height="27" text="【证件类别名称】"/>
+      </widgets>
+      <widgets xsi:type="model:Table" id="1167" y="47" text="(w:30). !,(w:80). 证件名称,(w:20). 版本,(w:20). 上传状态,(w:118). 操作,最后修改&#xD;&#xA;1,服务资格证,2.0,已上传,[修改] [打印] [查看] [删除],小强 (2014-01-02 10:00)&#xD;&#xA;2,服务资格证,1.0,已上传,[上传],小强 (2014-01-02 10:00)&#xD;&#xA;3,身份证,1.0,未上传,[上传],小强 (2014-01-02 10:00)&#xD;&#xA;4,......" measuredWidth="467" measuredHeight="119" alternative="#eeeeee">
+        <font bold="false"/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="1170" x="358" y="24" text="[打印] [查看] [刷新]" measuredWidth="85" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Icon" id="1168" x="444" y="27" measuredWidth="16" measuredHeight="16" icon="line-arrow-up (small)"/>
+      <widgets xsi:type="model:Label" id="1181" x="3" text="编辑状态：" measuredWidth="65" measuredHeight="25">
+        <font size="12px" bold="true"/>
+      </widgets>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="1189" y="208" measuredWidth="467" measuredHeight="166">
+      <widgets xsi:type="model:Label" id="1182" x="2" text="只读状态：" measuredWidth="65" measuredHeight="25">
+        <font size="12px" bold="true"/>
+      </widgets>
+      <widgets xsi:type="model:Accordion" id="1184" y="20" width="467" height="146" text="【证件类别名称】" measuredWidth="467" measuredHeight="146" selection="0">
+        <items x="0" y="2" width="467" height="27" text="【证件类别名称】"/>
+      </widgets>
+      <widgets xsi:type="model:Table" id="1185" y="47" width="467" text="(w:30). !,(w:80). 证件名称,(w:20). 版本,(w:20). 上传状态,(w:118). 操作,最后修改&#xD;&#xA;1,服务资格证,2.0,已上传,[打印] [查看],小强 (2014-01-02 10:00)&#xD;&#xA;2,服务资格证,1.0,已上传,,小强 (2014-01-02 10:00)&#xD;&#xA;3,身份证,1.0,未上传,,小强 (2014-01-02 10:00)&#xD;&#xA;4,......" measuredWidth="467" measuredHeight="119" alternative="#eeeeee">
+        <font bold="false"/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="1186" x="358" y="24" text="[打印] [查看] [刷新]" measuredWidth="85" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Icon" id="1187" x="444" y="27" measuredWidth="16" measuredHeight="16" icon="line-arrow-up (small)"/>
+    </widgets>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font size="12px"/>
+</model:Screen>

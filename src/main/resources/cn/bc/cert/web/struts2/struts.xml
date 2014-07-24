@@ -3,6 +3,10 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
+	<!-- 预览模板 表单 -->
+	<package name="certAPI" extends="bc-default" namespace="/modules/bc/cert">
+		<action name="render" class="renderCertAction" method="render" />
+	</package>
 
 	<!-- 预览模板 表单 -->
 	<package name="previewTemplate" extends="bc-default" namespace="/modules/bc/cert/previewTemplate">

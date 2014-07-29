@@ -5,6 +5,7 @@ import cn.bc.cert.Dao.CertCfgDao;
 import cn.bc.cert.domain.CertCfg;
 import cn.bc.core.query.condition.impl.AndCondition;
 import cn.bc.core.query.condition.impl.EqualsCondition;
+import cn.bc.core.util.DateUtils;
 import cn.bc.db.jdbc.RowMapper;
 import cn.bc.orm.hibernate.jpa.HibernateCrudJpaDao;
 import cn.bc.orm.hibernate.jpa.HibernateJpaNativeQuery;
@@ -13,6 +14,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -99,10 +101,12 @@ public class CertCfgDaoImpl extends HibernateCrudJpaDao<CertCfg> implements Cert
 	public List<Map<String,String>> find4AllCertsInfo(String typeCode,Long pid) {
 		String hql = "select c.name as name, f.ver_ as version,";
 			hql+= "(select value_ from bc_form_field ff where ff.pid = f.id and ff.name_ = 'attach_id') attach_id ,";
-			hql+=" (case when f.id is null then 'no' else 'yes' end) isUpload,f.code code ";
+			hql+=" (case when f.id is null then 'no' else 'yes' end) isUpload,c.code code,f.modifier_id modifier_id,ich.actor_name actor_name," ;
+			hql+="f.modified_date modified_date,t.code typeCode,f.pid pid,f.id fid,f.uid_ uid,f.subject subject,c.tpl tpl";
 			hql+="	from bc_cert_cfg c";
 			hql+=" inner join bc_cert_type t on t.id = c.type_id";
 			hql+=" left join bc_form f on (f.type_ = t.code and f.code = c.code and f.pid = ?)";
+			hql+=" left join bc_identity_actor_history ich on f.modifier_id = ich.id";
 			hql+=" where t.code = ?";
 			hql+=" order by c.order_no,f.ver_ desc ";
         
@@ -114,32 +118,32 @@ public class CertCfgDaoImpl extends HibernateCrudJpaDao<CertCfg> implements Cert
                 args.toArray(), new RowMapper<Map<String, String>>() {
             public Map<String, String> mapRow(Object[] rs, int rowNum) {
                 Map<String, String> oi = new HashMap<String, String>();
-                oi.put("name", rs[0].toString());
-                Object version = rs[1];
-                if(version ==null){
-                    oi.put("version", "");
-                }else{
-                    oi.put("version", version.toString());
-
-                }
-                Object attach_id = rs[2];
-                if(attach_id ==null){
-                    oi.put("attach_id", "");
-                }else{
-                    oi.put("attach_id", attach_id.toString());
-
-                }
-                oi.put("isUpload", rs[3].toString());
-                
-                Object code = rs[4];
-                if(code ==null){
-                    oi.put("code", "");
-                }else{
-                    oi.put("code", code.toString());
-
-                }
+                int i = 0;
+                oi.put("name", dealNullValue(rs[i++]));
+                oi.put("version", dealNullValue(rs[i++]));
+                oi.put("attach_id", dealNullValue(rs[i++]));
+                oi.put("isUpload", dealNullValue(rs[i++]));
+                oi.put("code", dealNullValue(rs[i++]));
+                oi.put("modifier_id", dealNullValue(rs[i++]));
+                oi.put("actor_name", dealNullValue(rs[i++]));
+                oi.put("modified_date", DateUtils
+						.formatDateTime2Minute((Date)rs[i++]));   
+                oi.put("typeCode", dealNullValue(rs[i++]));
+                oi.put("pid", dealNullValue(rs[i++]));
+                oi.put("fid", dealNullValue(rs[i++]));
+                oi.put("uid", dealNullValue(rs[i++]));
+                oi.put("subject", dealNullValue(rs[i++]));
+                oi.put("tpl", dealNullValue(rs[i++]));
                 return oi;
             }
         });
+	}
+	/**
+	 * 处理某些空值的对象
+	 * @param origin
+	 * @return
+	 */
+	public String dealNullValue(Object origin){
+		return origin == null ? "" : origin.toString();
 	}
 }

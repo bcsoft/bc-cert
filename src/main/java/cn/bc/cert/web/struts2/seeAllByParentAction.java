@@ -56,6 +56,8 @@ SessionAware, RequestAware {
 	public int yetUpload;//未上传的证件数
 	public List<Map<String, String>> listInfo = null; //所有的证件列表信息
 	
+	public JSONObject jsonData = new JSONObject();//封装全部的json返回数据
+	
 	public String appTs;
 	public String htmlPageNamespace;
 
@@ -70,7 +72,7 @@ SessionAware, RequestAware {
 	 * 查看所有的证件信息
 	 * @return
 	 */
-	public String seeAll(){
+	public String seeAll() throws Exception{
 		Map<String,Object> args = new HashMap<String, Object>();
 		getTotalCerts(args);  //根据证件类型获取全部的证件
 		System.out.println(listInfo);
@@ -80,7 +82,7 @@ SessionAware, RequestAware {
 	/**
 	 * 得到总的证件配置里面的证件信息，根据证件类别，和pid查
 	 */
-	public void getTotalCerts(Map<String, Object> args) {  //args保存的是参数
+	public void getTotalCerts(Map<String, Object> args) throws JSONException{  //args保存的是参数
 		
 		listInfo = certCfgService.find4AllCertsInfo(this.type, Long.parseLong(pid));
 		totalCerts = listInfo.size();
@@ -96,32 +98,32 @@ SessionAware, RequestAware {
 		SystemContext context = SystemContextHolder.get();
 		htmlPageNamespace = context.getAttr(SystemContext.KEY_HTMLPAGENAMESPACE);
 		appTs = context.getAttr(SystemContext.KEY_APPTS);	
+		
+		try {
+			jsonData.put("lists", listInfo);
+			jsonData.put("totalCerts", totalCerts);
+			jsonData.put("alreadlyUpload", alreadlyUpload);
+			jsonData.put("yetUpload", yetUpload);
+			jsonData.put("htmlPageNamespace", htmlPageNamespace);
+			jsonData.put("appTs", appTs);
+			jsonData.put("success", true);
+			jsonData.put("msg", "刷新成功！");
+		} catch (JSONException e) {
+			jsonData.put("success", false);
+			jsonData.put("msg", "刷新失败！");
+		}
+		this.json = jsonData.toString();
 	}
 	
 	public String json; //保存刷新得到的所有数据
 	
 	/**
-	 * 刷新查看所有司机证件
+	 * 封装了所有的证件信息的json数据
 	 * @throws JSONException 
 	 */
-	public String refresh() throws JSONException {
-		JSONObject json = new JSONObject();
+	public String seeAllCertsData() throws JSONException {	
 		Map<String,Object> args = new HashMap<String, Object>();
-		getTotalCerts(args);
-		try {
-			json.put("lists", listInfo);
-			json.put("totalCerts", totalCerts);
-			json.put("alreadlyUpload", alreadlyUpload);
-			json.put("yetUpload", yetUpload);
-			json.put("htmlPageNamespace", htmlPageNamespace);
-			json.put("appTs", appTs);
-			json.put("success", true);
-			json.put("msg", "刷新成功！");
-		} catch (JSONException e) {
-			json.put("success", false);
-			json.put("msg", "刷新失败！");
-		}
-		this.json = json.toString();
+		getTotalCerts(args);		
 		return "json";
 	}
 	

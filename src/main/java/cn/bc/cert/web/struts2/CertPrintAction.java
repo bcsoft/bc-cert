@@ -1,6 +1,5 @@
 package cn.bc.cert.web.struts2;
 
-import cn.bc.core.util.TemplateUtils;
 import cn.bc.identity.web.SystemContext;
 import cn.bc.identity.web.SystemContextHolder;
 import cn.bc.template.service.TemplateService;
@@ -16,8 +15,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 
-import java.io.InputStream;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

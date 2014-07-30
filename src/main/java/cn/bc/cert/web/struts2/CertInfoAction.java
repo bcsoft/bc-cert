@@ -14,14 +14,11 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import cn.bc.cert.service.CertCfgService;
 import cn.bc.cert.service.CertInfoService;
 import cn.bc.form.domain.Form;
 
-import cn.bc.identity.service.IdGeneratorService;
 import cn.bc.identity.web.SystemContext;
 import cn.bc.identity.web.struts2.FileEntityAction;
-import cn.bc.option.service.OptionService;
 import cn.bc.web.ui.html.page.ButtonOption;
 import cn.bc.web.ui.html.page.PageOption;
 
@@ -38,9 +35,6 @@ public class CertInfoAction extends FileEntityAction<Long, Form> implements
 	private static final long serialVersionUID = 1L;
 	protected Log logger = LogFactory.getLog(getClass());
 
-	private IdGeneratorService idGeneratorService;	
-	private OptionService optionService;
-	
 	private CertInfoService certInfoService;
 
 	public String details; //证件配置明细json字符串
@@ -49,24 +43,12 @@ public class CertInfoAction extends FileEntityAction<Long, Form> implements
 	
 	public Form e = null;
 	
-	
-	@Autowired
-	public void setIdGeneratorService(IdGeneratorService idGeneratorService){
-		this.idGeneratorService = idGeneratorService;
-	}
-	
 	@Autowired
 	public void setCertInfoService(CertInfoService certInfoService){
 		this.certInfoService = certInfoService;
 		this.setCrudService(certInfoService);
 	}
 	
-	
-	@Autowired
-	public void setOptionService(OptionService optionService) {
-		this.optionService = optionService;
-	}
-
 	@Override
 	public boolean isReadonly() {
 		
@@ -78,39 +60,20 @@ public class CertInfoAction extends FileEntityAction<Long, Form> implements
 		
 	}
 	
-
-	
-	/*@Override
-	public String edit() throws Exception {
-		Long id = this.getId();
-		e = this.certInfoService.load(id);
-		this.formPageOption = buildFormPageOption(true);
-
-		// 初始化表单的其他配置
-		this.initForm(true);
-
-		this.afterEdit(e);
-		return "form";
-	}*/
-	
 	@Override
 	protected void initForm(boolean editable) throws Exception {
-		//初始化销售对象类型下拉列表
-		
+		//初始化销售对象类型下拉列表		
 		super.initForm(editable);
 	}
 	
-
 	@Override
 	protected PageOption buildFormPageOption(boolean editable) {
 		return super.buildFormPageOption(editable).setWidth(650)
 				.setMinHeight(200).setMinWidth(600);
 	}
-	
-	
-	@Override
-	protected void buildFormPageButtons(PageOption option, boolean editable) {
 		
+	@Override
+	protected void buildFormPageButtons(PageOption option, boolean editable) {		
 		// 保存按钮
 		ButtonOption saveButtonOption = new ButtonOption(
 				getText("certInfo.save"), null, "bc.certInfoForm.save");
@@ -132,8 +95,6 @@ public class CertInfoAction extends FileEntityAction<Long, Form> implements
 		e.setAuthor(context.getUserHistory()); // 设置创建时间
 	}
 
-	
-	
 	@Override
 	protected void beforeSave(Form entity) {
 		SystemContext context = (SystemContext) this.getContext();
@@ -159,11 +120,8 @@ public class CertInfoAction extends FileEntityAction<Long, Form> implements
 		return "json";
 	}
 
-
 	@Override
     protected boolean useFormPrint() {
         return false;
     }
-	
-
 }

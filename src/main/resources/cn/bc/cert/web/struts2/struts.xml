@@ -86,4 +86,20 @@
     <package name="printCert" extends="bc-default" namespace="/modules/bc/cert">
         <action name="print" class="certPrintAction" method="execute"/>
     </package>
+    
+    <!-- 查看所有证件信息 -->
+    <package name="seeAllByParent" extends="bc-default" namespace="/modules/bc/cert/seeAllByParent">
+        <action name="seeAll" class="seeAllByParentAction" method="seeAll">
+            <result name="form">/modules/bc/cert/seeAllByParent/form.jsp</result>
+        </action>
+        <action name="refresh" class="seeAllByParentAction" method="seeAllCertsData"></action>
+        <action name="nestedGrid" class="seeAllByParentAction" method="seeAllCertsData"></action>
+        <action name="findCar" class="seeAllByParentAction" method="findCar">
+            <result name="cert">/bc-business/car/cert.jsp</result>
+        </action>
+        <action name="findDriver" class="seeAllByParentAction" method="findDriver">
+             <result name="driver">/bc-business/carMan/driver.jsp</result>
+         </action>
+    </package>
+    
 </struts>

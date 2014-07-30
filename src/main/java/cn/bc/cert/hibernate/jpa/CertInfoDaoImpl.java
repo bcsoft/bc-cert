@@ -8,7 +8,6 @@ import cn.bc.orm.hibernate.jpa.HibernateCrudJpaDao;
 
 public class CertInfoDaoImpl extends HibernateCrudJpaDao<Form> implements CertInfoDao {
 
-
 	public Form loadById(Long id) {
 		AndCondition ac = new AndCondition();
 		ac.add(new EqualsCondition("id", id));

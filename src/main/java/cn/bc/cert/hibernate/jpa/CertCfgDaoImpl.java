@@ -7,11 +7,14 @@ import cn.bc.core.query.condition.impl.AndCondition;
 import cn.bc.core.query.condition.impl.EqualsCondition;
 import cn.bc.core.util.DateUtils;
 import cn.bc.db.jdbc.RowMapper;
+import cn.bc.identity.web.SystemContext;
 import cn.bc.orm.hibernate.jpa.HibernateCrudJpaDao;
 import cn.bc.orm.hibernate.jpa.HibernateJpaNativeQuery;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.util.StringUtils;
+
+import com.opensymphony.xwork2.ActionContext;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -98,21 +101,40 @@ public class CertCfgDaoImpl extends HibernateCrudJpaDao<CertCfg> implements Cert
 			.singleResult();
 	}
 
-	public List<Map<String,String>> find4AllCertsInfo(String typeCode,Long pid) {
-		String hql = "select c.name as name, f.ver_ as version,";
-			hql+= "(select value_ from bc_form_field ff where ff.pid = f.id and ff.name_ = 'attach_id') attach_id ,";
-			hql+=" (case when f.id is null then 'no' else 'yes' end) isUpload,c.code code,f.modifier_id modifier_id,ich.actor_name actor_name," ;
-			hql+="f.modified_date modified_date,t.code typeCode,f.pid pid,f.id fid,f.uid_ uid,f.subject subject,c.tpl tpl";
-			hql+="	from bc_cert_cfg c";
-			hql+=" inner join bc_cert_type t on t.id = c.type_id";
-			hql+=" left join bc_form f on (f.type_ = t.code and f.code = c.code and f.pid = ?)";
+	public List<Map<String,String>> find4AllCertsInfo(String typeCode,Long pid,String userCode) {
+		
+		String hql = "with actor(id) as (select id from bc_identity_actor where code = ? union select identity_find_actor_ancestor_ids(?)),";
+		//-- 证件配置
+			hql+=" cert_cfg(id, type_code, type_name, code, name, tpl, order_) as (select c.id, t.code, t.name, c.code, c.name, c.tpl, c.order_no from bc_cert_cfg c inner join bc_cert_type t on t.id = c.type_id where t.code = ?),";
+		//有 ACL 控制权限的证件配置
+			hql+=" acl(cert_id, role_) as (select c.id, aa.role from bc_acl_actor aa inner join bc_acl_doc ad on ad.id = aa.pid inner join cert_cfg c on (cast(c.id as text) = ad.doc_id and ad.doc_type = 'CertCfg')where aa.aid in (select id from actor)),";
+		//查找所有被配置ACL控制的证件配置
+			hql+=" acl_no(cert_id) as (select distinct c.id from bc_acl_actor aa inner join bc_acl_doc ad on ad.id = aa.pid inner join cert_cfg c on (cast(c.id as text) = ad.doc_id and ad.doc_type = 'CertCfg')),";
+		//有权限查阅的证件配置
+			hql+=" cert_cfg_with_acl(id, type_code, type_name, code, name, tpl, order_) as (select * from cert_cfg c where (";
+			//有 ACL 查阅或编辑权限
+			hql+=" exists (select 0 from acl where acl.cert_id = c.id and acl.role_ in ('10', '11', '01'))";
+			//无 ACL 权限控制：没有配置时默认为允许查阅
+			//or not exists (select 0 from acl where acl.cert_id = c.id)
+			hql+=" or not exists (select 0 from acl_no where c.id = acl_no.cert_id))";
+		//无 ACL 禁止查阅控制
+			hql+=" and not exists (select 0 from acl where acl.cert_id = c.id and acl.role_ = '00'))";
+			hql+=" select c.name as name,f.ver_ as version, ";
+			hql+=" (select value_ from bc_form_field ff where ff.pid = f.id and ff.name_ = 'attach_id') attach_id ,";
+			hql+=" (case f.id is null when true then 'no' else 'yes' end) upload_status,";
+			hql+=" c.code code,f.modifier_id modifier_id,ich.actor_name actor_name,f.modified_date modified_date,";
+			hql+=" c.type_code typeCode,f.pid pid,f.id fid,f.uid_ uid,f.subject subject,c.tpl tpl ";
+			hql+=" from cert_cfg_with_acl c";// 有查阅权限的证件
+			hql+=" left join bc_form f on (f.type_ = c.type_code and f.code = c.code and f.pid=? )";
 			hql+=" left join bc_identity_actor_history ich on f.modifier_id = ich.id";
-			hql+=" where t.code = ?";
-			hql+=" order by c.order_no,f.ver_ desc ";
+			hql+=" order by c.order_ asc,f.ver_ asc ";
+
         
         List<Object> args = new ArrayList<Object>();
-        args.add(pid);
+    	args.add(userCode);
+    	args.add(userCode);
         args.add(typeCode);
+        args.add(pid);
         
 		return HibernateJpaNativeQuery.executeNativeSql(getJpaTemplate(), hql,
                 args.toArray(), new RowMapper<Map<String, String>>() {

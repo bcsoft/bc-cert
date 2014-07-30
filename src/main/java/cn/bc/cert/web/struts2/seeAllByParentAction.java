@@ -16,6 +16,7 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import cn.bc.cert.service.CertCfgService;
@@ -39,7 +40,7 @@ import cn.bc.template.service.TemplateService;
  */
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @Controller
-public class seeAllByParentAction extends ActionSupport implements
+public class SeeAllByParentAction extends ActionSupport implements
 SessionAware, RequestAware {
 	private static final long serialVersionUID = 1L;
 	protected Log logger = LogFactory.getLog(getClass());
@@ -49,7 +50,10 @@ SessionAware, RequestAware {
 	
 	public String pid;  //pid
 	public String type; //业务类别，如司机证件、车辆证件
-	
+
+	public SystemContext getContext(){
+		return SystemContextHolder.get();
+	}
 	
 	public int totalCerts ;//总的证件数
 	public int alreadlyUpload; //已经上传的证件数
@@ -67,6 +71,11 @@ SessionAware, RequestAware {
 	public void setCertCfgService(CertCfgService certCfgService){
 		this.certCfgService = certCfgService;
 	}
+	
+	/*public boolean isReadonly(){
+		return !getContext().hasAnyRole("BS_CAR_CERT_MANAGE","BC_ADMIN");
+	}*/
+		
 
 	/**
 	 * 查看所有的证件信息
@@ -83,8 +92,9 @@ SessionAware, RequestAware {
 	 * 得到总的证件配置里面的证件信息，根据证件类别，和pid查
 	 */
 	public void getTotalCerts(Map<String, Object> args) throws JSONException{  //args保存的是参数
+		String userCode = getContext().getUser().getCode();
 		
-		listInfo = certCfgService.find4AllCertsInfo(this.type, Long.parseLong(pid));
+		listInfo = certCfgService.find4AllCertsInfo(this.type, Long.parseLong(pid),userCode);
 		totalCerts = listInfo.size();
 		if(totalCerts > 0){
 			for(int i = 0 ; i< totalCerts ; i++){
@@ -95,9 +105,9 @@ SessionAware, RequestAware {
 				}
 			}
 		}
-		SystemContext context = SystemContextHolder.get();
-		htmlPageNamespace = context.getAttr(SystemContext.KEY_HTMLPAGENAMESPACE);
-		appTs = context.getAttr(SystemContext.KEY_APPTS);	
+		//SystemContext context = SystemContextHolder.get();
+		htmlPageNamespace = getContext().getAttr(SystemContext.KEY_HTMLPAGENAMESPACE);
+		appTs = getContext().getAttr(SystemContext.KEY_APPTS);	
 		
 		try {
 			jsonData.put("lists", listInfo);
@@ -125,6 +135,34 @@ SessionAware, RequestAware {
 		Map<String,Object> args = new HashMap<String, Object>();
 		getTotalCerts(args);		
 		return "json";
+	}
+
+	public int carId;
+	public String carUid;
+	public boolean carIsNew;
+	public String carPlateType;
+	public String carPlateNo;
+
+	public boolean isCarReadonly;
+	/**
+	 * 获取车辆的信息
+	 */
+	public String findCar(){
+		this.isCarReadonly = !getContext().hasAnyRole("BS_CAR_CERT_MANAGE","BC_ADMIN");
+		return "cert";
+	}
+	
+	public int driverId;
+	public String driverUid;
+	public boolean driverIsNew;
+	public String driverName;
+	public boolean isDriverReadonly;
+	/**
+	 * 获取司机信息
+	 */
+	public String findDriver(){
+		this.isDriverReadonly = !getContext().hasAnyRole("BS_DRIVER_CERT_MANAGE","BC_ADMIN");
+		return "driver";
 	}
 	
 

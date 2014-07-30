@@ -50,7 +50,8 @@ public interface CertCfgDao extends CrudDao<CertCfg> {
 	 * 根据证件类别获得所有证件的信息
 	 * @param typeCode
 	 * @param pid
+	 * @param userCode 当前登录的用户的code
 	 * @return
 	 */
-	List<Map<String,String>> find4AllCertsInfo(String typeCode,Long pid);
+	List<Map<String,String>> find4AllCertsInfo(String typeCode,Long pid,String userCode);
 }

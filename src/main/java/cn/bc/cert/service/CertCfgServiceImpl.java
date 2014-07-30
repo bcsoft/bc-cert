@@ -31,7 +31,7 @@ public class CertCfgServiceImpl extends DefaultCrudService<CertCfg> implements C
 		return certCfgDao.loadByCode(typeCode, cfgCode);
 	}
 
-	public List<Map<String, String>> find4AllCertsInfo(String typeCode, Long pid) {
-		return certCfgDao.find4AllCertsInfo(typeCode, pid);
+	public List<Map<String, String>> find4AllCertsInfo(String typeCode, Long pid ,String userCode) {
+		return certCfgDao.find4AllCertsInfo(typeCode, pid ,userCode);
 	}
 }

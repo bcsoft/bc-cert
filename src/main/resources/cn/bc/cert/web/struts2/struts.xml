@@ -90,6 +90,12 @@
         </action>
         <action name="refresh" class="seeAllByParentAction" method="seeAllCertsData"></action>
         <action name="nestedGrid" class="seeAllByParentAction" method="seeAllCertsData"></action>
+        <action name="findCar" class="seeAllByParentAction" method="findCar">
+            <result name="cert">/bc-business/car/cert.jsp</result>
+        </action>
+        <action name="findDriver" class="seeAllByParentAction" method="findDriver">
+             <result name="driver">/bc-business/carMan/driver.jsp</result>
+         </action>
     </package>
     
 </struts>

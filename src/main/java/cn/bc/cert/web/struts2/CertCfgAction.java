@@ -236,7 +236,7 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 				if (json.has("id"))
 					certCfgDetail.setId(json.getLong("id"));
 				certCfgDetail.setName(json.getString("name"));
-				certCfgDetail.setPageNo(json.getInt("page_no"));
+				certCfgDetail.setPageNo(json.getInt("pageNo"));
 				certCfgDetail.setWidth(new BigDecimal(json.getString("width")));
 				certCfgDetail.setCertCfg(this.getE());
 				certCfgDetails.add(certCfgDetail);

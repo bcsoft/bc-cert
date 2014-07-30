@@ -37,7 +37,7 @@ public class RenderCertAction extends RenderFormAction {
 
 	public RenderCertAction() {
 		// 强制证件配置信息优先
-		this.replace = true;
+		this.replace = false;
 	}
 
 	@Override
@@ -85,10 +85,12 @@ public class RenderCertAction extends RenderFormAction {
 	}
 
 	@Override
-	protected void addContextParams(Map<String, Object> args, boolean readonly) {
-		super.addContextParams(args, readonly);
+	protected Map<String, Object> addContextParams(Map<String, Object> args, boolean readonly) {
+		Map<String, Object> ctx = super.addContextParams(args, readonly);
 
 		// 添加证件配置信息
-		args.put("certCfg", this.certCfg);
+		ctx.put("cfg", this.certCfg);
+
+		return ctx;
 	}
 }

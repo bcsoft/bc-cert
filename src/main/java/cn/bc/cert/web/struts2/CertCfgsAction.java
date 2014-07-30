@@ -189,7 +189,7 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 				.setUseTitleFromLabel(true));
 		// 分拆页数
 		columns.add(new TextColumn4MapKey("cc.page_count", "page_count",
-				getText("certCfg.page_count"),60).setSortable(true));
+				getText("certCfg.pageCount"),60).setSortable(true));
 		
 		// 打印宽度
 		columns.add(new TextColumn4MapKey("cc.width", "width",

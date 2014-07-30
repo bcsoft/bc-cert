@@ -1,5 +1,6 @@
 package cn.bc.cert.web.struts2;
 
+import cn.bc.BCConstants;
 import cn.bc.cert.domain.CertCfg;
 import cn.bc.core.query.condition.Condition;
 import cn.bc.core.query.condition.ConditionUtils;
@@ -264,7 +265,7 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 			
 			// 切换状态
 			tb.addButton(Toolbar.getDefaultToolbarRadioGroup(
-					this.getStatuses(), "status", CertCfg.STATUS_ENABLED,
+					this.getStatuses(), "status", BCConstants.STATUS_ENABLED,
 					getText("title.click2changeSearchStatus")));
 		}else{
 			// 查看按钮
@@ -308,14 +309,13 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 	
 	private Map<String, String> getStatuses() {
 		Map<String, String> statuses = new LinkedHashMap<String, String>();
-		statuses.put(String.valueOf(CertCfg.STATUS_ENABLED),
+		statuses.put(String.valueOf(BCConstants.STATUS_ENABLED),
 				getText("certCfg.status.enabled"));
-		statuses.put(String.valueOf(CertCfg.STATUS_DISABLED),
+		statuses.put(String.valueOf(BCConstants.STATUS_DISABLED),
 				getText("certCfg.status.disabled"));
-		statuses.put(String.valueOf(CertCfg.STATUS_ENABLED) + ","
-				+ String.valueOf(CertCfg.STATUS_DISABLED),
+		statuses.put(String.valueOf(BCConstants.STATUS_ENABLED) + ","
+				+ String.valueOf(BCConstants.STATUS_DISABLED),
 				getText("certCfg.status.all"));
 		return statuses;
 	}
-
 }

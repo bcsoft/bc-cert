@@ -40,4 +40,10 @@ public interface CertCfgService extends CrudService<CertCfg>{
 	 */
 	List<Map<String,String>> find4AllCertsInfo(String typeCode,Long pid,String userCode);
 	
+	/**通过司机的id找到司机招聘的对应的id
+	 * @param carId 司机的id
+	 * @return
+	 */
+	public Map<String,Object> findDriverTempByCarMan(int carId);
+	
 }

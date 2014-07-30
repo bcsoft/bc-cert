@@ -153,6 +153,7 @@ SessionAware, RequestAware {
 	}
 	
 	public int driverId;
+	public int driverTempId;
 	public String driverUid;
 	public boolean driverIsNew;
 	public String driverName;
@@ -162,6 +163,11 @@ SessionAware, RequestAware {
 	 */
 	public String findDriver(){
 		this.isDriverReadonly = !getContext().hasAnyRole("BS_DRIVER_CERT_MANAGE","BC_ADMIN");
+		Map<String,Object> maps = certCfgService.findDriverTempByCarMan(driverId);
+		Object vl = maps.get("driverTempId");
+		if(vl != null){
+			driverTempId = Integer.parseInt(String.valueOf(vl));
+		}
 		return "driver";
 	}
 	

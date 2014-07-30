@@ -12,6 +12,8 @@ import cn.bc.orm.hibernate.jpa.HibernateCrudJpaDao;
 import cn.bc.orm.hibernate.jpa.HibernateJpaNativeQuery;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.StringUtils;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -22,8 +24,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
+
 public class CertCfgDaoImpl extends HibernateCrudJpaDao<CertCfg> implements CertCfgDao {
     private static Log logger = LogFactory.getLog(CertCfgDaoImpl.class);
+    private JdbcTemplate jdbcTemplate;
+    
+    @Autowired
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
 
 	public CertCfg loadById(Long id) {
 		AndCondition ac = new AndCondition();
@@ -167,5 +177,11 @@ public class CertCfgDaoImpl extends HibernateCrudJpaDao<CertCfg> implements Cert
 	 */
 	public String dealNullValue(Object origin){
 		return origin == null ? "" : origin.toString();
+	}
+
+	public Map<String,Object> findDriverTempByCarMan(int carId) {
+		 String sql = "select td.id as driverTempId from BS_TEMP_DRIVER td inner join BS_CARMAN c on c.cert_identity = td.cert_identity where c.id = ?";
+		 Map<String,Object> map= this.jdbcTemplate.queryForMap(sql, carId);	
+        return map;
 	}
 }

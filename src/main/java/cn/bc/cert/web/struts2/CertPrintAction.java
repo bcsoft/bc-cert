@@ -58,9 +58,9 @@ public class CertPrintAction extends ActionSupport {
             sql.append(", '" + cfg.getString("code") + "'::text");
             sql.append(", " + cfg.getString("pid"));
             if(cfg.has("ver")) {
-                sql.append(", '" + cfg.getString("ver") + "'::text");
+                sql.append(", " + cfg.getString("ver"));
             }else{
-                sql.append(", null::text");
+                sql.append(", null::numeric");
             }
             sql.append(", " + i);
         }

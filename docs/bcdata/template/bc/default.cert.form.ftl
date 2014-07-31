@@ -1,10 +1,10 @@
 ﻿<div class="bc-page" data-type='form' style="overflow-y:auto"
-	 data-initMethod='${_initMethod}' data-namespace='${_namespace}'
-	 data-js='${_jscss}'
-	 data-option='${_pageOption}'>
+	 data-initMethod='${ctx.initMethod}' data-namespace='${ctx.namespace}'
+	 data-js='${ctx.jscss}'
+	 data-option='${ctx.pageOption}'>
 <form class="bc-from" method="post">
 <!-- 基本信息区 -->
-<div class="blockContainer formTable2 ui-widget-content" style="width:auto">
+<div class="blockContainer ui-widget-content" style="width:auto;border-bottom:none">
 	<div class="header ui-widget-header title" style="position:relative;">
 		<span class="text">基本信息:</span>
 		<ul class="inputIcons">
@@ -12,51 +12,66 @@
 			<li class="toggleMe inputIcon verticalMiddle ui-icon ui-icon-triangle-1-n" title="折叠|展开此区域"></li>
 		</ul>
 	</div>
-	<div class="detail">
+	<div class="detail" style="max-width:42.5em">
 		<table class="formFields ui-widget-content" cellspacing="2" cellpadding="0">
 			<tr class="widthMarker">
 				<td style="width: 6em;">&nbsp;</td>
-				<td style="width: 25em;">&nbsp;</td>
-				<td style="width: 6em;">&nbsp;</td>
-				<td >&nbsp;</td>
+				<td>&nbsp;</td>
+				<td style="min-width: 3em;">&nbsp;</td>
+				<td style="width: 4em;">&nbsp;</td>
 			</tr>
 			<tr>
-				<td class="label">*标题:</td>
+				<td class="label">标题:</td>
 				<td class="value">
-					<input type="text" name="subject" value="${f.subject!}" data-scope="form"
-						cssClass="ui-widget-content" data-validate="required" readonly/>
+					<input type="text" name="subject" value="${form.subject!}" data-scope="form"
+						class="ui-widget-content ui-state-disabled" data-validate="required" readonly/>
 				</td>
-				<td class="label">*版本号:</td>
+				<td class="label">版本:</td>
 				<td class="value">
-					<input type="text" name="version" value="${f.version!}" data-scope="form"
-						cssClass="ui-widget-content" data-validate="required" readonly/>
+					<input type="text" name="ver" value="${form.ver!}" data-scope="form" data-type="float"
+						class="ui-widget-content ui-state-disabled" data-validate="required" readonly/>
 				</td>
 			</tr>
 			<tr>
 				<td class="label">备注:</td>
 				<td class="value" colspan="3">
-					<input type="text" name="description" value="${f.description!}" data-scope="form" cssClass="ui-widget-content"/>
+					<input type="text" name="description" value="${form.description!}" data-scope="form" class="ui-widget-content"/>
 				</td>
 			</tr>
 		</table>
 		<div class="fileInfo">
-			登记：${f.author.name}(${f.fileDate.time?string("yyyy-MM-dd HH:mm")}),
-			最后修改：${f.modifier.name}(${f.modifiedDate.time?string("yyyy-MM-dd HH:mm")})
+			登记：${form.author.name}(${form.fileDate.time?string("yyyy-MM-dd HH:mm")}),
+			最后修改：${form.modifier.name}(${form.modifiedDate.time?string("yyyy-MM-dd HH:mm")})
 		</div>
+	</div>
+</div>
+<!-- 测试信息区 -->
+<div class="blockContainer ui-widget-content" style="width:auto;border-bottom:none">
+	<div class="header ui-widget-header title" style="position:relative;">
+		<span class="text">测试信息:</span>
+		<ul class="inputIcons">
+			<li class="toggleAll inputIcon verticalMiddle ui-icon ui-icon-carat-2-n-s" title="折叠|展开所有区域"></li>
+			<li class="toggleMe inputIcon verticalMiddle ui-icon ui-icon-triangle-1-n" title="折叠|展开此区域"></li>
+		</ul>
+	</div>
+	<div class="detail">
+		<label>文本值：<input type="text" name="text1" value="${text1!}" class="ui-widget-content"/></label>
+		<label>数字值：<input type="text" name="num1" value="${num1!}" class="ui-widget-content"
+			data-validate='{"type": "number"}' data-type="float"/></label>
 	</div>
 </div>
 
 <!-- 图片区：主图 -->
-<div class="blockContainer formTable2 ui-widget-content" style="width:auto">
+<div class="main blockContainer ui-widget-content" style="width:auto;border-bottom:none" data-label="${ctx.cfg.name}">
 	<div class="header ui-widget-header title" style="position:relative;">
 		<span class="text">证件图片:</span>
 		<span >实物宽度<input type="text" name="attach_width" data-label="主图实物宽度"
-			value='<#if _replace || !(ff.attach_width??)>${certCfg.width?c}<#else>${ff.attach_width?c}</#if>'
-			data-validate='{"required":true,"type":"number"}'
-			class="ui-widget-content attach-width" style="width:50px;"/>毫米</span>
+			value='<#if ctx.replace || !(attach_width??)>${ctx.cfg.width?c}<#else>${attach_width?c}</#if>'
+			data-validate='{"required":true,"type":"number"}' data-type="float"
+			class="ui-widget-content attach-width" style="width:4em"/>毫米</span>
 		<ul class="inputIcons">
-			<#if certCfg.pageCount gt 1>
-			<li class="mergeImage inputIcon ui-icon ui-icon-link" data-mixConfig='${certCfg.combine!}' title='合并各分拆页的图片'></li>
+			<#if ctx.cfg.pageCount gt 1>
+			<li class="mergeImage inputIcon ui-icon ui-icon-link" data-combine='${ctx.cfg.combine!}' title='合并各分拆页的图片'></li>
 			</#if>
 			<li class="editImage inputIcon ui-icon ui-icon-pencil" title='编辑'></li>
 			<li class="printImage inputIcon ui-icon ui-icon-print" title='打印'></li>
@@ -64,27 +79,29 @@
 		</ul>
 	</div>
 	<div class="detail">
-		<#if ff.attach_id?? && ff.attach_id != "">
-			<img src="${_path}/bc/image/download?id=${ff.attach_id}&ts=${_ts}" style="max-width:100%;" />
+		<#if attach_id??>
+			<img src="${ctx.root}/bc/image/download?id=${attach_id}&ts=${ctx.ts}" style="max-width:100%;" />
 		<#else>
 			<div class="warn" style="margin:2px;">未上传</div>
 		</#if>
 	</div>
-	<input type="hidden" name="attach_id" data-label="主图附件ID" value="${ff.attach_id!}"/>
+	<input type="hidden" class="attach-id" name="attach_id" data-label="主图" data-type="long"
+		<#if attach_id??>value="${attach_id?c}"</#if>/>
 </div>
 
-<#if certCfg.pageCount gt 1>
+<#if ctx.cfg.pageCount gt 1>
 <!-- 图片区：拆分图 -->
-<#assign _ds=certCfg.details/>
-<#list 1..certCfg.pageCount as n>
-<#list certCfg.details as i><#if i_index == n><#assign _d=i/><#break></#if></#list>
-<div class="blockContainer formTable2 ui-widget-content" style="width:auto" data-num="${n}">
+<#assign _ds=ctx.cfg.details/>
+<#list 1..ctx.cfg.pageCount as n>
+<#list ctx.cfg.details as i><#if i_index == n - 1><#assign _d=i/><#break></#if></#list>
+<div class="sub blockContainer ui-widget-content" style="width:auto<#if n != ctx.cfg.pageCount>;border-bottom:none</#if>" data-num="${n}"
+	data-label="${ctx.cfg.name}${_d.name}">
 	<div class="header ui-widget-header title" style="position:relative;">
 		<span class="text">第${n}页(${_d.name})图片:</span>
 		<span >实物宽度<input type="text" name="attach_width_${n}" data-label="实物宽度"
-			value="<#if _replace || !(.vars['attach_width_' + n]??)>${_d.width?c}<#else>${.vars['attach_width_' + n]}</#if>"
-			data-validate='{"required":true,"type":"number"}'
-			class="ui-widget-content attach-width" style="width:50px;"/>毫米</span>
+			value="<#if ctx.replace || !(.vars['attach_width_' + n]??)>${_d.width?c}<#else>${.vars['attach_width_' + n]}</#if>"
+			data-validate='{"required":true,"type":"number"}' data-type="float"
+			class="ui-widget-content attach-width" style="width:4em"/>毫米</span>
 		<ul class="inputIcons">
 			<li class="editImage inputIcon ui-icon ui-icon-pencil" title='编辑'></li>
 			<li class="printImage inputIcon ui-icon ui-icon-print" title='打印'></li>
@@ -92,24 +109,24 @@
 		</ul>
 	</div>
 	<div class="detail">
-		<#if .vars['attach_id_' + n]?? && .vars['attach_id_' + n] != "">
-			<img src="${_path}/bc/image/download?id=${.vars['attach_id_' + n]!}&ts=${_ts}" style="max-width:100%;" />
+		<#if .vars['attach_id_' + n]??>
+			<img src="${ctx.root}/bc/image/download?id=${.vars['attach_id_' + n]!?c}&ts=${ctx.ts}" style="max-width:100%" />
 		<#else>
 			<div class="warn" style="margin:2px;">未上传</div>
 		</#if>
 	</div>
-	<input type="hidden" name="attach_id_${n}" data-label="拆分图附件ID" value="${.vars['attach_id_'+n]!}" class="attach-id"/>
+	<input type="hidden" class="attach-id" name="attach_id_${n}" data-label="拆分图附件ID" data-type="long"
+	<#if .vars['attach_id_' + n]??>value="${.vars['attach_id_'+n]?c}"</#if>/>
 </div>
 </#list>
 </#if>
 
 <!-- 证件标识信息 -->
-<input type="hidden" name="type" class="ignore" value="${f.type}"/>
-<input type="hidden" name="code" class="ignore" value="${f.code}"/>
-<input type="hidden" name="pid" class="ignore" value="${f.pid?c}"/>
-<input type="hidden" name="version" class="ignore" value="${f.version}"/>
-
-<#-- 附件修改记录标记 -->
-<input type="hidden" name="attach_flag" value="${attach_flag!}" data-type="int"/>
+<input type="hidden" name="id" class="ignore"<#if form.id??> value="${form.id?c}"</#if> data-type="long"/>
+<input type="hidden" name="uid" class="ignore" value="${form.uid}"/>
+<input type="hidden" name="type" class="ignore" value="${form.type}"/>
+<input type="hidden" name="code" class="ignore" value="${form.code}"/>
+<input type="hidden" name="pid" class="ignore" value="${form.pid?c}" data-type="long"/>
+<input type="hidden" name="tpl" class="ignore" value="${form.tpl}"/>
 </form>
 </div>

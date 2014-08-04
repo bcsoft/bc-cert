@@ -69,7 +69,7 @@ insert into BC_IDENTITY_ACTOR_RELATION (TYPE_,MASTER_ID,FOLLOWER_ID)
     select 0,am.id,af.id
     from BC_IDENTITY_ACTOR am,BC_IDENTITY_ACTOR af
     where am.CODE='CertManageGroup' 
-	and af.CODE in ('ldx') -- 用户帐号
+	and af.CODE in ('ghy', 'hrj', 'ldx') -- 用户帐号
 	and not exists (select 0 from BC_IDENTITY_ACTOR_RELATION r where r.TYPE_=0 and r.MASTER_ID=am.id and r.FOLLOWER_ID=af.id);
 	
 	

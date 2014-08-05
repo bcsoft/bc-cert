@@ -59,7 +59,7 @@ public class CertInfosAction extends ViewAction<Map<String, Object>> {
 	protected String getHtmlPageJs() {
 		return this.getModuleContextPath() + "/certInfo/view.js"+","+this.getContextPath()+"/bc-business/bs.js"
 				+","+this.getContextPath()+"/modules/bc/cert/certCfg/form.js"+","+this.getContextPath()+"/bc-business/carManCert/view.js"
-				+","+this.getContextPath()+"/bc/form/customForm.js"+","+this.getContextPath() + "/modules/bc/cert/api.js"
+				+","+this.getContextPath()+"/bc/form/api.js"+","+this.getContextPath() + "/modules/bc/cert/api.js"
 				+","+this.getContextPath()+"/bc-business/carManCert/form.js";
 	}
 

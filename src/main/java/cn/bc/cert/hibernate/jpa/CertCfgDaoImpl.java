@@ -18,6 +18,7 @@ import org.springframework.util.StringUtils;
 
 import com.opensymphony.xwork2.ActionContext;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -152,7 +153,7 @@ public class CertCfgDaoImpl extends HibernateCrudJpaDao<CertCfg> implements Cert
                 Map<String, String> oi = new HashMap<String, String>();
                 int i = 0;
                 oi.put("name", dealNullValue(rs[i++]));
-                oi.put("version", dealNullValue(rs[i++]));
+                oi.put("version", dealVersionStyle(dealNullValue(rs[i++])));
                 oi.put("attach_id", dealNullValue(rs[i++]));
                 oi.put("isUpload", dealNullValue(rs[i++]));
                 oi.put("code", dealNullValue(rs[i++]));
@@ -177,6 +178,16 @@ public class CertCfgDaoImpl extends HibernateCrudJpaDao<CertCfg> implements Cert
 	 */
 	public String dealNullValue(Object origin){
 		return origin == null ? "" : origin.toString();
+	}
+	
+	/**
+	 * 处理版本号的显示效果，如1.00显示成1
+	 */
+	public String dealVersionStyle(String version){
+		if(version != "" && !"".equals(version))
+			return new DecimalFormat("#.##").format(Float.valueOf(String.valueOf(version)));
+		else
+			return "";
 	}
 
 	public Map<String,Object> findDriverTempByCarMan(int carId) {

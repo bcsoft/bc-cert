@@ -105,7 +105,6 @@ SessionAware, RequestAware {
 				}
 			}
 		}
-		//SystemContext context = SystemContextHolder.get();
 		htmlPageNamespace = getContext().getAttr(SystemContext.KEY_HTMLPAGENAMESPACE);
 		appTs = getContext().getAttr(SystemContext.KEY_APPTS);	
 		
@@ -144,11 +143,13 @@ SessionAware, RequestAware {
 	public String carPlateNo;
 
 	public boolean isCarReadonly;
+	public boolean isCarRead;
 	/**
 	 * 获取车辆的信息
 	 */
 	public String findCar(){
 		this.isCarReadonly = !getContext().hasAnyRole("BS_CAR_CERT_MANAGE","BC_ADMIN");
+		this.isCarRead = !getContext().hasAnyRole("BS_CAR_CERT_MANAGE","BS_CAR_CERT_READ","BC_ADMIN");
 		return "cert";
 	}
 	
@@ -158,11 +159,13 @@ SessionAware, RequestAware {
 	public boolean driverIsNew;
 	public String driverName;
 	public boolean isDriverReadonly;
+	public boolean isDriverRead;
 	/**
 	 * 获取司机信息
 	 */
 	public String findDriver(){
 		this.isDriverReadonly = !getContext().hasAnyRole("BS_DRIVER_CERT_MANAGE","BC_ADMIN");
+		this.isDriverRead = !getContext().hasAnyRole("BS_DRIVER_CERT_MANAGE","BS_DRIVER_CERT_READ","BC_ADMIN");
 		Map<String,Object> maps = certCfgService.findDriverTempByCarMan(driverId);
 		Object vl = maps.get("driverTempId");
 		if(vl != null){

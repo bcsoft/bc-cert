@@ -62,11 +62,11 @@
 </div>
 
 <!-- 图片区：主图 -->
-<div class="main blockContainer ui-widget-content" style="width:auto;border-bottom:none" data-label="${ctx.cfg.name}">
+<div class="main blockContainer ui-widget-content" style="width:auto<#if ctx.cfg.pageCount gt 1>;border-bottom-width:0</#if>" data-label="${ctx.cfg.name}">
 	<div class="header ui-widget-header title" style="position:relative;">
-		<span class="text">证件图片:</span>
+		<span class="subject">证件图片:</span>
 		<span >实物宽度<input type="text" name="attach_width" data-label="主图实物宽度"
-			value='<#if ctx.replace || !(attach_width??)>${ctx.cfg.width?c}<#else>${attach_width?c}</#if>'
+			value='<#if ctx.replace || !(attach_width??)>${ctx.cfg.width?string("#.##")}<#else>${attach_width?string("#.##")}</#if>'
 			data-validate='{"required":true,"type":"number"}' data-type="float"
 			class="ui-widget-content attach-width" style="width:4em"/>毫米</span>
 		<ul class="inputIcons">
@@ -80,9 +80,9 @@
 	</div>
 	<div class="detail">
 		<#if attach_id??>
-			<img src="${ctx.root}/bc/image/download?id=${attach_id}&ts=${ctx.ts}" style="max-width:100%;" />
+			<img src="${ctx.root}/bc/image/download?id=${attach_id?c}&ts=${ctx.ts}" style="max-width:100%;" />
 		<#else>
-			<div class="warn" style="margin:2px;">未上传</div>
+			<div class="warn" style="padding:2px;">未上传</div>
 		</#if>
 	</div>
 	<input type="hidden" class="attach-id" name="attach_id" data-label="主图" data-type="long"
@@ -94,12 +94,12 @@
 <#assign _ds=ctx.cfg.details/>
 <#list 1..ctx.cfg.pageCount as n>
 <#list ctx.cfg.details as i><#if i_index == n - 1><#assign _d=i/><#break></#if></#list>
-<div class="sub blockContainer ui-widget-content" style="width:auto<#if n != ctx.cfg.pageCount>;border-bottom:none</#if>" data-num="${n}"
+<div class="sub blockContainer ui-widget-content" style="width:auto<#if n != ctx.cfg.pageCount>;border-bottom-width:0</#if>" data-num="${n}"
 	data-label="${ctx.cfg.name}${_d.name}">
 	<div class="header ui-widget-header title" style="position:relative;">
-		<span class="text">第${n}页(${_d.name})图片:</span>
+		<span class="subject">第${n}页(${_d.name})图片:</span>
 		<span >实物宽度<input type="text" name="attach_width_${n}" data-label="实物宽度"
-			value="<#if ctx.replace || !(.vars['attach_width_' + n]??)>${_d.width?c}<#else>${.vars['attach_width_' + n]}</#if>"
+			value="<#if ctx.replace || !(.vars['attach_width_' + n]??)>${_d.width?string("#.##")}<#else>${.vars['attach_width_' + n]?string("#.##")}</#if>"
 			data-validate='{"required":true,"type":"number"}' data-type="float"
 			class="ui-widget-content attach-width" style="width:4em"/>毫米</span>
 		<ul class="inputIcons">
@@ -112,7 +112,7 @@
 		<#if .vars['attach_id_' + n]??>
 			<img src="${ctx.root}/bc/image/download?id=${.vars['attach_id_' + n]!?c}&ts=${ctx.ts}" style="max-width:100%" />
 		<#else>
-			<div class="warn" style="margin:2px;">未上传</div>
+			<div class="warn" style="padding:2px;">未上传</div>
 		</#if>
 	</div>
 	<input type="hidden" class="attach-id" name="attach_id_${n}" data-label="拆分图附件ID" data-type="long"
@@ -122,11 +122,11 @@
 </#if>
 
 <!-- 证件标识信息 -->
-<input type="hidden" name="id" class="ignore"<#if form.id??> value="${form.id?c}"</#if> data-type="long"/>
-<input type="hidden" name="uid" class="ignore" value="${form.uid}"/>
-<input type="hidden" name="type" class="ignore" value="${form.type}"/>
-<input type="hidden" name="code" class="ignore" value="${form.code}"/>
-<input type="hidden" name="pid" class="ignore" value="${form.pid?c}" data-type="long"/>
-<input type="hidden" name="tpl" class="ignore" value="${form.tpl}"/>
+<input type="hidden" name="id" data-scope="form" class="ignore"<#if form.id??> value="${form.id?c}"</#if> data-type="long"/>
+<input type="hidden" name="type" data-scope="form" class="ignore" value="${form.type}"/>
+<input type="hidden" name="code" data-scope="form" class="ignore" value="${form.code}"/>
+<input type="hidden" name="pid" data-scope="form" class="ignore" value="${form.pid?c}" data-type="long"/>
+<input type="hidden" name="uid" data-scope="form" value="${form.uid}"/>
+<input type="hidden" name="tpl" data-scope="form" value="${form.tpl}"/>
 </form>
 </div>

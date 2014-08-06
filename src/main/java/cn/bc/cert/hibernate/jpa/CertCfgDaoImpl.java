@@ -138,7 +138,7 @@ public class CertCfgDaoImpl extends HibernateCrudJpaDao<CertCfg> implements Cert
 			hql+=" from cert_cfg_with_acl c";// 有查阅权限的证件
 			hql+=" left join bc_form f on (f.type_ = c.type_code and f.code = c.code and f.pid=? )";
 			hql+=" left join bc_identity_actor_history ich on f.modifier_id = ich.id";
-			hql+=" order by c.order_ asc,f.ver_ asc ";
+			hql+=" order by c.order_ asc,f.ver_ desc ";
 
         
         List<Object> args = new ArrayList<Object>();

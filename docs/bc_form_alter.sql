@@ -1,5 +1,5 @@
 --增加字段version_记录版本号信息
-alter table bc_form add column version_ character varying(255);
+alter table bc_form add column ver_ character varying(255);
 --增加字段desc_记录备注信息
 alter table bc_form add column desc_ character varying(255);
 

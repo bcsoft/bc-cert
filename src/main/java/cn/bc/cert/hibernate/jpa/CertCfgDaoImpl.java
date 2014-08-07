@@ -116,7 +116,7 @@ public class CertCfgDaoImpl extends HibernateCrudJpaDao<CertCfg> implements Cert
 		
 		String hql = "with actor(id) as (select id from bc_identity_actor where code = ? union select identity_find_actor_ancestor_ids(?)),";
 		//-- 证件配置
-			hql+=" cert_cfg(id, type_code, type_name, code, name, tpl, order_) as (select c.id, t.code, t.name, c.code, c.name, c.tpl, c.order_no from bc_cert_cfg c inner join bc_cert_type t on t.id = c.type_id where t.code = ?),";
+			hql+=" cert_cfg(id, type_code, type_name, code, name, tpl, order_) as (select c.id, t.code, t.name, c.code, c.name, c.tpl, c.order_no from bc_cert_cfg c inner join bc_cert_type t on t.id = c.type_id where t.code = ? and c.status_ = 0),";
 		//有 ACL 控制权限的证件配置
 			hql+=" acl(cert_id, role_) as (select c.id, aa.role from bc_acl_actor aa inner join bc_acl_doc ad on ad.id = aa.pid inner join cert_cfg c on (cast(c.id as text) = ad.doc_id and ad.doc_type = 'CertCfg')where aa.aid in (select id from actor)),";
 		//查找所有被配置ACL控制的证件配置

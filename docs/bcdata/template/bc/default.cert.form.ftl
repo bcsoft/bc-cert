@@ -7,7 +7,7 @@
 <div class="blockContainer ui-widget-content" style="width:auto;border-bottom:none">
 	<div class="header ui-widget-header title" style="position:relative;">
 		<span class="text">基本信息:</span>
-		<ul class="inputIcons">
+		<ul class="inputIcons ignore">
 			<li class="toggleAll inputIcon verticalMiddle ui-icon ui-icon-carat-2-n-s" title="折叠|展开所有区域"></li>
 			<li class="toggleMe inputIcon verticalMiddle ui-icon ui-icon-triangle-1-n" title="折叠|展开此区域"></li>
 		</ul>
@@ -49,7 +49,7 @@
 <div class="blockContainer ui-widget-content" style="width:auto;border-bottom:none">
 	<div class="header ui-widget-header title" style="position:relative;">
 		<span class="text">测试信息:</span>
-		<ul class="inputIcons">
+		<ul class="inputIcons ignore">
 			<li class="toggleAll inputIcon verticalMiddle ui-icon ui-icon-carat-2-n-s" title="折叠|展开所有区域"></li>
 			<li class="toggleMe inputIcon verticalMiddle ui-icon ui-icon-triangle-1-n" title="折叠|展开此区域"></li>
 		</ul>
@@ -69,11 +69,13 @@
 			value='<#if ctx.replace || !(attach_width??)>${ctx.cfg.width?string("#.##")}<#else>${attach_width?string("#.##")}</#if>'
 			data-validate='{"required":true,"type":"number"}' data-type="float"
 			class="ui-widget-content attach-width" style="width:4em"/>毫米</span>
-		<ul class="inputIcons">
+		<ul class="inputIcons ignore">
+			<#if !ctx.readonly>
 			<#if ctx.cfg.pageCount gt 1>
 			<li class="mergeImage inputIcon ui-icon ui-icon-link" data-combine='${ctx.cfg.combine!}' title='合并各分拆页的图片'></li>
 			</#if>
 			<li class="editImage inputIcon ui-icon ui-icon-pencil" title='编辑'></li>
+			</#if>
 			<li class="printImage inputIcon ui-icon ui-icon-print" title='打印'></li>
 			<li class="toggleMe inputIcon verticalMiddle ui-icon ui-icon-triangle-1-n" title="折叠|展开此区域"></li>
 		</ul>
@@ -85,7 +87,7 @@
 			<div class="warn" style="padding:2px;">未上传</div>
 		</#if>
 	</div>
-	<input type="hidden" class="attach-id" name="attach_id" data-label="主图" data-type="long"
+	<input type="hidden" class="attach-id" name="attach_id" data-label="主图" data-type="long" data-empty2delete="true"
 		<#if attach_id??>value="${attach_id?c}"</#if>/>
 </div>
 
@@ -102,8 +104,10 @@
 			value="<#if ctx.replace || !(.vars['attach_width_' + n]??)>${_d.width?string("#.##")}<#else>${.vars['attach_width_' + n]?string("#.##")}</#if>"
 			data-validate='{"required":true,"type":"number"}' data-type="float"
 			class="ui-widget-content attach-width" style="width:4em"/>毫米</span>
-		<ul class="inputIcons">
+		<ul class="inputIcons ignore">
+			<#if !ctx.readonly>
 			<li class="editImage inputIcon ui-icon ui-icon-pencil" title='编辑'></li>
+			</#if>
 			<li class="printImage inputIcon ui-icon ui-icon-print" title='打印'></li>
 			<li class="toggleMe inputIcon verticalMiddle ui-icon ui-icon-triangle-1-n" title="折叠|展开此区域"></li>
 		</ul>

@@ -1,3 +1,8 @@
+-- 删除
+delete from bc_cert_cfg_detail;
+delete from bc_cert_cfg;
+delete from bc_cert_type;
+
 -- 证件类别
 INSERT INTO bc_cert_type(id, code, name, order_no, file_date, author_id, modified_date, modifier_id)
   select generate_series(1,2), UNNEST(ARRAY['CarManCert','CarCert']), UNNEST(ARRAY['司机证件','车辆证件']), generate_series(1,2)
@@ -48,7 +53,7 @@ INSERT INTO bc_cert_cfg(id, uid_, order_no, status_, type_id, code, name, page_c
 INSERT INTO bc_cert_cfg(id, uid_, order_no, status_, type_id, code, name, page_count, width, combine 
 	, tpl, file_date, author_id, modified_date, modifier_id)
   select 4, 'cert-cfg.4', '1004', 0, (select id from bc_cert_type where name = '司机证件')
-	, 'certHKB', '户口簿', 3, 140, '1;1:5 0 0 0;1:5 0 0 0', 'DEFAULT_CERT_FORM'
+	, 'certHKB', '户口簿', 3, 140, 'v:5', 'DEFAULT_CERT_FORM'
 	, now(), (select id from bc_identity_actor_history where actor_code='admin' and current=true)
 	, now(), (select id from bc_identity_actor_history where actor_code='admin' and current=true)
   from bc_dual where not exists (select 0 from bc_cert_cfg where id = 4);
@@ -59,7 +64,7 @@ INSERT INTO bc_cert_cfg_detail(id, pid, page_no, name, width)
   select 42, 4, 2, '本人页', 140
   from bc_dual where not exists (select 0 from bc_cert_cfg_detail where id = 42);
 INSERT INTO bc_cert_cfg_detail(id, pid, page_no, name, width)
-  select 43, 4, 3, '其他', 140
+  select 43, 4, 3, '其它页', 140
   from bc_dual where not exists (select 0 from bc_cert_cfg_detail where id = 43);
 
 -- 司机证件/服务资格证
@@ -99,18 +104,18 @@ INSERT INTO bc_cert_cfg(id, uid_, order_no, status_, type_id, code, name, page_c
 INSERT INTO bc_cert_cfg(id, uid_, order_no, status_, type_id, code, name, page_count, width, combine 
 	, tpl, file_date, author_id, modified_date, modifier_id)
   select 8, 'cert-cfg.8', '1008', 0, (select id from bc_cert_type where name = '司机证件')
-	, 'certJISZ', '计生证', 3, 144, '1;1:5 0 0 0;1:5 0 0 0', 'DEFAULT_CERT_FORM'
+	, 'certJISZ', '计生证', 3, 144, 'v:5', 'DEFAULT_CERT_FORM'
 	, now(), (select id from bc_identity_actor_history where actor_code='admin' and current=true)
 	, now(), (select id from bc_identity_actor_history where actor_code='admin' and current=true)
   from bc_dual where not exists (select 0 from bc_cert_cfg where id = 8);
 INSERT INTO bc_cert_cfg_detail(id, pid, page_no, name, width)
-  select 81, 8, 1, '图片1', 144
+  select 81, 8, 1, '证号页', 144
   from bc_dual where not exists (select 0 from bc_cert_cfg_detail where id = 81);
 INSERT INTO bc_cert_cfg_detail(id, pid, page_no, name, width)
-  select 82, 8, 2, '图片2', 144
+  select 82, 8, 2, '婚姻状况页', 144
   from bc_dual where not exists (select 0 from bc_cert_cfg_detail where id = 82);
 INSERT INTO bc_cert_cfg_detail(id, pid, page_no, name, width)
-  select 83, 8, 3, '图片3', 144
+  select 83, 8, 3, '其它页', 144
   from bc_dual where not exists (select 0 from bc_cert_cfg_detail where id = 83);
 
 -- 司机证件/司机签名

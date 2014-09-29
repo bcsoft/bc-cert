@@ -45,7 +45,7 @@
 		</div>
 	</div>
 </div>
-<!-- 测试信息区 -->
+<!-- 测试信息区
 <div class="blockContainer ui-widget-content" style="width:auto;border-bottom:none">
 	<div class="header ui-widget-header title" style="position:relative;">
 		<span class="text">测试信息:</span>
@@ -59,10 +59,11 @@
 		<label>数字值：<input type="text" name="num1" value="${num1!}" class="ui-widget-content"
 			data-validate='{"type": "number"}' data-type="float"/></label>
 	</div>
-</div>
+</div> -->
 
 <!-- 图片区：主图 -->
-<div class="main blockContainer ui-widget-content" style="width:auto<#if ctx.cfg.pageCount gt 1>;border-bottom-width:0</#if>" data-label="${ctx.cfg.name}">
+<div class="main blockContainer ui-widget-content" style="width:auto<#if ctx.cfg.pageCount gt 1>;border-bottom-width:0</#if>"
+	 data-label="${form.subject!}" data-default-format="png">
 	<div class="header ui-widget-header title" style="position:relative;">
 		<span class="subject">证件图片:</span>
 		<span >实物宽度<input type="text" name="attach_width" data-label="主图实物宽度"
@@ -72,11 +73,13 @@
 		<ul class="inputIcons ignore">
 			<#if !ctx.readonly>
 			<#if ctx.cfg.pageCount gt 1>
-			<li class="mergeImage inputIcon ui-icon ui-icon-link" data-combine='${ctx.cfg.combine!}' title='合并各分拆页的图片'></li>
+			<li style="float:left" class="mergeImage" data-combine='${ctx.cfg.combine!}' title='合并各分拆页的图片'>
+				<a href="#" style="margin:0 0.2em">合并</a>
+			</li>
 			</#if>
-			<li class="editImage inputIcon ui-icon ui-icon-pencil" title='编辑'></li>
+			<li style="float:left" class="editImage"><a href="#" style="margin:0 0.2em">编辑</a></li>
 			</#if>
-			<li class="printImage inputIcon ui-icon ui-icon-print" title='打印'></li>
+			<li style="float:left" class="printImage"><a href="#" style="margin:0 0.2em">打印</a></li>
 			<li class="toggleMe inputIcon verticalMiddle ui-icon ui-icon-triangle-1-n" title="折叠|展开此区域"></li>
 		</ul>
 	</div>
@@ -97,7 +100,7 @@
 <#list 1..ctx.cfg.pageCount as n>
 <#list ctx.cfg.details as i><#if i_index == n - 1><#assign _d=i/><#break></#if></#list>
 <div class="sub blockContainer ui-widget-content" style="width:auto<#if n != ctx.cfg.pageCount>;border-bottom-width:0</#if>" data-num="${n}"
-	data-label="${ctx.cfg.name}${_d.name}">
+	data-label="${form.subject}${_d.name}" data-default-format="png">
 	<div class="header ui-widget-header title" style="position:relative;">
 		<span class="subject">第${n}页(${_d.name})图片:</span>
 		<span >实物宽度<input type="text" name="attach_width_${n}" data-label="实物宽度"
@@ -106,9 +109,9 @@
 			class="ui-widget-content attach-width" style="width:4em"/>毫米</span>
 		<ul class="inputIcons ignore">
 			<#if !ctx.readonly>
-			<li class="editImage inputIcon ui-icon ui-icon-pencil" title='编辑'></li>
+			<li style="float:left" class="editImage"><a href="#" style="margin:0 0.2em">编辑</a></li>
 			</#if>
-			<li class="printImage inputIcon ui-icon ui-icon-print" title='打印'></li>
+			<li style="float:left" class="printImage"><a href="#" style="margin:0 0.2em">打印</a></li>
 			<li class="toggleMe inputIcon verticalMiddle ui-icon ui-icon-triangle-1-n" title="折叠|展开此区域"></li>
 		</ul>
 	</div>

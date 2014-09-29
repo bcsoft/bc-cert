@@ -95,16 +95,22 @@ SessionAware, RequestAware {
 		String userCode = getContext().getUser().getCode();
 		
 		listInfo = certCfgService.find4AllCertsInfo(this.type, Long.parseLong(pid),userCode);
-		totalCerts = listInfo.size();
-		if(totalCerts > 0){
-			for(int i = 0 ; i< totalCerts ; i++){
+		
+		Map<String,Object> allCerts = new HashMap<String, Object>();
+		
+		int allCertsNum = listInfo.size();
+		if(allCertsNum > 0){
+			for(int i = 0 ; i< allCertsNum ; i++){
 				if(listInfo.get(i).get("isUpload").toString().equals("no")){
-					yetUpload++;
-				}else{
-					alreadlyUpload++;
+					yetUpload++;					
 				}
+				allCerts.put(listInfo.get(i).get("name"), listInfo.get(i).get("name"));
 			}
 		}
+		
+		totalCerts = allCerts.size();
+		alreadlyUpload = totalCerts - yetUpload;
+		
 		htmlPageNamespace = getContext().getAttr(SystemContext.KEY_HTMLPAGENAMESPACE);
 		appTs = getContext().getAttr(SystemContext.KEY_APPTS);	
 		

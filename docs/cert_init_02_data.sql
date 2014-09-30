@@ -188,10 +188,17 @@ INSERT INTO bc_cert_cfg(id, uid_, order_no, status_, type_id, code, name, page_c
 INSERT INTO bc_cert_cfg(id, uid_, order_no, status_, type_id, code, name, page_count, width, combine 
 	, tpl, file_date, author_id, modified_date, modifier_id)
   select 26, 'cert-cfg.26', '2006', 0, (select id from bc_cert_type where name = '车辆证件')
-	, 'CAR_QJSYZ', '强检使用证', 1, 124, null, 'DEFAULT_CERT_FORM'
+	, 'CAR_QJSYZ', '强检使用证', 2, 253, 'h:5', 'DEFAULT_CERT_FORM'
 	, now(), (select id from bc_identity_actor_history where actor_code='admin' and current=true)
 	, now(), (select id from bc_identity_actor_history where actor_code='admin' and current=true)
   from bc_dual where not exists (select 0 from bc_cert_cfg where id = 26);
+
+INSERT INTO bc_cert_cfg_detail(id, pid, page_no, name, width)
+  select 261, 26, 1, '正面', 124
+  from bc_dual where not exists (select 0 from bc_cert_cfg_detail where id = 261);
+INSERT INTO bc_cert_cfg_detail(id, pid, page_no, name, width)
+  select 262, 26, 2, '背面', 124
+  from bc_dual where not exists (select 0 from bc_cert_cfg_detail where id = 262);
 
 -- 车辆证件/道路运输证
 INSERT INTO bc_cert_cfg(id, uid_, order_no, status_, type_id, code, name, page_count, width, combine 

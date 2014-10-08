@@ -71,11 +71,6 @@ SessionAware, RequestAware {
 	public void setCertCfgService(CertCfgService certCfgService){
 		this.certCfgService = certCfgService;
 	}
-	
-	/*public boolean isReadonly(){
-		return !getContext().hasAnyRole("BS_CAR_CERT_MANAGE","BC_ADMIN");
-	}*/
-		
 
 	/**
 	 * 查看所有的证件信息
@@ -84,7 +79,6 @@ SessionAware, RequestAware {
 	public String seeAll() throws Exception{
 		Map<String,Object> args = new HashMap<String, Object>();
 		getTotalCerts(args);  //根据证件类型获取全部的证件
-		System.out.println(listInfo);
 		return "form";
 	}
 	
@@ -92,10 +86,8 @@ SessionAware, RequestAware {
 	 * 得到总的证件配置里面的证件信息，根据证件类别，和pid查
 	 */
 	public void getTotalCerts(Map<String, Object> args) throws JSONException{  //args保存的是参数
-		String userCode = getContext().getUser().getCode();
-		
-		listInfo = certCfgService.find4AllCertsInfo(this.type, Long.parseLong(pid),userCode);
-		
+		String userCode = getContext().getUser().getCode();		
+		listInfo = certCfgService.find4AllCertsInfo(this.type, Long.parseLong(pid),userCode);		
 		Map<String,Object> allCerts = new HashMap<String, Object>();
 		
 		int allCertsNum = listInfo.size();
@@ -180,7 +172,6 @@ SessionAware, RequestAware {
 		return "driver";
 	}
 	
-
 	public void setRequest(Map<String, Object> request) {
 		this.request = request;
 	}
@@ -188,6 +179,4 @@ SessionAware, RequestAware {
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
 	}
-
-
 }

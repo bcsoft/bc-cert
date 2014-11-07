@@ -85,6 +85,9 @@
     <!-- 证件打印 -->
     <package name="printCert" extends="bc-default" namespace="/modules/bc/cert">
         <action name="print" class="certPrintAction" method="execute"/>
+        <action name="specialPrintForm" class="certPrintAction" method="specialPrintForm">
+            <result name="success">/modules/bs/cert/car/specialPrint.jsp</result>
+        </action>
     </package>
     
     <!-- 查看所有证件信息 -->

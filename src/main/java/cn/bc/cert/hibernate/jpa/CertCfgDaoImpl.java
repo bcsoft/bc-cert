@@ -195,4 +195,14 @@ public class CertCfgDaoImpl extends HibernateCrudJpaDao<CertCfg> implements Cert
 		 Map<String,Object> map= this.jdbcTemplate.queryForMap(sql, carId);	
         return map;
 	}
+
+	public List<Map<String, Object>> find4AllCertsCfgByTypeCode(String typeCode) {
+		String sql = "";
+		if(typeCode == null){
+			sql = " select f.name from bc_cert_cfg f inner join bc_cert_type t on f.type_id = t.id where f.status_ = 0 ";
+		}else{
+			sql = " select f.name from bc_cert_cfg f inner join bc_cert_type t on f.type_id = t.id where f.status_ = 0 and t.code = '" + typeCode+ "' ";
+		}
+		return this.jdbcTemplate.queryForList(sql);
+	}
 }

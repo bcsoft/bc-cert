@@ -2,6 +2,7 @@ package cn.bc.cert.web.struts2;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -32,6 +33,7 @@ import cn.bc.identity.web.struts2.FileEntityAction;
 import cn.bc.option.service.OptionService;
 import cn.bc.web.ui.html.page.ButtonOption;
 import cn.bc.web.ui.html.page.PageOption;
+import cn.bc.web.ui.json.JsonArray;
 
 /**
  * 证件配置表单action
@@ -192,16 +194,20 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 		CertCfg e = this.getE();
 		
 		this.beforeSave(this.getE());
-		this.certCfgService.save(e);
-		this.afterSave(this.getE());
-
-		JSONObject json = new JSONObject();
-		String msg = "保存成功！";
-		json.put("success", true);
-		json.put("id", e.getId());
-		json.put("msg", msg);
-		this.json = json.toString();
-
+		try {
+			this.certCfgService.save(e);
+			this.afterSave(this.getE());
+			JSONObject json = new JSONObject();
+			String msg = "保存成功！";
+			json.put("success", true);
+			json.put("id", e.getId());
+			json.put("msg", msg);
+			this.json = json.toString();
+		} catch (Exception e2) {
+			String ms = "{\"msg\":\"保存失败,请确认编码"+this.getE().getCode() +"是否已经存在！\",\"success\":true}";
+			this.json = ms;//对出现的异常进行友好地提示给用户，如：编码已经存在
+		}
+		
 		return "json";
 	}
 

@@ -196,12 +196,12 @@ public class CertCfgDaoImpl extends HibernateCrudJpaDao<CertCfg> implements Cert
         return map;
 	}
 
-	public List<Map<String, Object>> find4AllCertsCfgByTypeCode(String typeCode) {
+	public List<Map<String, Object>> find4AllCertsNameAndIdCfgByTypeCode(String typeCode) {
 		String sql = "";
 		if(typeCode == null){
-			sql = " select f.name from bc_cert_cfg f inner join bc_cert_type t on f.type_id = t.id where f.status_ = 0 ";
+			sql = " select f.name,f.id from bc_cert_cfg f inner join bc_cert_type t on f.type_id = t.id where f.status_ = 0 ";
 		}else{
-			sql = " select f.name from bc_cert_cfg f inner join bc_cert_type t on f.type_id = t.id where f.status_ = 0 and t.code = '" + typeCode+ "' ";
+			sql = " select f.name,f.id from bc_cert_cfg f inner join bc_cert_type t on f.type_id = t.id where f.status_ = 0 and t.code = '" + typeCode+ "' ";
 		}
 		return this.jdbcTemplate.queryForList(sql);
 	}

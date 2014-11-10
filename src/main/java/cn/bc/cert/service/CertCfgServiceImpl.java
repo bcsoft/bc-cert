@@ -39,9 +39,9 @@ public class CertCfgServiceImpl extends DefaultCrudService<CertCfg> implements C
 		return certCfgDao.findDriverTempByCarMan(carId);
 	}
 
-	public List<Map<String, Object>> find4AllCertsCfgByTypeCode(String typeCode) {
+	public List<Map<String, Object>> find4AllCertsNameAndIdCfgByTypeCode(String typeCode) {
 		
-		return certCfgDao.find4AllCertsCfgByTypeCode(typeCode);
+		return certCfgDao.find4AllCertsNameAndIdCfgByTypeCode(typeCode);
 	}
 
 

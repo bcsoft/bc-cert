@@ -51,6 +51,6 @@ public interface CertCfgService extends CrudService<CertCfg>{
 	 * @param typeCode，证件类型的编码，为空表示查找所有的类型
 	 * @return
 	 */
-	public List<Map<String, Object>> find4AllCertsCfgByTypeCode(String typeCode);
+	public List<Map<String, Object>> find4AllCertsNameAndIdCfgByTypeCode(String typeCode);
 	
 }

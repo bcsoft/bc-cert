@@ -115,6 +115,7 @@ public class CertPrintAction extends ActionSupport {
 			sql.append(" , substr(f.subject,0,8) subject\r\n");
 			sql.append(" , (select string_agg(value_,',') from bc_form_field ff where ff.pid = f.id and ff.name_ like 'attach_width%') attachWidth \r\n");
 			sql.append(" , (select string_agg(value_,',') from bc_form_field ff where ff.pid = f.id and ff.name_ like 'attach_id%') attachId \r\n");
+			sql.append(" , (select String_agg((case when ff.value_ = '' or ff.value_ is null then 1 else 0 end)::text,',') from bc_form_field ff where ff.pid = f.id and ff.name_ like 'attach_id%' ) isupload");
 		}
 		else{
 			sql.append(" , f.subject subject\r\n");

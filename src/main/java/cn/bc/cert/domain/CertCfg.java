@@ -35,6 +35,7 @@ public class CertCfg extends RichFileEntityImpl {
 	private String combine; //合并配置
 	private String orderNo; //排序号
 	private String tpl; //表单模板
+	private int one_page_one_typography;//一页一版
 	
 	private Set<CertCfgDetail> details;
 
@@ -120,5 +121,15 @@ public class CertCfg extends RichFileEntityImpl {
 	public void setDetails(Set<CertCfgDetail> details) {
 		this.details = details;
 	}
+
+	public int getOne_page_one_typography() {
+		return one_page_one_typography;
+	}
+
+	public void setOne_page_one_typography(int one_page_one_typography) {
+		this.one_page_one_typography = one_page_one_typography;
+	}
+	
+	
 	
 }

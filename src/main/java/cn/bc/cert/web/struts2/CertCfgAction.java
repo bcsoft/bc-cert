@@ -57,6 +57,7 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 	public String details; //证件配置明细json字符串
 	
 	public Map<String,String> statusList = null; //状态列表
+	public Map<String,String> onePageOneTypographyList = null; //一页一版列表
 	
 	public String codes;
 	
@@ -94,6 +95,8 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 		//初始化销售对象类型下拉列表
 		this.certTypes = getCertTypes(); 
 		this.statusList = getStatusList();
+		this.onePageOneTypographyList = getOnePageOneTypographyList();
+		
 		
 		super.initForm(editable);
 	}
@@ -260,6 +263,14 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 		Map<String, String> map = new LinkedHashMap<String, String>();
 		map.put(String.valueOf(BCConstants.STATUS_ENABLED), getText("certCfg.status.enabled"));
 		map.put(String.valueOf(BCConstants.STATUS_DISABLED), getText("certCfg.status.disabled"));
+		return map;
+	}
+	
+	//一页一版的列表
+	private Map<String, String> getOnePageOneTypographyList() {
+		Map<String, String> map = new LinkedHashMap<String, String>();
+		map.put("1","是");
+		map.put("0", "否");
 		return map;
 	}
 }

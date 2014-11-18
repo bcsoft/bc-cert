@@ -6,6 +6,7 @@
 	<style type="text/css">
 		img{margin: 2px;}
 		div{margin: 2px; color: red; font-weight: bold;}
+		img:last-child{page-break-after:avoid !important;}
 	</style>
 </head>
 <body>
@@ -13,7 +14,7 @@
 <#list certs as m>
 	<#if (m_index > 0)><br/></#if>
 	<#if m['attachId']??>
-		<img src="${htmlPageNamespace}/bc/image/download?id=${m['attachId']}" style="width:${m['attachWidth']?number / 1.059}mm;">
+		<img src="${htmlPageNamespace}/bc/image/download?id=${m['attachId']}" style="width:${m['attachWidth']?number / 1.059}mm;display:block;page-break-after:always;">
 	<#else>
 		<div>${m['subject']} 未上传</div>
 	</#if>

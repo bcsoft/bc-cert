@@ -60,6 +60,7 @@ public class CertPrintAction extends ActionSupport {
 				   map.put("attachId", cfgs.getJSONObject(i).get("attachid").toString());
 				   map.put("attachWidth", cfgs.getJSONObject(i).get("attachwidth").toString());
 				   map.put("subject", cfgs.getJSONObject(i).get("subject").toString());
+				   map.put("one_page_one_typography", cfgs.getJSONObject(i).get("one_page_one_typography").toString());
 				   certs1.add(map);
 			   }
 		   }else{
@@ -112,7 +113,7 @@ public class CertPrintAction extends ActionSupport {
 			sql.append(" ,f.uid_ \r\n");
 			sql.append(" , (case when (select * from(select string_agg(d.name,',') from bc_cert_cfg_detail d where d.pid = cc.id) dnames) is null\r\n"); 
 			sql.append(" then '合并页' else '合并页,' || (select * from(select string_agg(d.name,',') from bc_cert_cfg_detail d where d.pid = cc.id) dnames) end) choose_print_page\r\n");
-			sql.append(" , substr(f.subject,0,8) subject\r\n");
+			sql.append(" , substr(f.subject,0,9) subject\r\n");
 			sql.append(" , (select string_agg(value_,',') from bc_form_field ff where ff.pid = f.id and ff.name_ like 'attach_width%') attachWidth \r\n");
 			sql.append(" , (select string_agg(value_,',') from bc_form_field ff where ff.pid = f.id and ff.name_ like 'attach_id%') attachId \r\n");
 			sql.append(" , (select String_agg((case when ff.value_ = '' or ff.value_ is null then 1 else 0 end)::text,',') from bc_form_field ff where ff.pid = f.id and ff.name_ like 'attach_id%' ) isupload");
@@ -123,6 +124,7 @@ public class CertPrintAction extends ActionSupport {
 			sql.append(" , (select value_ from bc_form_field ff where ff.pid = f.id and ff.name_ = 'attach_id') attachId \r\n");
 		}
 		sql.append("	, f.desc_ as description\r\n");
+		sql.append("	, cc.one_page_one_typography as one_page_one_typography\r\n");
 		sql.append("	from bc_form f\r\n");
 		sql.append("	inner join cfg c on (c.type_ = f.type_ and c.code = f.code and c.pid = f.pid and c.ver_ = f.ver_)\r\n");
 		sql.append("	inner join bc_cert_cfg cc on (cc.code = c.code)\r\n");

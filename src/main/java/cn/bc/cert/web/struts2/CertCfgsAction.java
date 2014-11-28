@@ -110,6 +110,8 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 		sql.append(",cc.name as name,cc.code as code,cc.page_count as page_count");
 		sql.append(",cc.width as width,cc.combine as combine,cc.tpl as tpl,ct.order_no as ct_order");
 		sql.append(",iah.actor_name as actor_name,cc.modified_date as modify_date");
+		sql.append(",cc.print_direction");
+		sql.append(",cc.one_page_one_typography");
 		sql.append(",getaccessactors4docidtype4docidinteger(cc.id,'CertCfg')");
 		sql.append(" from bc_cert_cfg cc");
 		sql.append(" left join bc_identity_actor_history iah on iah.id = cc.modifier_id");
@@ -137,6 +139,8 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 				map.put("ct_order", rs[i++]);
 				map.put("actor_name", rs[i++]);
 				map.put("modify_date", rs[i++]);
+				map.put("print_direction", rs[i++]);
+				map.put("one_page_one_typography", rs[i++]);
 				map.put("accessactors", rs[i++]);
 				map.put("docType","CertCfg");
 				return map;
@@ -200,6 +204,23 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 		// 所用模板
 		columns.add(new TextColumn4MapKey("cc.tpl", "tpl",
 				getText("certCfg.tpl"),150).setSortable(true).setUseTitleFromLabel(true));
+		// 打印方向
+		columns.add(new TextColumn4MapKey("cc.print_direction", "print_direction",
+				getText("certCfg.print_direction"),60).setSortable(true).setValueFormater(new AbstractFormater<Object>() {
+
+					@Override
+					public Object format(Object context, Object value) {
+						return Integer.parseInt(String.valueOf(value)) == 1 ? "横向" : "纵向";
+					}
+				}));
+		// 一页一版
+		columns.add(new TextColumn4MapKey("cc.one_page_one_typography", "one_page_one_typography",
+				getText("certCfg.one_page_one_typography"),60).setSortable(true).setValueFormater(new AbstractFormater<Object>() {
+					@Override
+					public Object format(Object context, Object value) {
+						return Integer.parseInt(String.valueOf(value)) == 1 ? "否" : "是";
+					}
+				}));
 		
 		// 最后修改
 		columns.add(new TextColumn4MapKey("iah.actor_name", "actor_name",

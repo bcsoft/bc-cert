@@ -60,7 +60,8 @@ public class CertPrintAction extends ActionSupport {
 				   map.put("attachId", cfgs.getJSONObject(i).get("attachid").toString());
 				   map.put("attachWidth", cfgs.getJSONObject(i).get("attachwidth").toString());
 				   map.put("subject", cfgs.getJSONObject(i).get("subject").toString());
-				   map.put("one_page_one_typography", cfgs.getJSONObject(i).get("one_page_one_typography").toString());
+				   map.put("one_page_one_typography", cfgs.getJSONObject(i).getInt("one_page_one_typography"));
+				   map.put("print_direction", cfgs.getJSONObject(i).getInt("print_direction"));
 				   certs1.add(map);
 			   }
 		   }else{
@@ -125,6 +126,7 @@ public class CertPrintAction extends ActionSupport {
 		}
 		sql.append("	, f.desc_ as description\r\n");
 		sql.append("	, cc.one_page_one_typography as one_page_one_typography\r\n");
+		sql.append("	, cc.print_direction as print_direction\r\n");
 		sql.append("	from bc_form f\r\n");
 		sql.append("	inner join cfg c on (c.type_ = f.type_ and c.code = f.code and c.pid = f.pid and c.ver_ = f.ver_)\r\n");
 		sql.append("	inner join bc_cert_cfg cc on (cc.code = c.code)\r\n");

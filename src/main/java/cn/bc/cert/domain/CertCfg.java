@@ -36,6 +36,7 @@ public class CertCfg extends RichFileEntityImpl {
 	private String orderNo; //排序号
 	private String tpl; //表单模板
 	private int one_page_one_typography;//一页一版
+	private int print_direction; //打印方向
 	
 	private Set<CertCfgDetail> details;
 
@@ -129,7 +130,13 @@ public class CertCfg extends RichFileEntityImpl {
 	public void setOne_page_one_typography(int one_page_one_typography) {
 		this.one_page_one_typography = one_page_one_typography;
 	}
-	
-	
+
+	public int getPrint_direction() {
+		return print_direction;
+	}
+
+	public void setPrint_direction(int print_direction) {
+		this.print_direction = print_direction;
+	}
 	
 }

@@ -58,6 +58,7 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 	
 	public Map<String,String> statusList = null; //状态列表
 	public Map<String,String> onePageOneTypographyList = null; //一页一版列表
+	public Map<String,String> printDirectionsList = null; // 打印方向列表
 	
 	public String codes;
 	
@@ -96,7 +97,7 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 		this.certTypes = getCertTypes(); 
 		this.statusList = getStatusList();
 		this.onePageOneTypographyList = getOnePageOneTypographyList();
-		
+		this.printDirectionsList = getPrintDirectionsList();
 		
 		super.initForm(editable);
 	}
@@ -269,8 +270,15 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 	//一页一版的列表
 	private Map<String, String> getOnePageOneTypographyList() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
-		map.put("1","是");
-		map.put("0", "否");
+		map.put("0","是");
+		map.put("1", "否");
+		return map;
+	}
+	//打印方向的列表
+	private Map<String, String> getPrintDirectionsList() {
+		Map<String, String> map = new LinkedHashMap<String, String>();
+		map.put("0","纵向");
+		map.put("1", "横向");
 		return map;
 	}
 }

@@ -82,11 +82,31 @@ public class CertPrintAction extends ActionSupport {
         this.json = html;
         return "json";
     }
+    /**
+     * 在特殊打印里显示pname的列名字
+     * @param string
+     * @return
+     */
+    private String getLabelValueByTypeCode(String typecode) {
+    	String rv = ""; //返回值
+    	if(typecode != null){
+    		if(typecode.equals("CarManCert")){
+    			rv = "司机名称";
+    		}else if(typecode.equalsIgnoreCase("CarCert")){
+    			rv = "车牌号码";
+    		}
+    	}
+		return rv;
+	}
+    
+    public String pname_label; //pname所在列名称
     
     public List<Map<String, Object>> certss;
     public String specialPrintForm() throws Exception{
     	JSONArray cfgs = new JSONArray(this.certs);
         certss =  getCertsData4Print(cfgs, true);
+        if(certss.size() > 0)
+        	pname_label = this.getLabelValueByTypeCode(String.valueOf(certss.get(0).get("typecode")));
     	return "success";
     }
     
@@ -114,7 +134,7 @@ public class CertPrintAction extends ActionSupport {
 			sql.append(" ,f.uid_ \r\n");
 			sql.append(" , (case when (select * from(select string_agg(d.name,',') from bc_cert_cfg_detail d where d.pid = cc.id) dnames) is null\r\n"); 
 			sql.append(" then '合并页' else '合并页,' || (select * from(select string_agg(d.name,',') from bc_cert_cfg_detail d where d.pid = cc.id) dnames) end) choose_print_page\r\n");
-			sql.append(" , substr(f.subject,0,9) subject\r\n");
+			sql.append(" , (select value_ from bc_form_field ff where ff.pid = f.id and ff.name_ = 'pname' ) subject \r\n");
 			sql.append(" , (select string_agg(value_,',') from bc_form_field ff where ff.pid = f.id and ff.name_ like 'attach_width%') attachWidth \r\n");
 			sql.append(" , (select string_agg(value_,',') from bc_form_field ff where ff.pid = f.id and ff.name_ like 'attach_id%') attachId \r\n");
 			sql.append(" , (select String_agg((case when ff.value_ = '' or ff.value_ is null then 1 else 0 end)::text,',') from bc_form_field ff where ff.pid = f.id and ff.name_ like 'attach_id%' ) isupload");

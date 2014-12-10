@@ -135,5 +135,6 @@
 <input type="hidden" name="pid" data-scope="form" class="ignore" value="${form.pid?c}" data-type="long"/>
 <input type="hidden" name="uid" data-scope="form" value="${form.uid}"/>
 <input type="hidden" name="tpl" data-scope="form" value="${form.tpl}"/>
+<input type="hidden" name="pname" value="${pname!}" data-type="string"  data-validate="required"  />
 </form>
 </div>

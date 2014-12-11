@@ -7,7 +7,7 @@
 		div{ color: red; font-weight: bold;}
 		img{ margin: 0px;}
 		.page-break-after{display:block;page-break-after:always;}
-		.page-break-before{display:block;page-break-be fore:always;}
+		.page-break-before{display:block;page-break-before:always;}
 		<#list certs as m0>
 			<#if m0_index == 0>
 				<#if m0['print_direction'] == 0>

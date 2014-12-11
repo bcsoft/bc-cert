@@ -53,4 +53,10 @@
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
+
+	<scm>
+		<connection>scm:git:git@192.168.0.222:bc-cert.git</connection>
+		<developerConnection>scm:git:git@192.168.0.222:bc-cert.git</developerConnection>
+		<url>https://localhost/bc-cert</url>
+	</scm>
 </project>

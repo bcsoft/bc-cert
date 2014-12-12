@@ -11,7 +11,7 @@
 		.page-break-before{display:block;page-break-before:always}
 		<#list certs as m0>
 			<#if m0_index == 0>
-				<#if m0['print_direction'] == 0>@page{size: A4 portrait}<#else>@page{size: A4 landscape}</#if>
+				<#if is_control_print_direction == true><#if m0['print_direction'] == 0>@page{size: A4 portrait}<#else>@page{size: A4 landscape}</#if></#if>
 			</#if>
 		</#list>
 	</style>
@@ -22,7 +22,7 @@
 <#list certs as m>
 	
 	<#if m['attachId']??>
-		
+		<#if is_control_print_direction == true>
 			<#if m['print_direction'] == 0 > <!-- 纵向打印 --> 
 					<#if m['one_page_one_typography'] == 0 && m_index != certs?size -1 && one_page_one_typography == 0>
 						<!-- 证件宽度过大 设置了一页一版，不是最后一条数据，并且上一条数据也设置了一页一版(这里不包括只有一条数据的情况，因为默认第一条one_page_one_typography = 100) -->
@@ -57,9 +57,11 @@
 				<#else>
 					<!-- 其他情况下 -->
 						<img src="${htmlPageNamespace}/bc/image/download?id=${m['attachId']}" style="width: calc(${m['attachWidth']?number}mm * 0.9390);max-width: calc(277mm  * 0.9390);max-height: calc(190mm * 0.9390 );">	
-				</#if>
-
+				</#if>		
 			</#if>
+		<#else>
+			<img src="${htmlPageNamespace}/bc/image/download?id=${m['attachId']}" style="width: calc(${m['attachWidth']?number}mm * 0.9390);">
+		</#if>
 	<#else>
 		<div>${m['subject']} 未上传</div>
 	</#if>

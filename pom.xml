@@ -7,7 +7,7 @@
 		<relativePath>../bc-framework/bc-parent/pom.xml</relativePath>
 	</parent>
 	<artifactId>bc-cert</artifactId>
-  <version>1.0</version>
+  <version>1.0.1</version>
 	<description>证件管理</description>
 
 	<dependencies>

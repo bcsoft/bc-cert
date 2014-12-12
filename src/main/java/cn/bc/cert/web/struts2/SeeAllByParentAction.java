@@ -138,7 +138,6 @@ SessionAware, RequestAware {
 	public String carUid;
 	public boolean carIsNew;
 	public String carPlateType;
-	public String carPlateNo;
 
 	public boolean isCarReadonly;
 	public boolean isCarRead;
@@ -155,7 +154,7 @@ SessionAware, RequestAware {
 	public int driverTempId;
 	public String driverUid;
 	public boolean driverIsNew;
-	public String driverName;
+	public String pname;
 	public boolean isDriverReadonly;
 	public boolean isDriverRead;
 	/**

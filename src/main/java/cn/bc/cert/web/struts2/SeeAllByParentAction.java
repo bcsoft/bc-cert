@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -163,12 +164,25 @@ SessionAware, RequestAware {
 	public String findDriver(){
 		this.isDriverReadonly = !getContext().hasAnyRole("BS_DRIVER_CERT_MANAGE","BC_ADMIN");
 		this.isDriverRead = !getContext().hasAnyRole("BS_DRIVER_CERT_MANAGE","BS_DRIVER_CERT_READ","BC_ADMIN");
-		Map<String,Object> maps = certCfgService.findDriverTempByCarMan(driverId);
-		Object vl = maps.get("driverTempId");
-		if(vl != null){
-			driverTempId = Integer.parseInt(String.valueOf(vl));
-		}
-		return "driver";
+		Map<String,Object> maps = new HashMap<String, Object>();
+		try{
+			maps = certCfgService.findDriverTempByCarMan(driverId);
+			Object vl = maps.get("driverTempId");
+			if(vl != null){
+				driverTempId = Integer.parseInt(String.valueOf(vl));
+			}
+			return "driver";
+		}catch(DataAccessException e){
+			JSONObject json = new JSONObject();
+			String msg = "该司机不存在！请确认该司机在司机招聘的身份证和司机表单上的身份证是否一致。";
+			try {
+				json.put("msg", msg);
+			} catch (JSONException e1) {
+				e1.printStackTrace();
+			}
+			this.json = json.toString();
+			return "json";
+		}	
 	}
 	
 	public void setRequest(Map<String, Object> request) {

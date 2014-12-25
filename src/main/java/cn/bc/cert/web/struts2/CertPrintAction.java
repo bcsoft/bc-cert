@@ -199,7 +199,7 @@ public class CertPrintAction extends ActionSupport {
 		if (isSpecialPrint) {
 			sql.append(" ,f.uid_ \r\n");
 			sql.append(" , (case when (select * from(select string_agg(d.name,',') from bc_cert_cfg_detail d where d.pid = cc.id) dnames) is null\r\n");
-			sql.append(" then '合并页' else '合并页,' || (select * from(select string_agg(d.name,',') from bc_cert_cfg_detail d where d.pid = cc.id) dnames) end) choose_print_page\r\n");
+			sql.append(" then '合并页' else '合并页,' || (select * from(select string_agg(t.detail_name,',') from (select d.name detail_name from bc_cert_cfg_detail d where d.pid = cc.id order by d.page_no)t ) dnames) end) choose_print_page\r\n");
 			sql.append(" , (select value_ from bc_form_field ff where ff.pid = f.id and ff.name_ = 'pname' ) subject \r\n");
 			sql.append(" , (select string_agg(value_,',') from bc_form_field ff where ff.pid = f.id and ff.name_ like 'attach_width%') attachWidth \r\n");
 			sql.append(" , (select string_agg(value_,',') from bc_form_field ff where ff.pid = f.id and ff.name_ like 'attach_id%') attachId \r\n");

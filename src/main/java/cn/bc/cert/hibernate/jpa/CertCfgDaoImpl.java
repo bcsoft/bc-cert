@@ -13,6 +13,7 @@ import cn.bc.orm.hibernate.jpa.HibernateJpaNativeQuery;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.StringUtils;
 
@@ -190,7 +191,7 @@ public class CertCfgDaoImpl extends HibernateCrudJpaDao<CertCfg> implements Cert
 			return "";
 	}
 
-	public Map<String,Object> findDriverTempByCarMan(int carId) {
+	public Map<String,Object> findDriverTempByCarMan(int carId)  throws DataAccessException{
 		 String sql = "select td.id as driverTempId from BS_TEMP_DRIVER td inner join BS_CARMAN c on c.cert_identity = td.cert_identity where c.id = ?";
 		 Map<String,Object> map= this.jdbcTemplate.queryForMap(sql, carId);	
         return map;

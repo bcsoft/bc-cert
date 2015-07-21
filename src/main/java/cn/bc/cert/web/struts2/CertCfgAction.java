@@ -1,122 +1,95 @@
 package cn.bc.cert.web.struts2;
 
-import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import cn.bc.BCConstants;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.struts2.interceptor.SessionAware;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-
 import cn.bc.cert.domain.CertCfg;
 import cn.bc.cert.domain.CertCfgDetail;
 import cn.bc.cert.service.CertCfgService;
-import cn.bc.cert.service.CertCfgTypeService;
-
+import cn.bc.cert.service.CertTypeService;
 import cn.bc.identity.service.IdGeneratorService;
 import cn.bc.identity.web.SystemContext;
 import cn.bc.identity.web.struts2.FileEntityAction;
 import cn.bc.option.service.OptionService;
 import cn.bc.web.ui.html.page.ButtonOption;
 import cn.bc.web.ui.html.page.PageOption;
-import cn.bc.web.ui.json.JsonArray;
+import org.apache.struts2.interceptor.SessionAware;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * 证件配置表单action
- * 
+ *
  * @author LeeDane
- * 
  */
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @Controller
-public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
-		SessionAware {
+public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements SessionAware {
 	private static final long serialVersionUID = 1L;
-	protected Log logger = LogFactory.getLog(getClass());
-	public Map<String,String> certTypes = null;//证件类别列表
-	
-	private CertCfgTypeService certCfgTypeService;
-	private CertCfgService certCfgService;
-	private IdGeneratorService idGeneratorService;	
+	private static Logger logger = LoggerFactory.getLogger(CertCfgAction.class);
+
+	@Autowired
+	private CertTypeService certTypeService;
+	@Autowired
+	private IdGeneratorService idGeneratorService;
+	@Autowired
 	private OptionService optionService;
-	
+
+	public Map<String, String> certTypes = null;//证件类别列表
 	public String details; //证件配置明细json字符串
-	
-	public Map<String,String> statusList = null; //状态列表
-	public Map<String,String> onePageOneTypographyList = null; //一页一版列表
-	public Map<String,String> printDirectionsList = null; // 打印方向列表
-	
+	public Map<String, String> statusList = null; //状态列表
+	public Map<String, String> onePageOneTypographyList = null; //一页一版列表
+	public Map<String, String> printDirectionsList = null; // 打印方向列表
 	public String codes;
-	
+
+	private CertCfgService certCfgService;
+
 	@Autowired
-	public void setCertCfgTypeService(CertCfgTypeService certCfgTypeService){
-		this.certCfgTypeService = certCfgTypeService;
-	}
-	
-	@Autowired
-	public void setIdGeneratorService(IdGeneratorService idGeneratorService){
-		this.idGeneratorService = idGeneratorService;
-	}
-	
-	@Autowired
-	public void setCertCfgService(CertCfgService certCfgService){
+	public void setCertCfgService(CertCfgService certCfgService) {
 		this.setCrudService(certCfgService);
 		this.certCfgService = certCfgService;
 	}
 
-	@Autowired
-	public void setOptionService(OptionService optionService) {
-		this.optionService = optionService;
+	@Override
+	public boolean isReadonly() {
+		SystemContext context = (SystemContext) this.getContext();
+		return !context.hasAnyRole(getText("key.role.bc.cert.manage"), getText("key.role.bc.admin"));
 	}
 
 	@Override
-	public boolean isReadonly() {				
-		SystemContext context = (SystemContext) this.getContext();		
-		boolean flag = context.hasAnyRole(
-				getText("key.role.bc.cert.manage"),getText("key.role.bc.admin"));
-		return !flag;		
-	}
-	
-	@Override
 	protected void initForm(boolean editable) throws Exception {
 		//初始化销售对象类型下拉列表
-		this.certTypes = getCertTypes(); 
+		this.certTypes = getCertTypes();
 		this.statusList = getStatusList();
 		this.onePageOneTypographyList = getOnePageOneTypographyList();
 		this.printDirectionsList = getPrintDirectionsList();
-		
+
 		super.initForm(editable);
 	}
-	
+
 	public String typeCode;
 	public String cfgCode;
-	
+
 	/**
 	 * 根据配置获得配置信息的数据
 	 */
 	public String getData() throws JSONException {
 		CertCfg certCfg = this.certCfgService.loadByCode(typeCode, cfgCode);
 		JSONObject json = new JSONObject();
-		if(certCfg.getDetails()!=null){
+		if (certCfg.getDetails() != null) {
 			Set<CertCfgDetail> details = certCfg.getDetails();
-			
-			json.put("detail",dealDetail(details));
+
+			json.put("detail", dealDetail(details));
 		}
-	
+
 		json.put("success", true);
 		json.put("combine", certCfg.getCombine());
 		json.put("attach_width", certCfg.getWidth());
@@ -125,56 +98,56 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 		this.json = json.toString();
 		return "json";
 	}
-	
-	public JSONArray dealDetail(Set<CertCfgDetail> details) throws JSONException  {
+
+	public JSONArray dealDetail(Set<CertCfgDetail> details) throws JSONException {
 		JSONArray jsons = new JSONArray();
 		JSONObject object;
 		Iterator<CertCfgDetail> it = details.iterator();
-		while(it.hasNext()){
+		while (it.hasNext()) {
 			CertCfgDetail cd = it.next();
 			object = new JSONObject();
-			object.put("page_no" ,cd.getPageNo());
-			object.put("width" ,cd.getWidth());
-			object.put("attach_name" ,cd.getName());
+			object.put("page_no", cd.getPageNo());
+			object.put("width", cd.getWidth());
+			object.put("attach_name", cd.getName());
 			jsons.put(object);
-		}		
+		}
 		return jsons;
 	}
-	
+
 	@Override
 	protected PageOption buildFormPageOption(boolean editable) {
 		return super.buildFormPageOption(editable).setWidth(650)
 				.setMinHeight(200).setMinWidth(600);
 	}
-		
+
 	@Override
-	protected void buildFormPageButtons(PageOption option, boolean editable) {		
-		if(editable && !isReadonly()){
+	protected void buildFormPageButtons(PageOption option, boolean editable) {
+		if (editable && !isReadonly()) {
 
 			// 保存按钮
 			ButtonOption saveButtonOption = new ButtonOption(
 					getText("certCfg.save"), null, "bc.certCfgForm.save");
-			
+
 			// 预览按钮
 			ButtonOption previewButtonOption = new ButtonOption(
 					getText("certCfg.preview"), null, "bc.certCfgForm.preview");
-			
+
 			option.addButton(previewButtonOption);
 			option.addButton(saveButtonOption);
 		}
 	}
-	
+
 	@Override
 	protected void afterCreate(CertCfg entity) {
 		SystemContext context = (SystemContext) this.getContext();
-		CertCfg e = entity;		
+		CertCfg e = entity;
 		e.setTpl(this.optionService.getItemValue("carman.cert", "cert.Cfg.defaultTplCode")); // 设置默认模板
 		e.setPageCount(1);
 		e.setFileDate(Calendar.getInstance()); // 设置创建人
 		e.setAuthor(context.getUserHistory()); // 设置创建时间		
 		e.setUid(this.idGeneratorService.next("cert.cfg"));
 	}
-	
+
 	@Override
 	protected void beforeSave(CertCfg entity) {
 		SystemContext context = (SystemContext) this.getContext();
@@ -192,11 +165,11 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 			}
 		}
 	}
-	
+
 	@Override
 	public String save() throws Exception {
 		CertCfg e = this.getE();
-		
+
 		this.beforeSave(this.getE());
 		try {
 			this.certCfgService.save(e);
@@ -208,14 +181,14 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 			json.put("msg", msg);
 			this.json = json.toString();
 		} catch (Exception e2) {
-			String ms = "{\"msg\":\"保存失败,请确认编码"+this.getE().getCode() +"是否已经存在！\",\"success\":true}";
+			String ms = "{\"msg\":\"保存失败,请确认编码" + this.getE().getCode() + "是否已经存在！\",\"success\":true}";
 			this.json = ms;//对出现的异常进行友好地提示给用户，如：编码已经存在
 		}
-		
+
 		return "json";
 	}
 
-	private void addDetails() throws JSONException{
+	private void addDetails() throws JSONException {
 		Set<CertCfgDetail> certCfgDetails = null;
 		if (this.details != null && this.details.length() > 0) {
 			certCfgDetails = new LinkedHashSet<CertCfgDetail>();
@@ -240,22 +213,23 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 			this.getE().getDetails().addAll(certCfgDetails);
 		} else {
 			this.getE().setDetails(certCfgDetails);
-		}		
+		}
 	}
+
 	@Override
-    protected boolean useFormPrint() {
-        return false;
-    }
-	
+	protected boolean useFormPrint() {
+		return false;
+	}
+
 	// 获取证件类别对象类型下拉列表
 	private Map<String, String> getCertTypes() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
-		
-		List<Map<String,String>> listTypes =certCfgTypeService.findCertTypes();
-		
-		for(Map<String , String> listType : listTypes){
+
+		List<Map<String, String>> listTypes = certTypeService.findCertTypes();
+
+		for (Map<String, String> listType : listTypes) {
 			map.put(listType.get("key"), listType.get("value"));
-		}	
+		}
 		return map;
 	}
 
@@ -266,18 +240,19 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements
 		map.put(String.valueOf(BCConstants.STATUS_DISABLED), getText("certCfg.status.disabled"));
 		return map;
 	}
-	
+
 	//一页一版的列表
 	private Map<String, String> getOnePageOneTypographyList() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
-		map.put("0","是");
+		map.put("0", "是");
 		map.put("1", "否");
 		return map;
 	}
+
 	//打印方向的列表
 	private Map<String, String> getPrintDirectionsList() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
-		map.put("0","纵向");
+		map.put("0", "纵向");
 		map.put("1", "横向");
 		return map;
 	}

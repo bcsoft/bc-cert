@@ -1,22 +1,18 @@
-package cn.bc.cert.Dao;
+package cn.bc.cert.dao;
 
 import cn.bc.core.dao.CrudDao;
 import cn.bc.form.domain.Form;
 
 /**
  * 证件信息Dao
- * 
- * @author LeeDane
  *
+ * @author LeeDane
  */
-
 public interface CertInfoDao extends CrudDao<Form> {
-
 	/**
 	 * 通过id找到对应的Form对象
-	 * 
+	 *
 	 * @return
 	 */
-	public Form loadById(Long id);
-	
+	Form loadById(Long id);
 }

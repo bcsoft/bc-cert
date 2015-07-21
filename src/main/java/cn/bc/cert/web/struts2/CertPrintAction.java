@@ -7,7 +7,6 @@ import cn.bc.template.util.FreeMarkerUtils;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.mapping.Array;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,7 +23,7 @@ import java.util.Map;
 
 /**
  * 证件打印
- * 
+ *
  * @author dragon
  */
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -52,8 +51,8 @@ public class CertPrintAction extends ActionSupport {
 		if (cfgs.length() > 0) {
 			if (dealGetNullKeyValueByJSONArray(cfgs, 0, "isDirectlyPrint") != null
 					&& Boolean.parseBoolean(String
-							.valueOf(dealGetNullKeyValueByJSONArray(cfgs, 0,
-									"isDirectlyPrint"))) == true) { // 是否对certs数据进行处理
+					.valueOf(dealGetNullKeyValueByJSONArray(cfgs, 0,
+							"isDirectlyPrint"))) == true) { // 是否对certs数据进行处理
 				for (int i = 0; i < cfgs.length(); i++) {
 					Map<String, Object> map = new HashMap<String, Object>();
 					map.put("attachId",
@@ -126,13 +125,14 @@ public class CertPrintAction extends ActionSupport {
 
 	/**
 	 * 处理JSONArray中键不存在而去取值的问题
+	 *
 	 * @param jsonArray JSONArray
-	 * @param index 索引
-	 * @param key 需要的key值
+	 * @param index     索引
+	 * @param key       需要的key值
 	 * @return
 	 */
 	private Object dealGetNullKeyValueByJSONArray(JSONArray jsonArray,
-			int index, String key) {
+	                                              int index, String key) {
 		Object value = null;
 		try {
 			if (jsonArray.getJSONObject(index).has(key)) {
@@ -146,7 +146,7 @@ public class CertPrintAction extends ActionSupport {
 
 	/**
 	 * 在特殊打印里显示pname的列名字
-	 * 
+	 *
 	 * @param string
 	 * @return
 	 */
@@ -176,7 +176,7 @@ public class CertPrintAction extends ActionSupport {
 	}
 
 	private List<Map<String, Object>> getCertsData4Print(JSONArray cfgs,
-			boolean isSpecialPrint) throws Exception {
+	                                                     boolean isSpecialPrint) throws Exception {
 		StringBuffer sql = new StringBuffer();
 		sql.append("with cfg(type_, code, pid, ver_, order_) as (\r\n");
 		JSONObject cfg;
@@ -187,9 +187,9 @@ public class CertPrintAction extends ActionSupport {
 			}
 			sql.append("	select '" + cfg.getString("type") + "'::text");
 			sql.append(", '" + cfg.getString("code") + "'::text");
-			sql.append(", " + cfg.getString("pid"));
+			sql.append(", " + cfg.get("pid"));
 			if (cfg.has("ver")) {
-				sql.append(", " + cfg.getString("ver"));
+				sql.append(", " + cfg.get("ver"));
 			} else {
 				sql.append(", null::numeric");
 			}
@@ -200,51 +200,51 @@ public class CertPrintAction extends ActionSupport {
 			sql.append(" ,f.uid_  \r\n");
 			sql.append(" , (case \r\n");
 			sql.append(" when ( \r\n");
-					sql.append(" select * from( \r\n");
-							sql.append(" select string_agg(d.name,',') from bc_cert_cfg_detail d where d.pid = cc.id \r\n");
-					sql.append(" ) dnames \r\n");
-			 sql.append(" ) is null \r\n");
-			 sql.append(" then '合并页' \r\n");
-			 sql.append(" else '合并页,' || ( \r\n");
-					 sql.append(" select * from( \r\n");
-							 sql.append(" select string_agg(t.detail_name,',') from ( \r\n");
-									 sql.append(" select d.name detail_name from bc_cert_cfg_detail d where d.pid = cc.id order by d.page_no \r\n");
-							 sql.append(" ) t \r\n");
-					 sql.append(" ) dnames \r\n");
-			 sql.append(" ) \r\n");
-			 sql.append(" end \r\n");
-			 sql.append(" ) choose_print_page \r\n");
-			 sql.append(" , (select value_ from bc_form_field ff where ff.pid = f.id and ff.name_ = 'pname' ) subject \r\n");
-			 sql.append(" , ( \r\n");
-					  sql.append(" select string_agg(k.value_,',') \r\n");
-					  sql.append( "from ( \r\n");
-							  sql.append(" select t.value_ from ( \r\n");
-									  sql.append(" (select ff.value_, ff.name_ from bc_form_field ff where ff.pid = f.id and ff.name_ = 'attach_width') \r\n");
-									  sql.append(" union all  \r\n");
-									  sql.append(" (select ff.value_, ff.name_ from bc_form_field ff where ff.pid = f.id and ff.name_ like 'attach_width_%') \r\n");
-							  sql.append(" ) t order by t.name_ \r\n");
-					  sql.append(" ) k \r\n");
-			 sql.append(" ) attachWidth \r\n");
-			 sql.append(" , ( \r\n");
-					 sql.append(" select string_agg(k.value_,',') \r\n");
-					 sql.append(" from ( \r\n");
-							 sql.append(" select t.value_ from (  \r\n");
-									 sql.append(" (select ff.value_, ff.name_ from bc_form_field ff where ff.pid = f.id and ff.name_ = 'attach_id') \r\n");
-									 sql.append(" union all \r\n");
-									 sql.append(" (select ff.value_, ff.name_ from bc_form_field ff where ff.pid = f.id and ff.name_ like 'attach_id_%') \r\n");
-							 sql.append(" ) t order by t.name_ \r\n");
-					 sql.append(" ) k \r\n");
-			 sql.append(" ) attachId \r\n");
-			 sql.append(" , (  \r\n");
-					 sql.append(" select string_agg((case when k.value_ = '' or k.value_ is null then 1 else 0 end)::text,',') \r\n");
-					 sql.append(" from ( \r\n");
-							 sql.append(" select t.value_ from (  \r\n");
-									 sql.append(" (select ff.value_, ff.name_  from bc_form_field ff where ff.pid = f.id and ff.name_ = 'attach_id')  \r\n");
-									 sql.append(" union all  \r\n");
-									 sql.append(" (select ff.value_, ff.name_ from bc_form_field ff where ff.pid = f.id and ff.name_ like 'attach_id_%') \r\n"); 
-							 sql.append(" ) t  order by t.name_ \r\n");
-					 sql.append(" ) k \r\n");
-			 sql.append(" ) isupload \r\n");
+			sql.append(" select * from( \r\n");
+			sql.append(" select string_agg(d.name,',') from bc_cert_cfg_detail d where d.pid = cc.id \r\n");
+			sql.append(" ) dnames \r\n");
+			sql.append(" ) is null \r\n");
+			sql.append(" then '合并页' \r\n");
+			sql.append(" else '合并页,' || ( \r\n");
+			sql.append(" select * from( \r\n");
+			sql.append(" select string_agg(t.detail_name,',') from ( \r\n");
+			sql.append(" select d.name detail_name from bc_cert_cfg_detail d where d.pid = cc.id order by d.page_no \r\n");
+			sql.append(" ) t \r\n");
+			sql.append(" ) dnames \r\n");
+			sql.append(" ) \r\n");
+			sql.append(" end \r\n");
+			sql.append(" ) choose_print_page \r\n");
+			sql.append(" , (select value_ from bc_form_field ff where ff.pid = f.id and ff.name_ = 'pname' ) subject \r\n");
+			sql.append(" , ( \r\n");
+			sql.append(" select string_agg(k.value_,',') \r\n");
+			sql.append("from ( \r\n");
+			sql.append(" select t.value_ from ( \r\n");
+			sql.append(" (select ff.value_, ff.name_ from bc_form_field ff where ff.pid = f.id and ff.name_ = 'attach_width') \r\n");
+			sql.append(" union all  \r\n");
+			sql.append(" (select ff.value_, ff.name_ from bc_form_field ff where ff.pid = f.id and ff.name_ like 'attach_width_%') \r\n");
+			sql.append(" ) t order by t.name_ \r\n");
+			sql.append(" ) k \r\n");
+			sql.append(" ) attachWidth \r\n");
+			sql.append(" , ( \r\n");
+			sql.append(" select string_agg(k.value_,',') \r\n");
+			sql.append(" from ( \r\n");
+			sql.append(" select t.value_ from (  \r\n");
+			sql.append(" (select ff.value_, ff.name_ from bc_form_field ff where ff.pid = f.id and ff.name_ = 'attach_id') \r\n");
+			sql.append(" union all \r\n");
+			sql.append(" (select ff.value_, ff.name_ from bc_form_field ff where ff.pid = f.id and ff.name_ like 'attach_id_%') \r\n");
+			sql.append(" ) t order by t.name_ \r\n");
+			sql.append(" ) k \r\n");
+			sql.append(" ) attachId \r\n");
+			sql.append(" , (  \r\n");
+			sql.append(" select string_agg((case when k.value_ = '' or k.value_ is null then 1 else 0 end)::text,',') \r\n");
+			sql.append(" from ( \r\n");
+			sql.append(" select t.value_ from (  \r\n");
+			sql.append(" (select ff.value_, ff.name_  from bc_form_field ff where ff.pid = f.id and ff.name_ = 'attach_id')  \r\n");
+			sql.append(" union all  \r\n");
+			sql.append(" (select ff.value_, ff.name_ from bc_form_field ff where ff.pid = f.id and ff.name_ like 'attach_id_%') \r\n");
+			sql.append(" ) t  order by t.name_ \r\n");
+			sql.append(" ) k \r\n");
+			sql.append(" ) isupload \r\n");
 		} else {
 			sql.append(" , f.subject subject\r\n");
 			sql.append(" , (select value_ from bc_form_field ff where ff.pid = f.id and ff.name_ = 'attach_width') attachWidth \r\n");

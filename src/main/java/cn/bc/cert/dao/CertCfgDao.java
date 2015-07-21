@@ -1,4 +1,4 @@
-package cn.bc.cert.Dao;
+package cn.bc.cert.dao;
 
 import cn.bc.cert.domain.CertCfg;
 import cn.bc.core.dao.CrudDao;
@@ -8,64 +8,66 @@ import java.util.Map;
 
 /**
  * 证件配置Dao
- * 
- * @author LeeDane
  *
+ * @author LeeDane
  */
-
 public interface CertCfgDao extends CrudDao<CertCfg> {
 	/**
 	 * 通过pid找到对应的CertCfg对象
-	 * 
+	 *
 	 * @return
 	 */
-	public CertCfg loadById(Long id);
+	CertCfg loadById(Long id);
 
-    /**
-     * 获取当前可用的证件下拉列表信息
-     *
-     * @param typeCode 证件类别的编码
-     * @return 返回结果中的元素Map格式为：key - CertCfg的code, value - CertCfg的name
-     */
-    List<Map<String, String>> findEnabled4Option(String typeCode);
+	/**
+	 * 获取当前可用的证件下拉列表信息
+	 *
+	 * @param typeCode 证件类别的编码
+	 * @return 返回结果中的元素Map格式为：key - CertCfg的code, value - CertCfg的name
+	 */
+	List<Map<String, String>> findEnabled4Option(String typeCode);
 
-    /**
-     * 获取证件配置的选项列表
-     * @param statuses 证件配置的状态列表
-     * @param typeCodes 证件类别的编码列表
-     * @return 返回结果中的元素Map格式为：：key - CertCfg的code, value - CertCfg的name
-     */
-    List<Map<String, String>> find4Option(Integer[] statuses, String[] typeCodes);
+	/**
+	 * 获取证件配置的选项列表
+	 *
+	 * @param statuses  证件配置的状态列表
+	 * @param typeCodes 证件类别的编码列表
+	 * @return 返回结果中的元素Map格式为：：key - CertCfg的code, value - CertCfg的name
+	 */
+	List<Map<String, String>> find4Option(Integer[] statuses, String[] typeCodes);
 
-
-    /**
-     * 获取证件配置信息
-     * @param typeCode
-     * @param cfgCode
-     * @return
-     */
+	/**
+	 * 获取证件配置信息
+	 *
+	 * @param typeCode
+	 * @param cfgCode
+	 * @return
+	 */
 	CertCfg loadByCode(String typeCode, String cfgCode);
-	
+
 	/**
 	 * 根据证件类别获得所有证件的信息
+	 *
 	 * @param typeCode
 	 * @param pid
 	 * @param userCode 当前登录的用户的code
 	 * @return
 	 */
-	List<Map<String,String>> find4AllCertsInfo(String typeCode,Long pid,String userCode);
-	
-	/**通过司机的id找到司机招聘的对应的id
+	List<Map<String, String>> find4AllCertsInfo(String typeCode, Long pid, String userCode);
+
+	/**
+	 * 通过司机的id找到司机招聘的对应的id
+	 *
 	 * @param carId 司机的id
 	 * @return
 	 */
-	public Map<String,Object> findDriverTempByCarMan(int carId);
-	
+	Map<String, Object> findDriverTempByCarMan(int carId);
+
 	/**
 	 * 通过类型的编码查找对应类型的所有证件名称
+	 *
 	 * @param typeCode，证件类型的编码，为空表示查找所有的类型
 	 * @return
 	 */
-	public List<Map<String, Object>> find4AllCertsNameAndIdCfgByTypeCode(String typeCode);
-	
+	List<Map<String, Object>> find4AllCertsNameAndIdCfgByTypeCode(String typeCode);
 }

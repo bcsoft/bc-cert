@@ -1,7 +1,6 @@
 package cn.bc.cert.web.struts2;
 
 import cn.bc.BCConstants;
-import cn.bc.cert.domain.CertCfg;
 import cn.bc.core.query.condition.Condition;
 import cn.bc.core.query.condition.ConditionUtils;
 import cn.bc.core.query.condition.Direction;
@@ -19,7 +18,6 @@ import cn.bc.web.ui.html.grid.TextColumn4MapKey;
 import cn.bc.web.ui.html.page.PageOption;
 import cn.bc.web.ui.html.toolbar.Toolbar;
 import cn.bc.web.ui.html.toolbar.ToolbarButton;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -30,9 +28,8 @@ import java.util.*;
 
 /**
  * 证件配置视图action
- * 
+ *
  * @author LeeDane
- * 
  */
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @Controller
@@ -44,31 +41,31 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 	public boolean isReadonly() {
 		// 证件管理||超级管理员
 		SystemContext context = (SystemContext) this.getContext();
-		return !context.hasAnyRole(getText("key.role.bc.cert.manage"),getText("key.role.bc.admin"));
+		return !context.hasAnyRole(getText("key.role.bc.cert.manage"), getText("key.role.bc.admin"));
 	}
-	
+
 	@Override
 	protected JSONObject getGridExtrasData() {
 		JSONObject json = new JSONObject();
-		if(!isAcl()){
+		if (!isAcl()) {
 			try {
 				json.put("showRole", "11");
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-		}else{
+		} else {
 			try {
 				json.put("showRole", "00");
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return json;
 	}
 
 	//是否有证件访问控制权限
-	public boolean isAcl(){	
+	public boolean isAcl() {
 		SystemContext context = (SystemContext) this.getContext();
 		return !context.hasAnyRole(getText("key.role.bc.cert.acl.manage"));
 	}
@@ -93,7 +90,9 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 		return this.getModuleContextPath() + "/certCfg/view.js," + this.getContextPath() + "/bc/acl/api.js";
 	}
 
-	/** 页面加载后调用的js初始化方法 */
+	/**
+	 * 页面加载后调用的js初始化方法
+	 */
 	@Override
 	protected String getHtmlPageInitMethod() {
 		//return "bc.partOutView.init";
@@ -142,7 +141,7 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 				map.put("print_direction", rs[i++]);
 				map.put("one_page_one_typography", rs[i++]);
 				map.put("accessactors", rs[i++]);
-				map.put("docType","CertCfg");
+				map.put("docType", "CertCfg");
 				return map;
 			}
 		});
@@ -151,26 +150,26 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 
 	@Override
 	protected List<Column> getGridColumns() {
-		
+
 		List<Column> columns = new ArrayList<Column>();
 		columns.add(new IdColumn4MapKey("cc.id", "id"));
 
 		// 状态
 		columns.add(new TextColumn4MapKey("cc.status_", "status",
-				getText("certCfg.status"),40).setSortable(true).setValueFormater(new AbstractFormater<String>() {
+				getText("certCfg.status"), 40).setSortable(true).setValueFormater(new AbstractFormater<String>() {
 
-					@Override
-					public String format(Object context, Object value) {
-						if(String.valueOf(value).equals("0")){
-							return "正常";
-						}else{
-							return "禁用";
-						}
-						
-					}
-					
-				}));
-		
+			@Override
+			public String format(Object context, Object value) {
+				if (String.valueOf(value).equals("0")) {
+					return "正常";
+				} else {
+					return "禁用";
+				}
+
+			}
+
+		}));
+
 		// 排序号
 		columns.add(new TextColumn4MapKey("cc.order_no", "order_no",
 				getText("certCfg.order"), 60).setSortable(true));
@@ -178,53 +177,53 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 		// 证件类别
 		columns.add(new TextColumn4MapKey("ct.name", "type_name",
 				getText("certCfg.type_name"), 60).setSortable(true));
-		
+
 		// 证件名称
 		columns.add(new TextColumn4MapKey("cc.name", "name",
-				getText("certCfg.name"),120).setSortable(true).setUseTitleFromLabel(true));
-	
+				getText("certCfg.name"), 120).setSortable(true).setUseTitleFromLabel(true));
+
 		// 编码
 		columns.add(new TextColumn4MapKey("cc.code", "code",
 				getText("certCfg.code"), 100).setSortable(true).setUseTitleFromLabel(true));
-		
+
 		//访问配置
 		columns.add(new TextColumn4MapKey("", "accessactors",
 				getText("certCfg.access")).setSortable(true)
 				.setUseTitleFromLabel(true));
 		// 分拆页数
 		columns.add(new TextColumn4MapKey("cc.page_count", "page_count",
-				getText("certCfg.pageCount"),60).setSortable(true));
-		
+				getText("certCfg.pageCount"), 60).setSortable(true));
+
 		// 打印宽度
 		columns.add(new TextColumn4MapKey("cc.width", "width",
-				getText("certCfg.width"),60).setSortable(true));
+				getText("certCfg.width"), 60).setSortable(true));
 		// 合并配置
 		columns.add(new TextColumn4MapKey("cc.combine", "combine",
-				getText("certCfg.combine"),80).setSortable(true));
+				getText("certCfg.combine"), 80).setSortable(true));
 		// 所用模板
 		columns.add(new TextColumn4MapKey("cc.tpl", "tpl",
-				getText("certCfg.tpl"),150).setSortable(true).setUseTitleFromLabel(true));
+				getText("certCfg.tpl"), 150).setSortable(true).setUseTitleFromLabel(true));
 		// 打印方向
 		columns.add(new TextColumn4MapKey("cc.print_direction", "print_direction",
-				getText("certCfg.print_direction"),60).setSortable(true).setValueFormater(new AbstractFormater<Object>() {
+				getText("certCfg.print_direction"), 60).setSortable(true).setValueFormater(new AbstractFormater<Object>() {
 
-					@Override
-					public Object format(Object context, Object value) {
-						return Integer.parseInt(String.valueOf(value)) == 1 ? "横向" : "纵向";
-					}
-				}));
+			@Override
+			public Object format(Object context, Object value) {
+				return Integer.parseInt(String.valueOf(value)) == 1 ? "横向" : "纵向";
+			}
+		}));
 		// 一页一版
 		columns.add(new TextColumn4MapKey("cc.one_page_one_typography", "one_page_one_typography",
-				getText("certCfg.one_page_one_typography"),60).setSortable(true).setValueFormater(new AbstractFormater<Object>() {
-					@Override
-					public Object format(Object context, Object value) {
-						return Integer.parseInt(String.valueOf(value)) == 1 ? "否" : "是";
-					}
-				}));
-		
+				getText("certCfg.one_page_one_typography"), 60).setSortable(true).setValueFormater(new AbstractFormater<Object>() {
+			@Override
+			public Object format(Object context, Object value) {
+				return Integer.parseInt(String.valueOf(value)) == 1 ? "否" : "是";
+			}
+		}));
+
 		// 最后修改
 		columns.add(new TextColumn4MapKey("iah.actor_name", "actor_name",
-				getText("lastModify"),200).setSortable(true)
+				getText("lastModify"), 200).setSortable(true)
 				.setValueFormater(new AbstractFormater<String>() {
 					@Override
 					public String format(Object context, Object value) {
@@ -234,22 +233,22 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 							return "";
 						} else {
 							Object order = map.get("actor_name");
-							if(order==null){
+							if (order == null) {
 								return "";
-							}else{
+							} else {
 								return value
 										+ " ("
 										+ DateUtils
-												.formatDateTime2Minute((Date) map
-														.get("modify_date")) + ")";
+										.formatDateTime2Minute((Date) map
+												.get("modify_date")) + ")";
 							}
 						}
 
 					}
 				}).setUseTitleFromLabel(true));
 
-		columns.add(new HiddenColumn4MapKey("docId","id"));
-		columns.add(new HiddenColumn4MapKey("docType","docType"));
+		columns.add(new HiddenColumn4MapKey("docId", "id"));
+		columns.add(new HiddenColumn4MapKey("docType", "docType"));
 		columns.add(new HiddenColumn4MapKey("docName", "name"));
 		return columns;
 	}
@@ -266,9 +265,9 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 	}
 
 	@Override
-	protected Toolbar getHtmlPageToolbar() {	
-		Toolbar tb = new Toolbar();		
-		if(!this.isReadonly()){ //证件管理||超级管理员
+	protected Toolbar getHtmlPageToolbar() {
+		Toolbar tb = new Toolbar();
+		if (!this.isReadonly()) { //证件管理||超级管理员
 			// 新建按钮
 			tb.addButton(Toolbar
 					.getDefaultCreateToolbarButton(getText("label.create")));
@@ -280,29 +279,29 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 			// 删除按钮
 			tb.addButton(Toolbar
 					.getDefaultDeleteToolbarButton(getText("label.delete")));
-			
+
 			// 搜索按钮
 			tb.addButton(this.getDefaultSearchToolbarButton());
-			
+
 			// 切换状态
 			tb.addButton(Toolbar.getDefaultToolbarRadioGroup(
 					this.getStatuses(), "status", BCConstants.STATUS_ENABLED,
 					getText("title.click2changeSearchStatus")));
-		}else{
+		} else {
 			// 查看按钮
 			tb.addButton(this.getDefaultOpenToolbarButton());
 		}
 
-		if(!isAcl()){
+		if (!isAcl()) {
 			// 访问配置按钮
 			tb.addButton(new ToolbarButton().setIcon("ui-icon-lightbulb")
 					.setText(getText("certCfg.access"))
 					.setClick("bc.certCfgView.aclConfig"));
 		}
-		
+
 		return tb;
 	}
-	
+
 	@Override
 	protected Condition getGridSpecalCondition() {
 		/** 状态条件,控制不同状态显示不同的结果 */
@@ -315,7 +314,7 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 	@Override
 	protected OrderCondition getGridDefaultOrderCondition() {
 		return new OrderCondition("cc.status_", Direction.Asc).add(
-				"ct.order_no", Direction.Asc).add("cc.order_no",Direction.Asc);
+				"ct.order_no", Direction.Asc).add("cc.order_no", Direction.Asc);
 	}
 
 	@Override
@@ -325,9 +324,9 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 
 	@Override
 	protected String[] getGridSearchFields() {
-		return new String[] { "cc.name", "ct.name","cc.code","cc.tpl"};
+		return new String[]{"cc.name", "ct.name", "cc.code", "cc.tpl"};
 	}
-	
+
 	private Map<String, String> getStatuses() {
 		Map<String, String> statuses = new LinkedHashMap<String, String>();
 		statuses.put(String.valueOf(BCConstants.STATUS_ENABLED),
@@ -335,7 +334,7 @@ public class CertCfgsAction extends ViewAction<Map<String, Object>> {
 		statuses.put(String.valueOf(BCConstants.STATUS_DISABLED),
 				getText("certCfg.status.disabled"));
 		statuses.put(String.valueOf(BCConstants.STATUS_ENABLED) + ","
-				+ String.valueOf(BCConstants.STATUS_DISABLED),
+						+ String.valueOf(BCConstants.STATUS_DISABLED),
 				getText("certCfg.status.all"));
 		return statuses;
 	}

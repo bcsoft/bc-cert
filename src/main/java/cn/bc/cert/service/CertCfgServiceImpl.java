@@ -1,24 +1,24 @@
 package cn.bc.cert.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import cn.bc.cert.Dao.CertCfgDao;
+import cn.bc.cert.dao.CertCfgDao;
 import cn.bc.cert.domain.CertCfg;
 import cn.bc.core.service.DefaultCrudService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class CertCfgServiceImpl extends DefaultCrudService<CertCfg> implements CertCfgService {
-
 	private CertCfgDao certCfgDao;
-	
+
 	@Autowired
-	public void setCertCfgTypeDao(CertCfgDao certCfgDao) {
+	public void setCertCfgDao(CertCfgDao certCfgDao) {
 		this.certCfgDao = certCfgDao;
 		this.setCrudDao(certCfgDao);
 	}
-	
+
 	public CertCfg loadById(Long id) {
 		return this.certCfgDao.loadById(id);
 	}
@@ -31,16 +31,16 @@ public class CertCfgServiceImpl extends DefaultCrudService<CertCfg> implements C
 		return certCfgDao.loadByCode(typeCode, cfgCode);
 	}
 
-	public List<Map<String, String>> find4AllCertsInfo(String typeCode, Long pid ,String userCode) {
-		return certCfgDao.find4AllCertsInfo(typeCode, pid ,userCode);
+	public List<Map<String, String>> find4AllCertsInfo(String typeCode, Long pid, String userCode) {
+		return certCfgDao.find4AllCertsInfo(typeCode, pid, userCode);
 	}
 
-	public Map<String,Object> findDriverTempByCarMan(int carId) {
+	public Map<String, Object> findDriverTempByCarMan(int carId) {
 		return certCfgDao.findDriverTempByCarMan(carId);
 	}
 
 	public List<Map<String, Object>> find4AllCertsNameAndIdCfgByTypeCode(String typeCode) {
-		
+
 		return certCfgDao.find4AllCertsNameAndIdCfgByTypeCode(typeCode);
 	}
 

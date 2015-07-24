@@ -36,6 +36,6 @@
     <scm>
         <connection>scm:git:git@bitbucket.org:bctaxi/bc-cert.git</connection>
         <developerConnection>scm:git:git@bitbucket.org:bctaxi/bc-cert.git</developerConnection>
-        <url>https://localhost/bc-cert</url>
+        <url>https://bitbucket.org/bctaxi/bc-cert</url>
     </scm>
 </project>

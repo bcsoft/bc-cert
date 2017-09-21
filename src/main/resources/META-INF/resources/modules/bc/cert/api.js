@@ -262,7 +262,7 @@ bc.cert.nestedGrid = function (option) {
 						pid: pid,
 						ver: ver
 					};
-					bc.cert.print(option, false, false);
+					bc.cert.print(option, false, true);
 				});
 
 				// 先为鼠标单击修改事件解绑

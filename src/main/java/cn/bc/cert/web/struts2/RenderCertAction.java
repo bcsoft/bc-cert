@@ -2,24 +2,18 @@ package cn.bc.cert.web.struts2;
 
 import cn.bc.cert.domain.CertCfg;
 import cn.bc.cert.service.CertCfgService;
-import cn.bc.core.util.JsonUtils;
-import cn.bc.core.util.StringUtils;
-import cn.bc.form.domain.Field;
 import cn.bc.form.domain.Form;
-import cn.bc.form.service.FormService;
 import cn.bc.form.struts2.RenderFormAction;
-import cn.bc.identity.web.SystemContext;
-import cn.bc.identity.web.SystemContextHolder;
-import cn.bc.template.engine.TemplateEngine;
+import cn.bc.web.ui.html.page.ButtonOption;
 import cn.bc.web.ui.html.page.PageOption;
-import com.opensymphony.xwork2.ActionSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Map;
 
 /**
  * 渲染证件表单 Action
@@ -57,6 +51,17 @@ public class RenderCertAction extends RenderFormAction {
 	@Override
 	protected PageOption getPageOption(boolean readonly) {
 		return super.getPageOption(readonly).setWidth(600).setHeight(400);
+	}
+
+	@Override
+	protected void addPageButton(PageOption pageOption, boolean readonly) {
+		if(!readonly){
+			pageOption.setButtons(
+				new ButtonOption(getText("form.save2NewVersion"), null, "bc.cert.save2NewVersion"),
+				new ButtonOption(getText("form.save"), null, "bc.cform.save"),
+				new ButtonOption(getText("form.saveAndClose"), null, "bc.cform.saveAndClose")
+			);
+		}
 	}
 
 	@Override

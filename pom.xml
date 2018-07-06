@@ -27,5 +27,9 @@
             <groupId>cn.bc</groupId>
             <artifactId>bc-identity</artifactId>
         </dependency>
+        <dependency>
+            <groupId>cn.bc</groupId>
+            <artifactId>bc-option</artifactId>
+        </dependency>
     </dependencies>
 </project>

@@ -2,6 +2,7 @@ package cn.bc.cert.service;
 
 import cn.bc.cert.dao.CertCfgDao;
 import cn.bc.cert.domain.CertCfg;
+import cn.bc.cert.domain.CertCfgDetail;
 import cn.bc.core.service.DefaultCrudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,5 +45,8 @@ public class CertCfgServiceImpl extends DefaultCrudService<CertCfg> implements C
 		return certCfgDao.find4AllCertsNameAndIdCfgByTypeCode(typeCode);
 	}
 
-
+	@Override
+	public List<Map<String, Object>> findCertWidthByCfgCode(String code) {
+		return certCfgDao.findCertWidthByCfgCode(code);
+	}
 }

@@ -57,7 +57,8 @@
 		</action>	
 		<action name="create" class="certCfgAction" method="create">
 			<result name="form">/modules/bc/cert/certCfg/form.jsp</result>
-		</action>	
+		</action>
+		<action name="getWidths" class="certCfgAction" method="getWidths"/>
 	</package>
 	
 	<!-- 证件信息 视图 -->

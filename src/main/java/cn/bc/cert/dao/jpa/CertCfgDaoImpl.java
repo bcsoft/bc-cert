@@ -3,6 +3,7 @@ package cn.bc.cert.dao.jpa;
 import cn.bc.BCConstants;
 import cn.bc.cert.dao.CertCfgDao;
 import cn.bc.cert.domain.CertCfg;
+import cn.bc.cert.domain.CertCfgDetail;
 import cn.bc.core.query.condition.impl.AndCondition;
 import cn.bc.core.query.condition.impl.EqualsCondition;
 import cn.bc.core.util.DateUtils;
@@ -185,5 +186,14 @@ public class CertCfgDaoImpl extends JpaCrudDao<CertCfg> implements CertCfgDao {
 			sql = " select f.name,f.id from bc_cert_cfg f inner join bc_cert_type t on f.type_id = t.id where f.status_ = 0 and t.code = '" + typeCode + "' order by f.order_no asc ";
 		}
 		return this.jdbcTemplate.queryForList(sql);
+	}
+
+	@Override
+	public List<Map<String, Object>> findCertWidthByCfgCode(String code) {
+		if (code == null || code.isEmpty()) throw new NullPointerException("证件配置编码为空");
+		String sql = "select 0 pageNo, width from bc_cert_cfg where code = ?\n" +
+			"union select page_no pageNo, width from bc_cert_cfg_detail \n" +
+			"where pid  = (select id from bc_cert_cfg where code = ?)";
+		return this.jdbcTemplate.queryForList(sql, code, code);
 	}
 }

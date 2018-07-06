@@ -670,3 +670,28 @@ bc.cert.getDetail = function (isGetDetails, operate_type, type, code, onOk) {
 		}
 	});
 };
+
+bc.cert.save2NewVersion = function (closeAfterSave, callback) {
+	var $page = $(this);
+	// 获取证件宽度配置
+	bc.ajax({
+		type: "GET",
+		data: {cfgCode: $page.find("input[name='code']").val()},
+		url: bc.root + "/modules/bc/cert/certCfg/getWidths",
+		dataType: "json",
+		success: function (json) {
+			// 更新证件宽度
+			json.widths.forEach(j => {
+				if (j.pageno > 0)
+					$page.find("input[name='attach_width_" + j.pageno + "']").val(j.width);
+				else
+					$page.find("input[name='attach_width']").val(j.width);
+			});
+
+			// 存为新版本
+			bc.cform.save2NewVersion.call($page, closeAfterSave, function () {
+				callback && callback.apply(this, arguments);
+			});
+		}
+	});
+};

@@ -99,6 +99,13 @@ public class CertCfgAction extends FileEntityAction<Long, CertCfg> implements Se
 		return "json";
 	}
 
+	public String getWidths() {
+		JSONObject json = new JSONObject();
+		json.put("widths", this.certCfgService.findCertWidthByCfgCode(this.cfgCode));
+		this.json = json.toString();
+		return "json";
+	}
+
 	public JSONArray dealDetail(Set<CertCfgDetail> details) throws JSONException {
 		JSONArray jsons = new JSONArray();
 		JSONObject object;

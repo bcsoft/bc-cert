@@ -12,41 +12,41 @@ import java.util.Map;
 
 @Service
 public class CertCfgServiceImpl extends DefaultCrudService<CertCfg> implements CertCfgService {
-	private CertCfgDao certCfgDao;
+  private CertCfgDao certCfgDao;
 
-	@Autowired
-	public void setCertCfgDao(CertCfgDao certCfgDao) {
-		this.certCfgDao = certCfgDao;
-		this.setCrudDao(certCfgDao);
-	}
+  @Autowired
+  public void setCertCfgDao(CertCfgDao certCfgDao) {
+    this.certCfgDao = certCfgDao;
+    this.setCrudDao(certCfgDao);
+  }
 
-	public CertCfg loadById(Long id) {
-		return this.certCfgDao.loadById(id);
-	}
+  public CertCfg loadById(Long id) {
+    return this.certCfgDao.loadById(id);
+  }
 
-	public List<Map<String, String>> findEnabled4Option(String typeCode) {
-		return this.certCfgDao.findEnabled4Option(typeCode);
-	}
+  public List<Map<String, String>> findEnabled4Option(String typeCode) {
+    return this.certCfgDao.findEnabled4Option(typeCode);
+  }
 
-	public CertCfg loadByCode(String typeCode, String cfgCode) {
-		return certCfgDao.loadByCode(typeCode, cfgCode);
-	}
+  public CertCfg loadByCode(String typeCode, String cfgCode) {
+    return certCfgDao.loadByCode(typeCode, cfgCode);
+  }
 
-	public List<Map<String, String>> find4AllCertsInfo(String typeCode, Long pid, String userCode) {
-		return certCfgDao.find4AllCertsInfo(typeCode, pid, userCode);
-	}
+  public List<Map<String, String>> find4AllCertsInfo(String typeCode, Long pid, String userCode) {
+    return certCfgDao.find4AllCertsInfo(typeCode, pid, userCode);
+  }
 
-	public Map<String, Object> findDriverTempByCarMan(int carId) {
-		return certCfgDao.findDriverTempByCarMan(carId);
-	}
+  public Map<String, Object> findDriverTempByCarMan(int carId) {
+    return certCfgDao.findDriverTempByCarMan(carId);
+  }
 
-	public List<Map<String, Object>> find4AllCertsNameAndIdCfgByTypeCode(String typeCode) {
+  public List<Map<String, Object>> find4AllCertsNameAndIdCfgByTypeCode(String typeCode) {
 
-		return certCfgDao.find4AllCertsNameAndIdCfgByTypeCode(typeCode);
-	}
+    return certCfgDao.find4AllCertsNameAndIdCfgByTypeCode(typeCode);
+  }
 
-	@Override
-	public List<Map<String, Object>> findCertWidthByCfgCode(String code) {
-		return certCfgDao.findCertWidthByCfgCode(code);
-	}
+  @Override
+  public List<Map<String, Object>> findCertWidthByCfgCode(String code) {
+    return certCfgDao.findCertWidthByCfgCode(code);
+  }
 }

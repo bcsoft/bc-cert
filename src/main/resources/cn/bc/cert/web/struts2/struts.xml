@@ -3,86 +3,86 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-	<!-- 预览模板 表单 -->
-	<package name="certAPI" extends="bc-default" namespace="/modules/bc/cert">
-		<action name="render" class="renderCertAction" method="render" />
-	</package>
+  <!-- 预览模板 表单 -->
+  <package name="certAPI" extends="bc-default" namespace="/modules/bc/cert">
+    <action name="render" class="renderCertAction" method="render" />
+  </package>
 
-	<!-- 预览模板 表单 -->
-	<package name="previewTemplate" extends="bc-default" namespace="/modules/bc/cert/previewTemplate">
-		<action name="preview" class="previewTemplateAction" method="preview" />
-	</package>
+  <!-- 预览模板 表单 -->
+  <package name="previewTemplate" extends="bc-default" namespace="/modules/bc/cert/previewTemplate">
+    <action name="preview" class="previewTemplateAction" method="preview" />
+  </package>
 
-	<!-- 证件类型 视图 -->
-	<package name="certTypes" extends="bc-default" namespace="/modules/bc/cert/certTypes">
-		<action name="paging" class="certTypesAction" method="paging"/>
-		<action name="export" class="certTypesAction" method="export"/>
-		<action name="list" class="certTypesAction" method="list"/>
-		<action name="data" class="certTypesAction" method="data"/>
-	</package>
-	<!-- 证件类型  表单 -->
-	<package name="certType" extends="bc-default" namespace="/modules/bc/cert/certType">		
-		<action name="save" class="certTypeAction" method="save"/>
-		<action name="delete" class="certTypeAction" method="delete"/>
-		<action name="open" class="certTypeAction" method="open">
-			<result name="formr">/modules/bc/cert/certType/form.jsp</result>
-		</action>	
-		<action name="edit" class="certTypeAction" method="edit">
-			<result name="form">/modules/bc/cert/certType/form.jsp</result>
-		</action>	
-		<action name="create" class="certTypeAction" method="create">
-			<result name="form">/modules/bc/cert/certType/form.jsp</result>
-		</action>	
-	</package>
-	
-	<!-- 证件配置 视图 -->
-	<package name="certCfgs" extends="bc-default" namespace="/modules/bc/cert/certCfgs">
-		<action name="paging" class="certCfgsAction" method="paging"/>
-		<action name="export" class="certCfgsAction" method="export"/>
-		<action name="list" class="certCfgsAction" method="list"/>
-		<action name="data" class="certCfgsAction" method="data"/>
-	</package>
-	<!-- 证件配置  表单 -->
-	<package name="certCfg" extends="bc-default" namespace="/modules/bc/cert/certCfg">
-		
-		<action name="save" class="certCfgAction" method="save"/>
-		<action name="delete" class="certCfgAction" method="delete"/>
-		<action name="getDataByDetail" class="certCfgAction" method="getData"/>
-		
-		<action name="open" class="certCfgAction" method="open">
-			<result name="formr">/modules/bc/cert/certCfg/form.jsp</result>
-		</action>	
-		<action name="edit" class="certCfgAction" method="edit">
-			<result name="form">/modules/bc/cert/certCfg/form.jsp</result>
-		</action>	
-		<action name="create" class="certCfgAction" method="create">
-			<result name="form">/modules/bc/cert/certCfg/form.jsp</result>
-		</action>
-		<action name="getWidths" class="certCfgAction" method="getWidths"/>
-	</package>
-	
-	<!-- 证件信息 视图 -->
-	<package name="certInfos" extends="bc-default" namespace="/modules/bc/cert/certInfos">
-		<action name="paging" class="certInfosAction" method="paging"/>
-		<action name="export" class="certInfosAction" method="export"/>
-		<action name="list" class="certInfosAction" method="list"/>
-		<action name="data" class="certInfosAction" method="data"/>
-	</package>
-	<!-- 证件信息  表单 -->
-	<package name="certInfo" extends="bc-default" namespace="/modules/bc/cert/certInfo">
-		
-		<action name="save" class="certInfoAction" method="save"/>
-		<action name="delete" class="certInfoAction" method="delete"/>
-		<action name="open" class="certInfoAction" method="open">
-			<result name="formr">/modules/bc/cert/certInfo/form.jsp</result>
-		</action>	
-		<action name="edit" class="certInfoAction" method="edit">
-			<result name="form">/modules/bc/cert/certInfo/form.jsp</result>
-		</action>	
-		<action name="create" class="certInfoAction" method="create">
-			<result name="form">/modules/bc/cert/certInfo/form.jsp</result>
-		</action>	
-	</package>
+  <!-- 证件类型 视图 -->
+  <package name="certTypes" extends="bc-default" namespace="/modules/bc/cert/certTypes">
+    <action name="paging" class="certTypesAction" method="paging"/>
+    <action name="export" class="certTypesAction" method="export"/>
+    <action name="list" class="certTypesAction" method="list"/>
+    <action name="data" class="certTypesAction" method="data"/>
+  </package>
+  <!-- 证件类型  表单 -->
+  <package name="certType" extends="bc-default" namespace="/modules/bc/cert/certType">
+    <action name="save" class="certTypeAction" method="save"/>
+    <action name="delete" class="certTypeAction" method="delete"/>
+    <action name="open" class="certTypeAction" method="open">
+      <result name="formr">/modules/bc/cert/certType/form.jsp</result>
+    </action>
+    <action name="edit" class="certTypeAction" method="edit">
+      <result name="form">/modules/bc/cert/certType/form.jsp</result>
+    </action>
+    <action name="create" class="certTypeAction" method="create">
+      <result name="form">/modules/bc/cert/certType/form.jsp</result>
+    </action>
+  </package>
+
+  <!-- 证件配置 视图 -->
+  <package name="certCfgs" extends="bc-default" namespace="/modules/bc/cert/certCfgs">
+    <action name="paging" class="certCfgsAction" method="paging"/>
+    <action name="export" class="certCfgsAction" method="export"/>
+    <action name="list" class="certCfgsAction" method="list"/>
+    <action name="data" class="certCfgsAction" method="data"/>
+  </package>
+  <!-- 证件配置  表单 -->
+  <package name="certCfg" extends="bc-default" namespace="/modules/bc/cert/certCfg">
+
+    <action name="save" class="certCfgAction" method="save"/>
+    <action name="delete" class="certCfgAction" method="delete"/>
+    <action name="getDataByDetail" class="certCfgAction" method="getData"/>
+
+    <action name="open" class="certCfgAction" method="open">
+      <result name="formr">/modules/bc/cert/certCfg/form.jsp</result>
+    </action>
+    <action name="edit" class="certCfgAction" method="edit">
+      <result name="form">/modules/bc/cert/certCfg/form.jsp</result>
+    </action>
+    <action name="create" class="certCfgAction" method="create">
+      <result name="form">/modules/bc/cert/certCfg/form.jsp</result>
+    </action>
+    <action name="getWidths" class="certCfgAction" method="getWidths"/>
+  </package>
+
+  <!-- 证件信息 视图 -->
+  <package name="certInfos" extends="bc-default" namespace="/modules/bc/cert/certInfos">
+    <action name="paging" class="certInfosAction" method="paging"/>
+    <action name="export" class="certInfosAction" method="export"/>
+    <action name="list" class="certInfosAction" method="list"/>
+    <action name="data" class="certInfosAction" method="data"/>
+  </package>
+  <!-- 证件信息  表单 -->
+  <package name="certInfo" extends="bc-default" namespace="/modules/bc/cert/certInfo">
+
+    <action name="save" class="certInfoAction" method="save"/>
+    <action name="delete" class="certInfoAction" method="delete"/>
+    <action name="open" class="certInfoAction" method="open">
+      <result name="formr">/modules/bc/cert/certInfo/form.jsp</result>
+    </action>
+    <action name="edit" class="certInfoAction" method="edit">
+      <result name="form">/modules/bc/cert/certInfo/form.jsp</result>
+    </action>
+    <action name="create" class="certInfoAction" method="create">
+      <result name="form">/modules/bc/cert/certInfo/form.jsp</result>
+    </action>
+  </package>
     <!-- 证件打印 -->
     <package name="printCert" extends="bc-default" namespace="/modules/bc/cert">
         <action name="print" class="certPrintAction" method="execute"/>

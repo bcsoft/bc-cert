@@ -9,13 +9,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CertInfoDaoImpl extends JpaCrudDao<Form> implements CertInfoDao {
-	public Form loadById(Long id) {
-		AndCondition ac = new AndCondition();
-		ac.add(new EqualsCondition("id", id));
-		if (this.createQuery().condition(ac).count() == 0) {
-			return null;
-		} else {
-			return this.createQuery().condition(ac).list().get(0);
-		}
-	}
+  public Form loadById(Long id) {
+    AndCondition ac = new AndCondition();
+    ac.add(new EqualsCondition("id", id));
+    if (this.createQuery().condition(ac).count() == 0) {
+      return null;
+    } else {
+      return this.createQuery().condition(ac).list().get(0);
+    }
+  }
 }

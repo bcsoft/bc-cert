@@ -9,10 +9,10 @@ import cn.bc.form.domain.Form;
  * @author LeeDane
  */
 public interface CertInfoDao extends CrudDao<Form> {
-	/**
-	 * 通过id找到对应的Form对象
-	 *
-	 * @return
-	 */
-	Form loadById(Long id);
+  /**
+   * 通过id找到对应的Form对象
+   *
+   * @return
+   */
+  Form loadById(Long id);
 }

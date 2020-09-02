@@ -20,63 +20,63 @@ import org.springframework.stereotype.Controller;
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @Controller
 public class CertTypeAction extends FileEntityAction<Long, CertType> implements SessionAware {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private CertTypeService certTypeService;
+  private CertTypeService certTypeService;
 
-	@Autowired
-	public void setCertTypeService(CertTypeService certTypeService) {
-		this.certTypeService = certTypeService;
-		this.setCrudService(certTypeService);
-	}
+  @Autowired
+  public void setCertTypeService(CertTypeService certTypeService) {
+    this.certTypeService = certTypeService;
+    this.setCrudService(certTypeService);
+  }
 
-	@Override
-	public boolean isReadonly() {
-		SystemContext context = (SystemContext) this.getContext();
-		return !context.hasAnyRole(getText("key.role.bc.cert.manage"), getText("key.role.bc.admin"));
-	}
+  @Override
+  public boolean isReadonly() {
+    SystemContext context = (SystemContext) this.getContext();
+    return !context.hasAnyRole(getText("key.role.bc.cert.manage"), getText("key.role.bc.admin"));
+  }
 
-	@Override
-	protected PageOption buildFormPageOption(boolean editable) {
-		return super.buildFormPageOption(editable).setWidth(510)
-				.setMinHeight(200).setMinWidth(150);
-	}
+  @Override
+  protected PageOption buildFormPageOption(boolean editable) {
+    return super.buildFormPageOption(editable).setWidth(510)
+        .setMinHeight(200).setMinWidth(150);
+  }
 
-	@Override
-	protected boolean useFormPrint() {
-		return false;
-	}
+  @Override
+  protected boolean useFormPrint() {
+    return false;
+  }
 
-	@Override
-	public String save() throws Exception {
-		CertType e = this.getE();
-		boolean isUnique = true;
-		Long id = e.isNew() ? null : e.getId();
+  @Override
+  public String save() throws Exception {
+    CertType e = this.getE();
+    boolean isUnique = true;
+    Long id = e.isNew() ? null : e.getId();
 
-		// 验证进货单唯一性
-		isUnique = this.certTypeService.isUnique(id, e.getCode());
-		if (!isUnique) {
-			String msg = "系统已存在相同的" + getText("certInfo.type") + "，不能够保存！";
-			JSONObject json = new JSONObject();
-			json.put("success", false);
-			json.put("msg", msg);
-			this.json = json.toString();
+    // 验证进货单唯一性
+    isUnique = this.certTypeService.isUnique(id, e.getCode());
+    if (!isUnique) {
+      String msg = "系统已存在相同的" + getText("certInfo.type") + "，不能够保存！";
+      JSONObject json = new JSONObject();
+      json.put("success", false);
+      json.put("msg", msg);
+      this.json = json.toString();
 
-		} else {
-			this.beforeSave(this.getE());
-			this.getCrudService().save(e);
-			this.afterSave(this.getE());
+    } else {
+      this.beforeSave(this.getE());
+      this.getCrudService().save(e);
+      this.afterSave(this.getE());
 
-			JSONObject json = new JSONObject();
-			String msg = "证件类别保存成功！";
-			json.put("success", true);
-			json.put("id", e.getId());
-			json.put("msg", msg);
-			this.json = json.toString();
-		}
+      JSONObject json = new JSONObject();
+      String msg = "证件类别保存成功！";
+      json.put("success", true);
+      json.put("id", e.getId());
+      json.put("msg", msg);
+      this.json = json.toString();
+    }
 
-		return "json";
-	}
+    return "json";
+  }
 
 
 }

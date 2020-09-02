@@ -8,15 +8,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CertInfoServiceImpl extends DefaultCrudService<Form> implements CertInfoService {
-	private CertInfoDao certInfoDao;
+  private CertInfoDao certInfoDao;
 
-	@Autowired
-	public void setCertInfoDao(CertInfoDao certInfoDao) {
-		this.certInfoDao = certInfoDao;
-		this.setCrudDao(certInfoDao);
-	}
+  @Autowired
+  public void setCertInfoDao(CertInfoDao certInfoDao) {
+    this.certInfoDao = certInfoDao;
+    this.setCrudDao(certInfoDao);
+  }
 
-	public Form loadById(Long id) {
-		return this.certInfoDao.loadById(id);
-	}
+  public Form loadById(Long id) {
+    return this.certInfoDao.loadById(id);
+  }
 }

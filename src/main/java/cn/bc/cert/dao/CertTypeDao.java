@@ -13,24 +13,24 @@ import java.util.Map;
  */
 
 public interface CertTypeDao extends CrudDao<CertType> {
-	/**
-	 * 查找所有证件类别
-	 *
-	 * @return
-	 */
-	List<Map<String, String>> findCertTypes();
+  /**
+   * 查找所有证件类别
+   *
+   * @return
+   */
+  List<Map<String, String>> findCertTypes();
 
-	/**
-	 * 根据ID找到对应的证件类型
-	 *
-	 * @return
-	 */
-	CertType loadById(Long id);
+  /**
+   * 根据ID找到对应的证件类型
+   *
+   * @return
+   */
+  CertType loadById(Long id);
 
-	/**
-	 * 判断编号是否唯一
-	 *
-	 * @return
-	 */
-	boolean isUnique(Long id, String code);
+  /**
+   * 判断编号是否唯一
+   *
+   * @return
+   */
+  boolean isUnique(Long id, String code);
 }

@@ -23,120 +23,120 @@ import cn.bc.identity.domain.RichFileEntityImpl;
 @Entity
 @Table(name = "BC_CERT_CFG")
 public class CertCfg extends RichFileEntityImpl {
-	private static final long serialVersionUID = 1L;
-	public static final String KEY_UID = "cert.uid";
-	public static final String ATTACH_TYPE =CertCfg.class.getSimpleName();
+  private static final long serialVersionUID = 1L;
+  public static final String KEY_UID = "cert.uid";
+  public static final String ATTACH_TYPE =CertCfg.class.getSimpleName();
 
-	private String code;//编码
-	private String name; //名称
-	private CertType certType; //证件类型，多对一的关系
-	private int pageCount; //面数
-	private BigDecimal width; //打印的宽度，毫米单位
-	private String combine; //合并配置
-	private String orderNo; //排序号
-	private String tpl; //表单模板
-	private int one_page_one_typography;//一页一版
-	private int print_direction; //打印方向
-	
-	private Set<CertCfgDetail> details;
+  private String code;//编码
+  private String name; //名称
+  private CertType certType; //证件类型，多对一的关系
+  private int pageCount; //面数
+  private BigDecimal width; //打印的宽度，毫米单位
+  private String combine; //合并配置
+  private String orderNo; //排序号
+  private String tpl; //表单模板
+  private int one_page_one_typography;//一页一版
+  private int print_direction; //打印方向
 
-	@Column(name = "CODE",length=100)
-	public String getCode() {
-		return code;
-	}
+  private Set<CertCfgDetail> details;
 
-	public void setCode(String code) {
-		this.code = code;
-	}
-	
-	@Column(name = "NAME",length=100)
-	public String getName() {
-		return name;
-	}
+  @Column(name = "CODE",length=100)
+  public String getCode() {
+    return code;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "TYPE_ID", referencedColumnName = "ID")
-	public CertType getCertType() {
-		return certType;
-	}
+  public void setCode(String code) {
+    this.code = code;
+  }
 
-	public void setCertType(CertType certType) {
-		this.certType = certType;
-	}
+  @Column(name = "NAME",length=100)
+  public String getName() {
+    return name;
+  }
 
-	@Column(name = "PAGE_COUNT")
-	public int getPageCount() {
-		return pageCount;
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	public void setPageCount(int pageCount) {
-		this.pageCount = pageCount;
-	}
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "TYPE_ID", referencedColumnName = "ID")
+  public CertType getCertType() {
+    return certType;
+  }
 
-	@Column(name = "WIDTH")
-	public BigDecimal getWidth() {
-		return width;
-	}
+  public void setCertType(CertType certType) {
+    this.certType = certType;
+  }
 
-	public void setWidth(BigDecimal width) {
-		this.width = width;
-	}
+  @Column(name = "PAGE_COUNT")
+  public int getPageCount() {
+    return pageCount;
+  }
 
-	@Column(name = "COMBINE",length=50)
-	public String getCombine() {
-		return combine;
-	}
+  public void setPageCount(int pageCount) {
+    this.pageCount = pageCount;
+  }
 
-	public void setCombine(String combine) {
-		this.combine = combine;
-	}
+  @Column(name = "WIDTH")
+  public BigDecimal getWidth() {
+    return width;
+  }
 
-	@Column(name = "ORDER_NO",length=10)
-	public String getOrderNo() {
-		return orderNo;
-	}
+  public void setWidth(BigDecimal width) {
+    this.width = width;
+  }
 
-	public void setOrderNo(String orderNo) {
-		this.orderNo = orderNo;
-	}
+  @Column(name = "COMBINE",length=50)
+  public String getCombine() {
+    return combine;
+  }
 
-	@Column(name = "TPL",length=1000)
-	public String getTpl() {
-		return tpl;
-	}
+  public void setCombine(String combine) {
+    this.combine = combine;
+  }
 
-	public void setTpl(String tpl) {
-		this.tpl = tpl;
-	}
+  @Column(name = "ORDER_NO",length=10)
+  public String getOrderNo() {
+    return orderNo;
+  }
 
-	@OneToMany(mappedBy="certCfg",fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-	@OrderBy(value = "pageNo asc")
-	public Set<CertCfgDetail> getDetails() {
-		return details;
-	}
+  public void setOrderNo(String orderNo) {
+    this.orderNo = orderNo;
+  }
 
-	public void setDetails(Set<CertCfgDetail> details) {
-		this.details = details;
-	}
+  @Column(name = "TPL",length=1000)
+  public String getTpl() {
+    return tpl;
+  }
 
-	public int getOne_page_one_typography() {
-		return one_page_one_typography;
-	}
+  public void setTpl(String tpl) {
+    this.tpl = tpl;
+  }
 
-	public void setOne_page_one_typography(int one_page_one_typography) {
-		this.one_page_one_typography = one_page_one_typography;
-	}
+  @OneToMany(mappedBy="certCfg",fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+  @OrderBy(value = "pageNo asc")
+  public Set<CertCfgDetail> getDetails() {
+    return details;
+  }
 
-	public int getPrint_direction() {
-		return print_direction;
-	}
+  public void setDetails(Set<CertCfgDetail> details) {
+    this.details = details;
+  }
 
-	public void setPrint_direction(int print_direction) {
-		this.print_direction = print_direction;
-	}
-	
+  public int getOne_page_one_typography() {
+    return one_page_one_typography;
+  }
+
+  public void setOne_page_one_typography(int one_page_one_typography) {
+    this.one_page_one_typography = one_page_one_typography;
+  }
+
+  public int getPrint_direction() {
+    return print_direction;
+  }
+
+  public void setPrint_direction(int print_direction) {
+    this.print_direction = print_direction;
+  }
+
 }

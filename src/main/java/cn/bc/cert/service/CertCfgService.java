@@ -2,6 +2,7 @@ package cn.bc.cert.service;
 
 
 import cn.bc.cert.domain.CertCfg;
+import cn.bc.cert.domain.CertCfgDetail;
 import cn.bc.core.service.CrudService;
 
 import java.util.List;
@@ -57,4 +58,20 @@ public interface CertCfgService extends CrudService<CertCfg> {
 	 * @return
 	 */
 	List<Map<String, Object>> find4AllCertsNameAndIdCfgByTypeCode(String typeCode);
+
+	/**
+	 * 通过证件配置编码查找对应类型的证件宽度
+	 *
+	 * @param code 证件配置编码
+	 * @return 数据结构为:
+	 * <pre><code>
+	 *    [<br>
+	 *      {<br>
+	 *        'pageNo': 0,        // 证件页码，第 0 页是各页证件图片的合并页<br>
+	 *        'width': 100        // 证件当前页的宽度<br>
+	 *      }, ...<br>
+	 *    ]<br>
+	 * </code></pre>
+	 */
+	List<Map<String, Object>> findCertWidthByCfgCode(String code);
 }

@@ -58,9 +58,8 @@ public class CertInfosAction extends ViewAction<Map<String, Object>> {
   @Override
   protected String getHtmlPageJs() {
     return this.getModuleContextPath() + "/certInfo/view.js"+","+this.getContextPath()+"/bc-business/bs.js"
-        +","+this.getContextPath()+"/modules/bc/cert/certCfg/form.js"+","+this.getContextPath()+"/bc-business/carManCert/view.js"
-        +","+this.getContextPath()+"/bc/form/api.js"+","+this.getContextPath() + "/modules/bc/cert/api.js"
-        +","+this.getContextPath()+"/bc-business/carManCert/form.js";
+        +","+this.getContextPath()+"/modules/bc/cert/certCfg/form.js"
+        +","+this.getContextPath()+"/bc/form/api.js"+","+this.getContextPath() + "/modules/bc/cert/api.js";
   }
 
   /** 页面加载后调用的js初始化方法 */

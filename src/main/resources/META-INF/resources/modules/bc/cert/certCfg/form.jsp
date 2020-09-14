@@ -2,7 +2,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <div title='<s:text name="certForm.title"/>' data-type='form' class="bc-page"
   data-saveUrl='<s:url value="/modules/bc/cert/certCfg/save" />'
-  data-js='js:bc_identity,<s:url value="/bc-business/bs.js" />,<s:url value="/modules/bc/cert/api.js" />,<s:url value="/modules/bc/cert/certCfg/form.js" />,<s:url value="/bc-business/carManCert/view.js" />,<s:url value="/bc/form/api.js" />,<s:url value="/bc-business/carManCert/carManCert.js" />,<s:url value="/bc-business/carManCert/form.js" />'
+  data-js='js:bc_identity,<s:url value="/bc-business/bs.js" />,<s:url value="/modules/bc/cert/api.js" />,<s:url value="/modules/bc/cert/certCfg/form.js" />,<s:url value="/bc/form/api.js" />'
   data-initMethod='bc.certCfgForm.init'
   data-option='<s:property value="formPageOption"/>' style="overflow-y:auto;">
   <s:form name="certCfgForm" theme="simple" >

@@ -1,5 +1,10 @@
 # [bc-cert](https://github.com/bcsoft/bc-cert) 发布历史
 
+## 2.3.1 2021-06-16
+
+- 修正 bc.cert.nestedGrid 函数没有将 onOk 参数传递给 refresh 方法的问题
+- bc.cert.refresh 方法增加对 onOk 回调函数的处理
+
 ## 2.3.0 2020-09-14
 
 - 取消证件配置、证件信息对 ../carManCert/*.js 的依赖

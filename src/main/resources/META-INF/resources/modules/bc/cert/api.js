@@ -449,7 +449,7 @@ bc.cert.nestedGrid.refresh = function (option) {
   var $header = $container.children(".ui-widget-header");
   $header.nextAll().empty();
   if (pid != "") {
-    bc.cert.nestedGrid({
+    var optionToNestedGrid = {
       container: $container,
       type: type,
       pid: pid,
@@ -457,7 +457,9 @@ bc.cert.nestedGrid.refresh = function (option) {
       pname: pname,
       readonly: readonly,
       role: role
-    });
+    }
+    if (option.onOk) optionToNestedGrid.onOk = option.onOk;
+    bc.cert.nestedGrid(optionToNestedGrid);
   }
 };
 

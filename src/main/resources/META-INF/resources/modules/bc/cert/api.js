@@ -121,7 +121,6 @@ bc.cert.seeAllByParent = function (option) {
  * @option {String} uid [可填] 业务的uid，上传就需要
  * @option {String} pname [必填] 业务的名称,如司机证件的司机名，为了上传时拼接成subject对象
  * @option {String} role [可填] 用户的角色
- * @option {String} onOk [可选] 回调函数
  */
 bc.cert.nestedGrid = function (option) {
   console.log("bc.cert.nestedGrid");

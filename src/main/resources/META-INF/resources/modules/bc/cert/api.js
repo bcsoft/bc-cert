@@ -121,7 +121,6 @@ bc.cert.seeAllByParent = function (option) {
  * @option {String} uid [可填] 业务的uid，上传就需要
  * @option {String} pname [必填] 业务的名称,如司机证件的司机名，为了上传时拼接成subject对象
  * @option {String} role [可填] 用户的角色
- * @option {String} onOk [可选] 回调函数
  */
 bc.cert.nestedGrid = function (option) {
   console.log("bc.cert.nestedGrid");
@@ -176,8 +175,8 @@ bc.cert.nestedGrid = function (option) {
       if (json.success = false) {
         bc.msg.slide(json.msg);
       } else {
-        if (option.onOk) // 回调json数据
-          option.onOk.call(this, json);
+        var onOk = option.onOk;
+        if (onOk) onOk.call(this, json); // 调用回调函数
 
         var $header = option.container.children(".ui-widget-header");
         $header.after(dataHeader);
@@ -302,6 +301,7 @@ bc.cert.nestedGrid = function (option) {
             onOk: function (json) {
               if (json.success == true) { //修改成功后执行刷新操作
                 var option = {$container: $container};
+                if (onOk) option.onOk = onOk; // 传递回调函数
                 bc.cert.nestedGrid.refresh(option);
               }
             }
@@ -347,6 +347,7 @@ bc.cert.nestedGrid = function (option) {
             onOk: function (json) {
               if (json.success == true) {//删除成功后执行隐藏对应表格列的操作
                 var option = {$container: $container};
+                if (onOk) option.onOk = onOk; // 传递回调函数
                 bc.cert.nestedGrid.refresh(option);
               }
             }
@@ -387,6 +388,7 @@ bc.cert.nestedGrid = function (option) {
             onOk: function (json) {
               if (json.success == true) { //上传成功后执行刷新操作
                 var option = {$container: $container};
+                if (onOk) option.onOk = onOk; // 传递回调函数
                 bc.cert.nestedGrid.refresh(option);
               }
             }
@@ -415,6 +417,7 @@ bc.cert.nestedGrid = function (option) {
         // 鼠标点击刷新的事件
         $container.find(".bc-cert-refresh").on("click", function () {
           var option = {$container: $container};
+          if (onOk) option.onOk = onOk; // 传递回调函数
           bc.cert.nestedGrid.refresh(option);
         });
       }
@@ -445,7 +448,7 @@ bc.cert.nestedGrid.refresh = function (option) {
   var $header = $container.children(".ui-widget-header");
   $header.nextAll().empty();
   if (pid != "") {
-    bc.cert.nestedGrid({
+    var optionToNestedGrid = {
       container: $container,
       type: type,
       pid: pid,
@@ -453,7 +456,9 @@ bc.cert.nestedGrid.refresh = function (option) {
       pname: pname,
       readonly: readonly,
       role: role
-    });
+    }
+    if (option.onOk) optionToNestedGrid.onOk = option.onOk;
+    bc.cert.nestedGrid(optionToNestedGrid);
   }
 };
 

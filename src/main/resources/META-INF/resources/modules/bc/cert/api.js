@@ -176,8 +176,8 @@ bc.cert.nestedGrid = function (option) {
       if (json.success = false) {
         bc.msg.slide(json.msg);
       } else {
-        if (option.onOk) // 回调json数据
-          option.onOk.call(this, json);
+        var onOk = option.onOk;
+        if (onOk) onOk.call(this, json); // 调用回调函数
 
         var $header = option.container.children(".ui-widget-header");
         $header.after(dataHeader);
@@ -302,6 +302,7 @@ bc.cert.nestedGrid = function (option) {
             onOk: function (json) {
               if (json.success == true) { //修改成功后执行刷新操作
                 var option = {$container: $container};
+                if (onOk) option.onOk = onOk; // 传递回调函数
                 bc.cert.nestedGrid.refresh(option);
               }
             }
@@ -347,6 +348,7 @@ bc.cert.nestedGrid = function (option) {
             onOk: function (json) {
               if (json.success == true) {//删除成功后执行隐藏对应表格列的操作
                 var option = {$container: $container};
+                if (onOk) option.onOk = onOk; // 传递回调函数
                 bc.cert.nestedGrid.refresh(option);
               }
             }
@@ -387,6 +389,7 @@ bc.cert.nestedGrid = function (option) {
             onOk: function (json) {
               if (json.success == true) { //上传成功后执行刷新操作
                 var option = {$container: $container};
+                if (onOk) option.onOk = onOk; // 传递回调函数
                 bc.cert.nestedGrid.refresh(option);
               }
             }
@@ -415,6 +418,7 @@ bc.cert.nestedGrid = function (option) {
         // 鼠标点击刷新的事件
         $container.find(".bc-cert-refresh").on("click", function () {
           var option = {$container: $container};
+          if (onOk) option.onOk = onOk; // 传递回调函数
           bc.cert.nestedGrid.refresh(option);
         });
       }

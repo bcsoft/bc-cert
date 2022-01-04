@@ -1,5 +1,9 @@
 # [bc-cert](https://github.com/bcsoft/bc-cert) 发布历史
 
+## 2.4.0 2022-01-04
+
+- Upgrade to bc-parent-4.5.0
+
 ## 2.3.1 2021-06-16
 
 - 修正 bc.cert.nestedGrid 函数没有将 onOk 参数传递给 refresh 方法的问题

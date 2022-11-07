@@ -97,13 +97,13 @@ public class CertCfgDaoImpl extends JpaCrudDao<CertCfg> implements CertCfgDao {
   public List<Map<String, String>> find4AllCertsInfo(String typeCode, Long pid, String userCode) {
     String hql = "with actor(id) as (select id from bc_identity_actor where code = ? union select identity_find_actor_ancestor_ids(?)),";
     //-- 证件配置
-    hql += " cert_cfg(id, type_code, type_name, code, name, tpl, order_) as (select c.id, t.code, t.name, c.code, c.name, c.tpl, c.order_no from bc_cert_cfg c inner join bc_cert_type t on t.id = c.type_id where t.code = ? and c.status_ = 0),";
+    hql += " cert_cfg(id, type_code, type_name, code, name, tpl, order_, status) as (select c.id, t.code, t.name, c.code, c.name, c.tpl, c.order_no, c.status_ from bc_cert_cfg c inner join bc_cert_type t on t.id = c.type_id where t.code = ?),";
     //有 ACL 控制权限的证件配置
     hql += " acl(cert_id, role_) as (select c.id, aa.role from bc_acl_actor aa inner join bc_acl_doc ad on ad.id = aa.pid inner join cert_cfg c on (cast(c.id as text) = ad.doc_id and ad.doc_type = 'CertCfg')where aa.aid in (select id from actor)),";
     //查找所有被配置ACL控制的证件配置
     hql += " acl_no(cert_id) as (select distinct c.id from bc_acl_actor aa inner join bc_acl_doc ad on ad.id = aa.pid inner join cert_cfg c on (cast(c.id as text) = ad.doc_id and ad.doc_type = 'CertCfg')),";
     //有权限查阅的证件配置
-    hql += " cert_cfg_with_acl(id, type_code, type_name, code, name, tpl, order_) as (select * from cert_cfg c where (";
+    hql += " cert_cfg_with_acl(id, type_code, type_name, code, name, tpl, order_, status) as (select * from cert_cfg c where (";
     //有 ACL 查阅或编辑权限
     hql += " exists (select 0 from acl where acl.cert_id = c.id and acl.role_ in ('10', '11', '01'))";
     //无 ACL 权限控制：没有配置时默认为允许查阅
@@ -119,6 +119,8 @@ public class CertCfgDaoImpl extends JpaCrudDao<CertCfg> implements CertCfgDao {
     hql += " from cert_cfg_with_acl c";// 有查阅权限的证件
     hql += " left join bc_form f on (f.type_ = c.type_code and f.code = c.code and f.pid=? )";
     hql += " left join bc_identity_actor_history ich on f.modifier_id = ich.id";
+    // 排除禁用的证件同时保留已经上传的证件历史
+    hql += " where (case when c.status = 1 then f.id is not null else true end) ";
     hql += " order by c.order_ asc,f.ver_ desc ";
 
 

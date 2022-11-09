@@ -25,6 +25,15 @@ public interface CertCfgService extends CrudService<CertCfg> {
   List<Map<String, String>> findEnabled4Option(String typeCode);
 
   /**
+   * 获取证件配置的选项列表
+   *
+   * @param statuses  证件配置的状态列表
+   * @param typeCodes 证件类别的编码列表
+   * @return 返回结果中的元素Map格式为：：key - CertCfg的code, value - CertCfg的name
+   */
+  List<Map<String, String>> find4Option(Integer[] statuses, String[] typeCodes);
+
+  /**
    * 获取证件配置信息
    *
    * @param typeCode

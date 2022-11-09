@@ -28,6 +28,11 @@ public class CertCfgServiceImpl extends DefaultCrudService<CertCfg> implements C
     return this.certCfgDao.findEnabled4Option(typeCode);
   }
 
+  @Override
+  public List<Map<String, String>> find4Option(Integer[] statuses, String[] typeCodes) {
+    return certCfgDao.find4Option(statuses, typeCodes);
+  }
+
   public CertCfg loadByCode(String typeCode, String cfgCode) {
     return certCfgDao.loadByCode(typeCode, cfgCode);
   }

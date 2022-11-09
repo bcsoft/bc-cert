@@ -1,5 +1,10 @@
 # [bc-cert](https://github.com/bcsoft/bc-cert) 发布历史
 
+## 2.4.1 2022-11-09
+
+- 新增 `CertCfgService.find4Option(Integer[] statuses, String[] typeCodes)` 接口及其实现，从而可以获取所有状态的证件配置信息
+- 修改 `CertCfgDao.find4AllCertsInfo` 接口的实现，使其自动排除已禁用但无上传的证件配置，但保留已经上传的禁用证件配置信息
+
 ## 2.4.0 2022-01-04
 
 - Upgrade to bc-parent-4.5.0

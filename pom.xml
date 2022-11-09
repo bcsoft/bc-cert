@@ -4,11 +4,11 @@
   <parent>
     <artifactId>bc-parent</artifactId>
     <groupId>cn.bc</groupId>
-    <version>4.5-SNAPSHOT</version>
+    <version>4.5.0</version>
     <relativePath/>
   </parent>
   <artifactId>bc-cert</artifactId>
-  <version>2.4-SNAPSHOT</version>
+  <version>2.4.1</version>
   <description>证件管理</description>
   <dependencies>
     <dependency>

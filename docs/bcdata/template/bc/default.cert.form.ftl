@@ -12,7 +12,7 @@
       <li class="toggleMe inputIcon verticalMiddle ui-icon ui-icon-triangle-1-n" title="折叠|展开此区域"></li>
     </ul>
   </div>
-  <div class="detail" style="max-width:42.5em">
+  <div class="detail baseInfo" style="max-width:42.5em">
     <table class="formFields ui-widget-content" cellspacing="2" cellpadding="0">
       <tr class="widthMarker">
         <td style="width: 6em;">&nbsp;</td>
@@ -83,11 +83,15 @@
       <li class="toggleMe inputIcon verticalMiddle ui-icon ui-icon-triangle-1-n" title="折叠|展开此区域"></li>
     </ul>
   </div>
-  <div class="detail">
+  <div class="detail <#if ctx.cfg.pageCount gt 1>mergeImage</#if>" style="line-height:2em;">
     <#if attach_id??>
       <img src="${ctx.root}/bc/image/download?id=${attach_id?c}&ts=${ctx.ts}" style="max-width:100%;" />
     <#else>
-      <div class="warn" style="padding:2px;">未上传</div>
+      <#if ctx.cfg.pageCount gt 1>
+        未上传，拖放图片到这里或请点击“编辑”上传的图片，或者点击“合并”合成分页图片。
+      <#else>
+        未上传，请点击“编辑”选择要上传的图片，或者将要上传的图片拖放到这里。
+      </#if>
     </#if>
   </div>
   <input type="hidden" class="attach-id" name="attach_id" data-label="主图" data-type="long" data-empty2delete="true"
@@ -115,14 +119,14 @@
       <li class="toggleMe inputIcon verticalMiddle ui-icon ui-icon-triangle-1-n" title="折叠|展开此区域"></li>
     </ul>
   </div>
-  <div class="detail">
+  <div class="detail" style="line-height:2em">
     <#if .vars['attach_id_' + n]??>
       <img src="${ctx.root}/bc/image/download?id=${.vars['attach_id_' + n]!?c}&ts=${ctx.ts}" style="max-width:100%" />
     <#else>
-      <div class="warn" style="padding:2px;">未上传</div>
+        未上传，请点击“编辑”选择要上传的图片，或者将要上传的图片拖放到这里。
     </#if>
   </div>
-  <input type="hidden" class="attach-id" name="attach_id_${n}" data-label="拆分图附件ID" data-type="long"
+  <input type="hidden" class="attach-id" name="attach_id_${n}" data-label="拆分图图片ID" data-type="long"
   <#if .vars['attach_id_' + n]??>value="${.vars['attach_id_'+n]?c}"</#if>/>
 </div>
 </#list>
@@ -136,5 +140,6 @@
 <input type="hidden" name="uid" data-scope="form" value="${form.uid}"/>
 <input type="hidden" name="tpl" data-scope="form" value="${form.tpl}"/>
 <input type="hidden" name="pname" value="${pname!}" data-type="string"  data-validate="required"  />
+<input type="hidden" name="needReMerge" value="false" class="ignore"/>
 </form>
 </div>

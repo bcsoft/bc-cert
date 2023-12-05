@@ -58,8 +58,8 @@ public class RenderCertAction extends RenderFormAction {
     if(!readonly){
       pageOption.setButtons(
         new ButtonOption(getText("form.save2NewVersion"), null, "bc.cert.save2NewVersion"),
-        new ButtonOption(getText("form.save"), null, "bc.cform.save"),
-        new ButtonOption(getText("form.saveAndClose"), null, "bc.cform.saveAndClose")
+        new ButtonOption(getText("form.save"), null, "bc.defaultCertForm.save"),
+        new ButtonOption(getText("form.saveAndClose"), null, "bc.defaultCertForm.saveAndClose")
       );
     }
   }

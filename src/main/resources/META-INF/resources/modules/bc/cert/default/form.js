@@ -182,7 +182,17 @@ bc.defaultCertForm = {
    * @param confirmInfo    合并确认提示信息
    * @param callbackOption 回调函数选项配置, {callFrom: 调用源, func: 回调执行函数, params: 回调执行函数参数}
    */
-  doMergeImage: function (confirmInfo, callbackOption) {
+  doMergeImage: async function (confirmInfo, callbackOption) {
+    // 获取图片原始的像素宽度
+    function getImageOriginalPixelWidth(url) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img.width);
+        img.onerror = () => reject(new Error(`图片加载失败！url=${url}`));
+        img.src = url;
+      })
+    }
+
     var $page = $(this);
     var $mainBlock = $page.find(".blockContainer.main");
     var $mainAttachId = $mainBlock.find("input.attach-id");
@@ -201,32 +211,64 @@ bc.defaultCertForm = {
     // 判断是否是连续水平合并或垂直合并（true代表只需提供至少2个分拆图就即可执行合并，否则所有分拆图都必须提供才能合并）
     var isHV = (combine.indexOf("h") !== -1 || combine.indexOf("v") !== -1);
 
-    // 获取上传的分拆图
-    var subAttachIds = [];
+    // 获取上传的分拆图([0-id,1-实物宽度,2-图片地址])
+    var subAttachs = [];
     var ok = true;
-    $mainBlock.siblings(".sub").find("input.attach-id").each(function () {
-      if (!this.value || this.value === "") {
+    $mainBlock.siblings(".sub").each(function () {
+      const $this = $(this);
+      const attachId = $this.find("input.attach-id").val();
+      if (!attachId || attachId === "") {
         if (!isHV) {
-          bc.msg.alert($(this).closest(".blockContainer").attr("data-label") + "未上传！");
+          bc.msg.alert($(this).attr("data-label") + "未上传！");
           ok = false;
         }
       } else {
-        subAttachIds.push(this.value);
+        const attachRealWidth = parseInt($this.find("input.attach-width")[0].value);
+        const attachImageSrc = $this.find("img")[0].src;
+        subAttachs.push([attachId, attachRealWidth, attachImageSrc]);
       }
     });
     if (!ok) return;
-    if (subAttachIds.length < 1) {
+    if (subAttachs.length < 1) {
       bc.msg.alert("至少需要1张以上图片才能进行合并！");
       return;
     }
     var format = $mainBlock.attr("data-default-format") || "png";
     var filename = $mainBlock.attr("data-label");
 
+    // 重构 combine，按第一页图片的像素宽的和实物宽度为基数1求其它页的缩放比例，然后添加到 combine 配置内
+    // 带缩放的格式为 1:5 6:0.5,1;1,1，第二个 : 号后的数字（可选配置） 0.5 代表缩放到 0.5 倍后再参与合并
+    if (!isHV) {
+      const pixelWidth0 = await getImageOriginalPixelWidth(subAttachs[0][2])
+      const realWidth0 = subAttachs[0][1]
+      let imageIndex = 0;
+      combine = (await Promise.all(combine
+        .split(";")
+        .map(async (h, i) => {
+          imageIndex += i;
+          return (await Promise.all(h.split(",")
+            .map(async (p, j) => {
+              imageIndex += j;
+              // 第一页作为基数1，不处理
+              if (i === 0 && j === 0) return p;
+
+              // 以第一页为基数计算其余页的缩放比例 scale = Wsn / Ws1 x Wp1 / Wpn
+              const ps = p.split(":")
+              const pixelWidth = await getImageOriginalPixelWidth(subAttachs[imageIndex][2])
+              const realWidth = subAttachs[imageIndex][1]
+              const scale = realWidth / realWidth0 * pixelWidth0 / pixelWidth
+              return (ps.length > 1 ? [ps[0], ps[1], scale] : [ps[0], "", scale]).join(":")
+            })
+          )).join(",")
+        })
+      )).join(";")
+    }
+
     bc.msg.confirm(confirmInfo, function () {
       bc.ajax({
         url: bc.root + "/bc/image/combine",
         data: {
-          ids: subAttachIds.join(","),
+          ids: subAttachs.map(a => a[0]).join(","),
           mixConfig: combine,
           fileType: format,
           filename: filename,
